@@ -112,7 +112,20 @@ const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/usercore',
+    component: 'layout/Layout',
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/usercore/index.vue'),
+        name: 'usercore',
+        meta: { title: '个人中心', affix: true }
+      },
 
+    ]
+  },
   {
     path: '/icon',
     component: 'layout/Layout',

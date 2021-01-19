@@ -1,7 +1,7 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
+  <div class="app-wrapper">
     <sidebar class="sidebar-container" />
-    <div :class="{ hasTagsView: needTagsView }" class="main-container">
+    <div class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
       </div>
@@ -15,13 +15,16 @@ import { Navbar, Sidebar, AppMain } from "./components";
 
 export default {
   name: "Layout",
+  data() {
+    return {
+      fixedHeader: "",
+    };
+  },
   components: {
     AppMain,
     Navbar,
     Sidebar,
   },
- 
-
 };
 </script>
 
