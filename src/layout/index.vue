@@ -5,7 +5,6 @@
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
       </div>
-      1
       <app-main />
     </div>
   </div>
