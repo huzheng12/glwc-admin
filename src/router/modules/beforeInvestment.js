@@ -7,10 +7,7 @@ export default {
   component: Layout,
   redirect: 'index',
   name: 'beforeInvestment',
-  meta: {
-    title: '投前管理'
-
-  },
+  meta: { title: '投前管理' },
   children: [
     {
       path: 'index',
