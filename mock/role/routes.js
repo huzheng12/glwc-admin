@@ -121,7 +121,7 @@ const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/usercore/index.vue'),
         name: 'usercore',
-        meta: { title: '个人中心', affix: true }
+        meta: { title: '个人主页', affix: true }
       },
 
     ]
