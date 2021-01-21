@@ -189,3 +189,20 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+// 时间线的样式修改
+.el-timeline-item__timestamp.is-bottom {//时间显示移到右边
+ margin-top: 0px; 
+  position: absolute;
+  top: 3px;
+  left: -118px;
+}
+.el-timeline{
+  margin-left: 90px;
+}
+.el-timeline-item__node--normal{
+  top: 3px;
+}
+.el-timeline-item__wrapper{
+  top: 0;
+}
