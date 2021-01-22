@@ -12,7 +12,6 @@ export default {
       name: 'usercore',
       meta: { title: '个人主页', affix: true }
     },
-
   ]
 }
 
