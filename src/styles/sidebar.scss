@@ -3,18 +3,18 @@
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
-    // margin-left: $sideBarWidth;
+    margin-left: $sideBarWidth;
     position: relative;
   }
 
   .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth !important;
-    background-color: $subMenuBg;
-    height: calc(100% - 80px);
+    background-color: $menuBg;
+    height: 100%;
     position: fixed;
     font-size: 0px;
-    top: 80px;
+    top: 0;
     bottom: 0;
     left: 0;
     z-index: 1001;
@@ -71,9 +71,8 @@
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
-      background-color: $subMenuBg !important;
       &:hover {
-        background-color: $subMenuBg ;
+        background-color: $menuHover !important;
       }
     }
 
@@ -87,28 +86,12 @@
       background-color: $subMenuBg !important;
 
       &:hover {
-        background-color: $subMenuBg ;
+        background-color: $subMenuHover !important;
       }
-    }
-    
-    & .el-submenu .is-active{
-      min-width: $sideBarWidth !important;
-      background-color: $menuHoverBg !important;
-      color: $colorMian !important;
-
-
-    }
-    .is-active{
-      min-width: $sideBarWidth !important;
-      background-color: $menuHoverBg !important;
-      color: $colorMian !important;
-  
-  
     }
   }
 
-  .hideSidebar {   
-   
+  .hideSidebar {
     .sidebar-container {
       width: 54px !important;
     }
@@ -152,7 +135,6 @@
           display: none;
         }
       }
-      
     }
 
     .el-menu--collapse {
@@ -217,10 +199,9 @@
 
   .nest-menu .el-submenu>.el-submenu__title,
   .el-menu-item {
-    background-color: $menuHoverBg !important;
     &:hover {
       // you can use $subMenuHover
-      background-color: $subMenuBg !important;
+      background-color: $menuHover !important;
     }
   }
 
@@ -243,5 +224,3 @@
     }
   }
 }
-
-
