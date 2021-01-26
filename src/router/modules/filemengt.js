@@ -10,7 +10,7 @@ export default {
       path: 'index',
       component: () => import('@/views/file-management/index.vue'),
       name: 'fileMent',
-      meta: { title: '文件管理', affix: true }
+      meta: { title: '文件管理', affix: true , icon: 'dashboard'}
     },
   ]
 }

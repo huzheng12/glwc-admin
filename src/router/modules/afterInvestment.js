@@ -8,20 +8,20 @@ const chartsRouter = {
   redirect: 'index',
   name: 'afterInvestment',
   meta: {
-    title: '投后管理'
+    title: '投后管理', icon: 'dashboard'
   },
   children: [
     {
       path: 'index',
       component: () => import('@/views/charts/keyboard'),
       name: 'KeyboardChart',
-      meta: { title: '资产建账', noCache: true }
+      meta: { title: '资产建账', noCache: true, icon: 'dashboard' }
     },
     {
       path: 'line',
       component: () => import('@/views/charts/line'),
       name: 'LineChart',
-      meta: { title: '日常管理', noCache: true }
+      meta: { title: '日常管理', noCache: true, icon: 'dashboard' }
     }
   ]
 }
