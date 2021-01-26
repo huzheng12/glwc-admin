@@ -12,7 +12,7 @@
       </div>
       <app-main />
       <!-- <right-panel v-if="showSettings">
-        <settings />
+        <settings /> <sidebar class="sidebar-container" />
       </right-panel> -->
     </div>
   </div>
