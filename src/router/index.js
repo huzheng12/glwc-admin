@@ -67,7 +67,7 @@ const router = createRouter()
 
 export function resetRouter() {
   const newRouter = createRouter()
-  console.log(newRouter.matcher);
+
   router.matcher = newRouter.matcher // reset router
 }
 

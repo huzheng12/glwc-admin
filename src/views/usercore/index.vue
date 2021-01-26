@@ -27,7 +27,7 @@
     </div>
 
     <div class="user-content">
-      <div class="mian">
+      <div class="mian" @click="clsss">
         <div class="title-text">咨询信息</div>
       </div>
       <div class="mian">
@@ -88,6 +88,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    clsss() {
+      console.log(111, '"/addRole"');
+      this.$router.push("/addRole");
+    },
   },
 };
 </script>

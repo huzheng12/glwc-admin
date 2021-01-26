@@ -41,7 +41,6 @@ export default {
         (item) => item.meta && item.meta.title
       );
       const first = matched[0];
-
       if (!this.isDashboard(first)) {
         matched = [].concat(matched);
       }
