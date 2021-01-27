@@ -20,6 +20,10 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+
+// 引入自定义样式
+import './assets/css/layout.scss'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

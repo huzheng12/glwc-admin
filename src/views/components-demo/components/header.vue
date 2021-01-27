@@ -3,21 +3,23 @@
     <div class="left">
       <div v-for="(item, i) in inputData" :key="i" class="box">
         <el-input
+           size="small"
           v-if="item.type === 'Input'"
           v-model="searchData[item.prop]"
           :placeholder="item.placeholder"
-          :prefix-icon="item.prefixIcon"
+          :suffix-icon="item.prefixIcon"
           :style="{
             width: item.width,
           }"
         ></el-input>
 
         <el-date-picker
+           size="small"
           v-if="item.type === 'datePicker'"
           v-model="searchData[item.prop]"
           type="date"
           :placeholder="item.placeholder"
-          :prefix-icon="item.prefixIcon"
+        
           :style="{
             width: item.width,
           }"
@@ -76,7 +78,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.flex {
+    .flex {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;

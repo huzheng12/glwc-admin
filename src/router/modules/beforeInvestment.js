@@ -14,6 +14,14 @@ export default {
       component: () => import('@/views/components-demo/projectManagement'),
       name: 'TinymceDemo',
       meta: { title: '资产包管理', icon: 'dashboard' }
+      // children:[
+      //   {
+      //   path:'information',
+      //   component: () => import('@/views/components-demo/information'),
+      //   name: 'Information',
+      //   meta: { title: '基本信息', icon: 'dashboard' }
+      //   }
+      // ]
     },
     {
       path: 'markdown',
