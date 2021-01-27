@@ -13,22 +13,28 @@ export default {
       path: 'index',
       component: () => import('@/views/components-demo/projectManagement'),
       name: 'TinymceDemo',
-      meta: { title: '资产包管理', icon: 'dashboard' }
-      // children:[
-      //   {
-      //   path:'information',
-      //   component: () => import('@/views/components-demo/information'),
-      //   name: 'Information',
-      //   meta: { title: '基本信息', icon: 'dashboard' }
-      //   }
-      // ]
+      meta: { title: '资产包管理', icon: 'dashboard' },
+
     },
     {
       path: 'markdown',
       component: () => import('@/views/components-demo/projectManagement'),
       name: 'MarkdownDemo',
-      meta: { title: '项目管理', icon: 'dashboard' }
-    }
+      meta: { title: '项目管理', icon: 'dashboard' },
+      children: [
+        {
+          path: "/beforeInvestment/markdown/addRoles",
+          name: "AddRole",
+          hidden: true,
+          component: () => import("@/views/index.vue"),
+          meta: {
+            title: "添加角色",
+            icon: 'dashboard'
+          },
+        },
+      ]
+    },
+
   ]
 }
 

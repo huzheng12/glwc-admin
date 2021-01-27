@@ -6,7 +6,8 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'medium'
+  size: Cookies.get('size') || 'medium',
+  routerType: true
 }
 
 const mutations = {
@@ -30,10 +31,16 @@ const mutations = {
   SET_SIZE: (state, size) => {
     state.size = size
     Cookies.set('size', size)
+  },
+  ROUTER_TYPE: (state, routerType) => {
+    state.routerType = routerType
   }
 }
 
 const actions = {
+  routerType({ commit }, routerType) {
+    commit('ROUTER_TYPE', routerType)
+  },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
   },

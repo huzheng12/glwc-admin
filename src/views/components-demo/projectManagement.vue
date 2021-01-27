@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <router-type>
     <header-box
       :searchData="searchData"
       :inputData="inputData"
@@ -25,37 +25,40 @@
         <el-table-column fixed label="操作" width="120">
           <template slot-scope="scope">
             <el-dropdown>
-              <span class="el-dropdown-link" >
-                 {{scope.row.value}}<i class="el-icon-arrow-down el-icon--right" ></i>
+              <span class="el-dropdown-link">
+                {{ scope.row.value
+                }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation">基本信息</el-dropdown-item>
+                <el-dropdown-item @click.native="toInformation"
+                  >基本信息</el-dropdown-item
+                >
                 <el-dropdown-item>估值信息</el-dropdown-item>
                 <el-dropdown-item>所属项目</el-dropdown-item>
-                <el-dropdown-item >融资方案</el-dropdown-item>
-                <el-dropdown-item >文件管理</el-dropdown-item>
+                <el-dropdown-item>融资方案</el-dropdown-item>
+                <el-dropdown-item>文件管理</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-          </template>     
+          </template>
         </el-table-column>
         <el-table-column fixed label="文档" width="120">
           <template slot-scope="scope">
             <el-link type="primary">{{ scope.row.wd }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column  label="持有主体" width="120">
-            <template slot-scope="scope">
-           <span class="span_bottom" >{{ scope.row.cyzt }}</span>
+        <el-table-column label="持有主体" width="120">
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.cyzt }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="syqzt" label="收益权主体" width="120">
-           <template slot-scope="scope">
-           <span class="span_bottom" >{{ scope.row.syqzt }}</span>
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.syqzt }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="crfjc" label="出让方简称" width="120">
-           <template slot-scope="scope">
-           <span class="span_bottom" >{{ scope.row.crfjc }}</span>
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.crfjc }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="cs" label="城市" width="120"> </el-table-column>
@@ -77,16 +80,18 @@
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
-  </div>
+  </router-type>
 </template>
 
 <script>
 import headerBox from "./components/header";
 import pagination from "./components/pagination";
+import { mapState } from "vuex";
+
 export default {
   components: {
     headerBox,
-    pagination
+    pagination,
   },
   data() {
     return {
@@ -97,21 +102,21 @@ export default {
           prop: "sdas",
           placeholder: "请选择日期",
           prefixIcon: "el-icon-date",
-          width: "140px"
+          width: "140px",
         },
         {
           type: "Input",
           prop: "input",
           placeholder: "请输入地点",
 
-          width: "140px"
+          width: "140px",
         },
         {
           type: "Input",
           prop: "asd",
           placeholder: "请输入关键字查询",
-          prefixIcon: "el-icon-search"
-        }
+          prefixIcon: "el-icon-search",
+        },
       ],
       tableData: [
         {
@@ -134,26 +139,26 @@ export default {
           options: [
             {
               value: "选项1",
-              label: "黄金糕"
+              label: "黄金糕",
             },
             {
               value: "选项2",
-              label: "双皮奶"
+              label: "双皮奶",
             },
             {
               value: "选项3",
-              label: "蚵仔煎"
+              label: "蚵仔煎",
             },
             {
               value: "选项4",
-              label: "龙须面"
+              label: "龙须面",
             },
             {
               value: "选项5",
-              label: "北京烤鸭"
-            }
+              label: "北京烤鸭",
+            },
           ],
-          value: "编辑"
+          value: "编辑",
         },
         {
           zcbbh: "b201910101",
@@ -175,26 +180,26 @@ export default {
           options: [
             {
               value: "选项1",
-              label: "黄金糕"
+              label: "黄金糕",
             },
             {
               value: "选项2",
-              label: "双皮奶"
+              label: "双皮奶",
             },
             {
               value: "选项3",
-              label: "蚵仔煎"
+              label: "蚵仔煎",
             },
             {
               value: "选项4",
-              label: "龙须面"
+              label: "龙须面",
             },
             {
               value: "选项5",
-              label: "北京烤鸭"
-            }
+              label: "北京烤鸭",
+            },
           ],
-          value: "编辑"
+          value: "编辑",
         },
         {
           zcbbh: "b201910101",
@@ -216,26 +221,26 @@ export default {
           options: [
             {
               value: "选项1",
-              label: "黄金糕"
+              label: "黄金糕",
             },
             {
               value: "选项2",
-              label: "双皮奶"
+              label: "双皮奶",
             },
             {
               value: "选项3",
-              label: "蚵仔煎"
+              label: "蚵仔煎",
             },
             {
               value: "选项4",
-              label: "龙须面"
+              label: "龙须面",
             },
             {
               value: "选项5",
-              label: "北京烤鸭"
-            }
+              label: "北京烤鸭",
+            },
           ],
-          value: "编辑"
+          value: "编辑",
         },
         {
           zcbbh: "b201910101",
@@ -257,26 +262,26 @@ export default {
           options: [
             {
               value: "选项1",
-              label: "黄金糕"
+              label: "黄金糕",
             },
             {
               value: "选项2",
-              label: "双皮奶"
+              label: "双皮奶",
             },
             {
               value: "选项3",
-              label: "蚵仔煎"
+              label: "蚵仔煎",
             },
             {
               value: "选项4",
-              label: "龙须面"
+              label: "龙须面",
             },
             {
               value: "选项5",
-              label: "北京烤鸭"
-            }
+              label: "北京烤鸭",
+            },
           ],
-          value: "编辑"
+          value: "编辑",
         },
         {
           zcbbh: "b201910101",
@@ -298,80 +303,88 @@ export default {
           options: [
             {
               value: "选项1",
-              label: "黄金糕"
+              label: "黄金糕",
             },
             {
               value: "选项2",
-              label: "双皮奶"
+              label: "双皮奶",
             },
             {
               value: "选项3",
-              label: "蚵仔煎"
+              label: "蚵仔煎",
             },
             {
               value: "选项4",
-              label: "龙须面"
+              label: "龙须面",
             },
             {
               value: "选项5",
-              label: "北京烤鸭"
-            }
+              label: "北京烤鸭",
+            },
           ],
-          value: "编辑"
-        }
+          value: "编辑",
+        },
       ],
       searchData: {
         input: "",
         sdas: "",
-        asd: ""
+        asd: "",
       },
       rightBut: [
         {
           type: "1",
           text: "批量上传",
-          icon: "el-icon-upload2"
+          icon: "el-icon-upload2",
         },
         {
           type: "2",
           text: "批量下载",
-          icon: "el-icon-c-scale-to-original"
+          icon: "el-icon-c-scale-to-original",
         },
         {
           type: "2",
           text: "模板下载",
-          icon: "el-icon-tickets"
+          icon: "el-icon-tickets",
         },
         {
           type: "2",
           text: "删除资产包",
-          icon: "el-icon-document-delete"
+          icon: "el-icon-document-delete",
         },
         {
           type: "2",
           text: "新建项目",
           icon: "el-icon-folder-add",
-          color: "#2B57FF"
+          color: "#2B57FF",
         },
         {
           type: "2",
           text: "收藏",
           icon: "el-icon-star-off",
           color: "#E96722",
-          vertical: true
-        }
+          vertical: true,
+        },
       ],
 
-      multipleSelection: []
+      multipleSelection: [],
     };
   },
+  mounted() {},
+  computed: {
+    ...mapState({
+      routerType: (state) => state.app.routerType,
+    }),
+  },
+
   methods: {
-    toInformation(){
-      console.log('跳转基本信息页面');
-     
+    toInformation() {
+      console.log("跳转基本信息页面");
+
+      this.$router.push("/beforeInvestment/markdown/addRoles");
     },
     toggleSelection(rows) {
       if (rows) {
-        rows.forEach(row => {
+        rows.forEach((row) => {
           this.$refs.multipleTable.toggleRowSelection(row);
         });
       } else {
@@ -380,8 +393,8 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -389,5 +402,4 @@ export default {
 .table-content {
   padding: 0 20px;
 }
-
 </style>

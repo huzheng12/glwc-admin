@@ -1,16 +1,10 @@
 <template>
-  
-  <div>
-    222
-  </div>
+  <div>22211111111</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>

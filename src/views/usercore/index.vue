@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     clsss() {
-      console.log(111, '"/addRole"');
       this.$router.push("/addRole");
     },
   },

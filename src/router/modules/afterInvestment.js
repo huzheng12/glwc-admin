@@ -13,13 +13,13 @@ const chartsRouter = {
   children: [
     {
       path: 'index',
-      component: () => import('@/views/charts/keyboard'),
+      component: () => import('@/views/components-demo/projectManagement'),
       name: 'KeyboardChart',
       meta: { title: '资产建账', noCache: true, icon: 'dashboard' }
     },
     {
       path: 'line',
-      component: () => import('@/views/charts/line'),
+      component: () => import('@/views/components-demo/projectManagement'),
       name: 'LineChart',
       meta: { title: '日常管理', noCache: true, icon: 'dashboard' }
     }

@@ -49,6 +49,13 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 
+
+// 全局组件   
+import plugins from '@/components/common/index'
+Vue.use(plugins);
+
+
+
 new Vue({
   el: '#app',
   router,

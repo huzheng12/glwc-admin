@@ -8,9 +8,9 @@ export default {
   children: [
     {
       path: 'index',
-      component: () => import('@/views/file-management/index.vue'),
+      component: () => import('@/views/components-demo/projectManagement'),
       name: 'fileMent',
-      meta: { title: '文件管理', affix: true , icon: 'dashboard'}
+      meta: { title: '文件管理', affix: true, icon: 'dashboard' }
     },
   ]
 }
