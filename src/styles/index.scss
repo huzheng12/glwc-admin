@@ -189,3 +189,15 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+// 全局input高度
+.el-input--medium .el-input__inner {
+  height: 32px;
+  line-height: 32px;
+}
+
+// 全局分页
+.el-pagination{
+  float: right;
+  margin-top: 15px;
+}

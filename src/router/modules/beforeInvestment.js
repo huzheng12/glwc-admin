@@ -11,13 +11,13 @@ export default {
   children: [
     {
       path: 'index',
-      component: () => import('@/views/components-demo/tinymce'),
+      component: () => import('@/views/components-demo/projectManagement'),
       name: 'TinymceDemo',
       meta: { title: '资产包管理', icon: 'dashboard' }
     },
     {
       path: 'markdown',
-      component: () => import('@/views/components-demo/markdown'),
+      component: () => import('@/views/components-demo/projectManagement'),
       name: 'MarkdownDemo',
       meta: { title: '项目管理', icon: 'dashboard' }
     }
