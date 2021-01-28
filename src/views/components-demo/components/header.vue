@@ -3,23 +3,25 @@
     <div class="left">
       <div v-for="(item, i) in inputData" :key="i" class="box">
         <el-input
-           size="small"
+          size="small"
           v-if="item.type === 'Input'"
           v-model="searchData[item.prop]"
           :placeholder="item.placeholder"
           :suffix-icon="item.prefixIcon"
+          @input="item.onInput"
           :style="{
             width: item.width,
           }"
         ></el-input>
 
         <el-date-picker
-           size="small"
+          size="small"
           v-if="item.type === 'datePicker'"
           v-model="searchData[item.prop]"
+          @input="item.onInput"
+          value-format="yyyy-MM-dd"
           type="date"
           :placeholder="item.placeholder"
-        
           :style="{
             width: item.width,
           }"
@@ -33,11 +35,10 @@
         v-for="(item, i) in rightBut"
         :style="{ color: item.color }"
         :key="i"
+        @click="Submit(item.type)"
       >
         <i :class="item.icon"></i>
-        <span style="margin-left: 5px" @click="Submit(item.type)">{{
-          item.text
-        }}</span>
+        <span style="margin-left: 5px">{{ item.text }}</span>
 
         <el-divider v-if="item.vertical" direction="vertical"></el-divider>
         <div v-else class="vertical"></div>
@@ -78,7 +79,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .flex {
+.flex {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;

@@ -23,12 +23,12 @@ export default {
       meta: { title: '项目管理', icon: 'dashboard' },
       children: [
         {
-          path: "/beforeInvestment/markdown/addRoles",
-          name: "AddRole",
+          path: "/beforeInvestment/markdown/essential/:id",
+          name: "essential",
           hidden: true,
-          component: () => import("@/views/index.vue"),
+          component: () => import("@/views/components-demo/information.vue"),
           meta: {
-            title: "添加角色",
+            title: "基本信息",
             icon: 'dashboard'
           },
         },

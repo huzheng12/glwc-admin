@@ -17,7 +17,12 @@
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
           <template slot-scope="scope">
-            <i class="el-icon-star-off"></i>&nbsp;&nbsp;{{ scope.row.zcbbh }}
+            <el-rate
+              style="display: inline-block"
+              :max="1"
+              v-model="scope.row.type"
+            ></el-rate
+            >&nbsp;&nbsp;{{ scope.row.zcbbh }}
           </template>
         </el-table-column>
         <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
@@ -30,7 +35,7 @@
                 }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation"
+                <el-dropdown-item @click.native="toInformation(scope.row.id)"
                   >基本信息</el-dropdown-item
                 >
                 <el-dropdown-item>估值信息</el-dropdown-item>
@@ -95,6 +100,7 @@ export default {
   },
   data() {
     return {
+      value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
         {
@@ -103,23 +109,33 @@ export default {
           placeholder: "请选择日期",
           prefixIcon: "el-icon-date",
           width: "140px",
+          onInput: (a) => {
+            console.log(a);
+          },
         },
         {
           type: "Input",
           prop: "input",
           placeholder: "请输入地点",
-
           width: "140px",
+          onInput: (a) => {
+            console.log(a);
+          },
         },
         {
           type: "Input",
           prop: "asd",
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
+          onInput: (a) => {
+            console.log(a);
+          },
         },
       ],
       tableData: [
         {
+          id: 1,
+          type: null,
           zcbbh: "b201910101",
           zcbmc: "东方一号",
           cz: "编辑",
@@ -161,6 +177,8 @@ export default {
           value: "编辑",
         },
         {
+          id: 2,
+          type: null,
           zcbbh: "b201910101",
           zcbmc: "东方一号",
           cz: "编辑",
@@ -202,6 +220,7 @@ export default {
           value: "编辑",
         },
         {
+          type: null,
           zcbbh: "b201910101",
           zcbmc: "东方一号",
           cz: "编辑",
@@ -243,6 +262,7 @@ export default {
           value: "编辑",
         },
         {
+          type: null,
           zcbbh: "b201910101",
           zcbmc: "东方一号",
           cz: "编辑",
@@ -284,6 +304,7 @@ export default {
           value: "编辑",
         },
         {
+          type: null,
           zcbbh: "b201910101",
           zcbmc: "东方一号",
           cz: "编辑",
@@ -377,10 +398,11 @@ export default {
   },
 
   methods: {
-    toInformation() {
+    headerRightClick(key) {},
+    toInformation(id) {
       console.log("跳转基本信息页面");
 
-      this.$router.push("/beforeInvestment/markdown/addRoles");
+      this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
     },
     toggleSelection(rows) {
       if (rows) {
@@ -392,6 +414,7 @@ export default {
       }
     },
     handleSelectionChange(val) {
+      console.log(val);
       this.multipleSelection = val;
     },
   },
