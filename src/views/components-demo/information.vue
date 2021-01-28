@@ -12,9 +12,10 @@
 <script>
 import ePoint from "@/components/AnchorPoint";
 import aaB from "./a";
+import workLog from "./components/workLog";
 export default {
   props: {},
-  components: { ePoint, aaB },
+  components: { ePoint, aaB, workLog },
   mounted() {
     console.log(this.$route.params.id);
   },
@@ -28,6 +29,8 @@ export default {
         { text: "诉讼情况" },
         { text: "债券估值" },
         { text: "文件管理" },
+        { text: "工作日志", component: "workLog" },
+        { text: "变更日志" },
       ],
     };
   },

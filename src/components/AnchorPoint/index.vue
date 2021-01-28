@@ -3,14 +3,16 @@
     <!-- 导航区域 -->
     <ul class="navs">
       <div v-for="(item, index) in point" :key="index" @click="clickTop(index)">
-        <div :class="{ active: active === index, text: true }">
-          {{ item.text }}
-        </div>
-        <el-divider
-          v-if="index !== point.length - 1"
-          class="fen"
-          direction="vertical"
-        ></el-divider>
+        <template>
+          <div :class="{ active: active === index, text: true }">
+            {{ item.text }}
+          </div>
+          <el-divider
+            v-if="index !== point.length - 1"
+            class="fen"
+            direction="vertical"
+          ></el-divider>
+        </template>
       </div>
     </ul>
     <!-- 内容区域 -->
