@@ -1,12 +1,14 @@
 <template>
   <e-point :point="point">
     <div class="point-content">
-      <div v-for="(item, index) in point" :key="index">
+      <div
+        class="position-relative"
+        v-for="(item, index) in point"
+        :key="index"
+      >
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
-           <div class="titleName" v-if="item.text == '基本信息'"><i class="el-icon-edit-outline elRight"></i>编辑</div>
-          </div>
-       
+        </div>
         <component :is="item.component" />
       </div>
     </div>
@@ -15,11 +17,11 @@
 
 <script>
 import ePoint from "@/components/AnchorPoint";
-import aaB from "./basicPage";
+import basicPage from "./basicPage";
 import workLog from "./components/workLog";
 export default {
   props: {},
-  components: { ePoint, aaB, workLog },
+  components: { ePoint, basicPage, workLog },
   mounted() {
     console.log(this.$route.params.id);
   },
@@ -27,7 +29,7 @@ export default {
     return {
       active: 0, // 当前激活的导航索引
       point: [
-        { text: "基本信息", component: "aaB" },
+        { text: "基本信息", component: "basicPage" },
         { text: "尽调信息" },
         { text: "担保方式" },
         { text: "诉讼情况" },
@@ -42,28 +44,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.point-content{
-  .title-h3{
+.point-content {
+  .title-h3 {
     display: flex;
     justify-content: space-between;
-    .infName{
-        font-size: 14px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 900;
-        color: #222222;
+    .infName {
+      font-size: 14px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 900;
+      color: #222222;
     }
 
-    .titleName{
+    .titleName {
       font-size: 12px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
-      color: #2B57FF;
+      color: #2b57ff;
     }
 
-    .elRight{
-      padding-right:5px;
+    .elRight {
+      padding-right: 5px;
     }
-    
+  }
+  .position-relative {
+    position: relative;
   }
 }
 </style>

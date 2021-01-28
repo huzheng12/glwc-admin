@@ -17,12 +17,8 @@
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
           <template slot-scope="scope">
-            <el-rate
-              style="display: inline-block"
-              :max="1"
-              v-model="scope.row.type"
-            ></el-rate
-            >&nbsp;&nbsp;{{ scope.row.zcbbh }}
+            <i class="el-icon-star-off"></i>
+            &nbsp;&nbsp;{{ scope.row.zcbbh }}
           </template>
         </el-table-column>
         <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
@@ -91,7 +87,6 @@
 <script>
 import headerBox from "./components/header";
 import pagination from "./components/pagination";
-import { mapState } from "vuex";
 
 export default {
   components: {
@@ -391,11 +386,6 @@ export default {
     };
   },
   mounted() {},
-  computed: {
-    ...mapState({
-      routerType: (state) => state.app.routerType,
-    }),
-  },
 
   methods: {
     headerRightClick(key) {},
