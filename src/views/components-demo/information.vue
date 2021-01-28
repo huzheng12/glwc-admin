@@ -2,7 +2,11 @@
   <e-point :point="point">
     <div class="point-content">
       <div v-for="(item, index) in point" :key="index">
-        <div class="title-h3">{{ item.text }}</div>
+        <div class="title-h3">
+          <div class="infName">{{ item.text }}</div>
+           <div class="titleName" v-if="item.text == '基本信息'"><i class="el-icon-edit-outline elRight"></i>编辑</div>
+          </div>
+       
         <component :is="item.component" />
       </div>
     </div>
@@ -11,7 +15,7 @@
 
 <script>
 import ePoint from "@/components/AnchorPoint";
-import aaB from "./a";
+import aaB from "./basicPage";
 import workLog from "./components/workLog";
 export default {
   props: {},
@@ -37,5 +41,29 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.point-content{
+  .title-h3{
+    display: flex;
+    justify-content: space-between;
+    .infName{
+        font-size: 14px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 900;
+        color: #222222;
+    }
+
+    .titleName{
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #2B57FF;
+    }
+
+    .elRight{
+      padding-right:5px;
+    }
+    
+  }
+}
 </style>

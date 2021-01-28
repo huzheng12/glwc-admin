@@ -137,7 +137,7 @@ export default {
           id: 1,
           type: null,
           zcbbh: "b201910101",
-          zcbmc: "东方一号",
+          zcbmc: "资产包管理一号",
           cz: "编辑",
           wd: "明细",
           mx: "明细",
@@ -180,7 +180,7 @@ export default {
           id: 2,
           type: null,
           zcbbh: "b201910101",
-          zcbmc: "东方一号",
+          zcbmc: "资产包管理一号",
           cz: "编辑",
           wd: "明细",
           mx: "明细",
@@ -222,7 +222,7 @@ export default {
         {
           type: null,
           zcbbh: "b201910101",
-          zcbmc: "东方一号",
+          zcbmc: "资产包管理一号",
           cz: "编辑",
           wd: "明细",
           mx: "明细",
@@ -264,7 +264,7 @@ export default {
         {
           type: null,
           zcbbh: "b201910101",
-          zcbmc: "东方一号",
+          zcbmc: "资产包管理一号",
           cz: "编辑",
           wd: "明细",
           mx: "明细",
@@ -306,7 +306,7 @@ export default {
         {
           type: null,
           zcbbh: "b201910101",
-          zcbmc: "东方一号",
+          zcbmc: "资产包管理一号",
           cz: "编辑",
           wd: "明细",
           mx: "明细",
@@ -400,8 +400,6 @@ export default {
   methods: {
     headerRightClick(key) {},
     toInformation(id) {
-      console.log("跳转基本信息页面");
-
       this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
     },
     toggleSelection(rows) {
