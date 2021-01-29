@@ -1,12 +1,12 @@
 <template>
   <div class="basicPage">
     <div class="titleName">
-      <div class="titleName-li">
+      <div class="titleName-li" @click="projectss">
         <i class="el-icon-edit-outline elRight"></i>编辑
       </div>
-      <div class="titleName-li">
+      <!-- <div class="titleName-li">
         <i class="el-icon-edit-outline elRight"></i>编辑
-      </div>
+      </div> -->
     </div>
     <div class="basicPage_header">
       <div class="oneDiv">
@@ -63,7 +63,14 @@
 </template>
 
 <script>
-export default {};
+import { projects } from "@/api/projectManagement/index";
+export default {
+  methods: {
+    projectss() {
+      projects();
+    },
+  },
+};
 </script>
 
 <style  lang="scss" scoped>

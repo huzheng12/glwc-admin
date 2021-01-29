@@ -13,7 +13,7 @@ const chartsRouter = {
   children: [
     {
       path: 'index',
-      component: () => import('@/views/components-demo/projectManagement'),
+      component: () => import('@/views/asset-accounting/index'),
       name: 'KeyboardChart',
       meta: { title: '资产建账', noCache: true, icon: 'dashboard' }
     },
