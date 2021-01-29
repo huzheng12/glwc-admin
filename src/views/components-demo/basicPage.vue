@@ -8,6 +8,8 @@
         <i class="el-icon-edit-outline elRight"></i>编辑
       </div> -->
     </div>
+
+    
     <div class="basicPage_header">
       <div class="oneDiv">
         <div class="left">
@@ -65,6 +67,7 @@
 <script>
 import { projects } from "@/api/projectManagement/index";
 export default {
+  
   methods: {
     projectss() {
       projects();
