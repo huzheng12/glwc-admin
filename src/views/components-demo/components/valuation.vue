@@ -153,7 +153,6 @@ export default {
               align: "left",
             },
           },
-
           data: ["最低估值", "最可能", "最高估值"],
           axisLine: {
             //y轴
