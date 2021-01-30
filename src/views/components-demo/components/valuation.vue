@@ -127,7 +127,7 @@ export default {
           },
         },
         grid: {
-          left: "3%",
+          left: "-20px",
           right: "4%",
           bottom: "20%",
           top: "10%",
@@ -140,12 +140,20 @@ export default {
           type: "value",
           boundaryGap: [0, 0.01],
           show: false,
+
           splitLine: {
             show: false,
           },
         },
         yAxis: {
           type: "category",
+          axisLabel: {
+            margin: 80,
+            textStyle: {
+              align: "left",
+            },
+          },
+
           data: ["最低估值", "最可能", "最高估值"],
           axisLine: {
             //y轴
