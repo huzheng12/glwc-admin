@@ -14,10 +14,16 @@
         <!-- <el-button style="float: right; padding: 3px 0" type="text"
           >操作按钮</el-button
         > -->
-        <i class="el-icon-edit"  type="primary" style="color:#5c7efff;float: right; padding: 3px 0;color:#2B57FF;">编辑</i>
+        <i
+          class="el-icon-edit"
+          type="primary"
+          style="color: #5c7efff; float: right; padding: 3px 0; color: #2b57ff"
+          >编辑</i
+        >
       </div>
       <div class="secondChart">
         <div id="myChartGz"></div>
+        <div>闹得很乏力是</div>
       </div>
     </el-card>
   </div>
@@ -39,14 +45,38 @@ export default {
       let option = (option = {
         color: ["#2b57ff", "#2bcecc"],
         tooltip: {
-          trigger: "item"
+          trigger: "item",
         },
         legend: {
           orient: "vertical",
           left: 20,
-          top: 20
+          top: 20,
         },
-
+        graphic: [
+          //为环形图中间添加文字
+          {
+            type: "text",
+            left: "center",
+            top: "35%",
+            style: {
+              text: "3493049.34",
+              textAlign: "center",
+              fill: "#333333",
+              fontSize: 20,
+            },
+          },
+          {
+            type: "text",
+            left: "center",
+            top: "47%",
+            style: {
+              text: "债券总额",
+              textAlign: "center",
+              fill: "#666666",
+              fontSize: 14,
+            },
+          },
+        ],
         series: [
           {
             name: "访问来源",
@@ -57,29 +87,29 @@ export default {
             itemStyle: {
               borderRadius: 4,
               borderColor: "#fff",
-              borderWidth: 3
+              borderWidth: 3,
             },
             center: ["50%", "44%"],
             label: {
               show: false,
-              position: "left"
+              position: "left",
             },
             emphasis: {
               label: {
                 show: true,
                 fontSize: "14",
-                fontWeight: "bold"
-              }
+                fontWeight: "bold",
+              },
             },
             labelLine: {
-              show: false
+              show: false,
             },
             data: [
               { value: 232311.3, name: "利息余额" },
-              { value: 4334985.39, name: "本金金额" }
-            ]
-          }
-        ]
+              { value: 4334985.39, name: "本金金额" },
+            ],
+          },
+        ],
       });
       // 绘制图表
       myChart.setOption(option);
@@ -90,61 +120,81 @@ export default {
       let myChartgz = this.$echarts.init(document.getElementById("myChartGz"));
 
       let option = (option = {
-        // title: {
-        //   text: "世界人口总量",
-        //   subtext: "数据来自网络"
-        // },
-           color: ["##8B66FF","#2b57ff", "#2bcecc"],
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "shadow"
-          }
+            type: "shadow",
+          },
         },
-        // legend: {
-        //   data: ["2011年", "2012年"]
-        // },
-        //  center: ["50%", "4%"],
         grid: {
           left: "3%",
           right: "4%",
           bottom: "20%",
-          containLabel: true
+          top: "10%",
+          containLabel: true,
         },
-        splitLine:{
-            show:false
+        splitLine: {
+          show: false,
         },
         xAxis: {
           type: "value",
-          boundaryGap: [0, 0.01]
+          boundaryGap: [0, 0.01],
+          show: false,
+          splitLine: {
+            show: false,
+          },
         },
         yAxis: {
           type: "category",
-          data: ["最低估值", "最可能", "最高估值"]
+          data: ["最低估值", "最可能", "最高估值"],
+          axisLine: {
+            //y轴
+            show: false,
+          },
+          axisTick: {
+            //y轴刻度线
+            show: false,
+          },
+          splitLine: {
+            //网格线
+            show: false,
+          },
         },
+        label: {
+          show: true, //开启显示
+          position: "insideLeft", //在上方显示
+          textStyle: {
+            //数值样式
+            color: "aqua",
+            fontSize: 15,
+          },
+        },
+
         series: [
           {
             name: "2012年",
             type: "bar",
-            data: [19325, 23438, 31000]
-          }
+            barWidth: "20",
+            showBackground: true,
+            backgroundStyle: {
+              color: "red",
+            },
+
+            itemStyle: {
+              normal: {
+                color: function (params) {
+                  var colorList = ["#8B66FF", "#2BCECC", "#2B57FF"];
+                  return colorList[params.dataIndex];
+                },
+              },
+            },
+            data: [19325, 23438, 31000],
+          },
         ],
-         visualMap: {
-        orient: 'horizontal',
-        left: 'center',
-        min: 10,
-        max: 100,
-        text: ['High Score', 'Low Score'],
-        // Map the score column to color
-        dimension: 0,
-        inRange: {
-            color: ['#65B581', '#FFCE34', '#FD665F']
-        }
-    },
       });
       myChartgz.setOption(option);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -179,7 +229,7 @@ export default {
     .secondChart {
       #myChartGz {
         width: 100%;
-        height: 300px;
+        height: 200px;
       }
     }
   }
