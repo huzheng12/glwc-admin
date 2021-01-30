@@ -4,9 +4,8 @@
       <div class="titleName-li" @click="projectss">
         <i class="el-icon-edit-outline elRight"></i>编辑
       </div>
-      <!-- <div class="titleName-li">
-        <i class="el-icon-edit-outline elRight"></i>编辑
-      </div> -->
+      
+      
     </div>
 
     

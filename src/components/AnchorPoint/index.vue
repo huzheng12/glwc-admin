@@ -2,18 +2,17 @@
   <div class="warp">
     <!-- 导航区域 -->
     <ul class="navs">
-      <div v-for="(item, index) in point" :key="index" @click="clickTop(index)">
-        <template>
-          <div :class="{ active: active === index, text: true }">
+      <div v-for="(item, index) in point" :key="index" >
+       
+          <div :class="{ active: activeItem === index, text: true }" @click="clickTop(index)">
             {{ item.text }}
-            {{active}} {{index}}
           </div>
           <el-divider
             v-if="index !== point.length - 1"
             class="fen"
             direction="vertical"
           ></el-divider>
-        </template>
+       
       </div>
     </ul>
     <!-- 内容区域 -->
@@ -33,7 +32,7 @@ export default {
   },
   data() {
     return {
-      active: 0, // 当前激活的导航索引
+      activeItem: 0, // 当前激活的导航索引
     };
   },
   mounted() {
@@ -50,14 +49,14 @@ export default {
   },
   methods: {
     clickTop(key) {
-   
       console.log('key',key);
-      this.active = key;
-      console.log('active',this.active);
+      this.activeItem = key;
+      console.log(' this.activeItem', this.activeItem);
       const navContents = document.querySelectorAll(".point-content >div");
       // 所有锚点元素的 offsetTop
       navContents.forEach((item, index) => {
         if (index === key) {
+          console.log('item.offsetTop',item.offsetTop);
           document.querySelector(".point-content").scrollTop =
             item.offsetTop - 64;
         }
@@ -74,8 +73,8 @@ export default {
       });
       // 获取当前文档流的 scrollTop
       const scrollTop =
-        document.querySelectorAll(".point-content")[0].scrollTop ||
-        document.body.scrollTop;
+        document.querySelectorAll(".point-content")[0].scrollTop+1 ||
+        document.body.scrollTop+1;
       // 定义当前点亮的导航下标
       let navIndex = 0;
       for (let n = 0; n < offsetTopArr.length; n++) {
@@ -86,7 +85,8 @@ export default {
         }
       }
       // 把下标赋值给 vue 的 data
-      this.active = navIndex;
+      console.log('this.activeItem',this.activeItem);
+      this.activeItem = navIndex;
     },
   },
 };
