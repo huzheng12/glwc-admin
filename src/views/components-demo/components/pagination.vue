@@ -1,16 +1,4 @@
 <template>
-  <!-- <el-pagination
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-    class="pagination-box"
-    :current-page.sync="tablePagination.current"
-    :page-sizes="[10, 20, 50, 100]"
-    :page-size="tablePagination.size"
-    layout="total, sizes, prev, pager, next, jumper"
-    :total="tablePagination.total"
-    :hide-on-single-page="tablePagination.hide"
-  >
-  </el-pagination> -->
   <el-pagination
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"

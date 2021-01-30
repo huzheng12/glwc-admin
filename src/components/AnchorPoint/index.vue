@@ -6,7 +6,6 @@
         <template>
           <div :class="{ active: active === index, text: true }">
             {{ item.text }}
-            {{active}} {{index}}
           </div>
           <el-divider
             v-if="index !== point.length - 1"
@@ -50,10 +49,7 @@ export default {
   },
   methods: {
     clickTop(key) {
-   
-      console.log('key',key);
       this.active = key;
-      console.log('active',this.active);
       const navContents = document.querySelectorAll(".point-content >div");
       // 所有锚点元素的 offsetTop
       navContents.forEach((item, index) => {
@@ -66,21 +62,22 @@ export default {
     // 滚动监听器
     onScroll() {
       // 获取所有锚点元素
-      const navContents = document.querySelectorAll(".point-content >div");
+      const navContents = document.querySelectorAll(
+        ".point-content .position-relative"
+      );
       // 所有锚点元素的 offsetTop
       const offsetTopArr = [];
       navContents.forEach((item) => {
         offsetTopArr.push(item.offsetTop - 64);
       });
       // 获取当前文档流的 scrollTop
-      const scrollTop =
-        document.querySelectorAll(".point-content")[0].scrollTop ||
-        document.body.scrollTop;
+      const scrollTop = document.querySelector(".point-content").scrollTop + 1;
       // 定义当前点亮的导航下标
       let navIndex = 0;
       for (let n = 0; n < offsetTopArr.length; n++) {
         // 如果 scrollTop 大于等于第 n 个元素的 offsetTop 则说明 n-1 的内容已经完全不可见
         // 那么此时导航索引就应该是 n 了
+        // console.log(scrollTop, "--------", offsetTopArr);
         if (scrollTop >= offsetTopArr[n]) {
           navIndex = n;
         }
@@ -100,8 +97,6 @@ export default {
   flex-direction: column;
 
   .navs {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
