@@ -17,13 +17,21 @@
         <i
           class="el-icon-edit"
           type="primary"
-          style="color: #5c7efff; float: right; padding: 3px 0; color: #2b57ff"
+          style="
+            color: #5c7efff;
+            float: right;
+            padding: 3px 0;
+            color: #2b57ff;
+            font-size: 12px;
+          "
           >编辑</i
         >
       </div>
       <div class="secondChart">
         <div id="myChartGz"></div>
-        <div>闹得很乏力是</div>
+        <div class="myChartGz-botton">
+          债券估值日期 <span class="text-data">2020年10月23日</span>
+        </div>
       </div>
     </el-card>
   </div>
@@ -48,9 +56,55 @@ export default {
           trigger: "item",
         },
         legend: {
+          // ‘circle’, ‘rect’, ‘roundRect’, ‘triangle’, ‘diamond’, ‘pin’, ‘arrow’, 'none’
+          // 'image://http://xxx.xxx.xxx/a/b.png'
+          icon: "circle",
           orient: "vertical",
           left: 20,
           top: 20,
+          textStyle: {
+            fontSize: 13,
+          },
+        },
+        tooltip: {
+          position: function (point, params, dom, rect, size) {
+            // 鼠标坐标和提示框位置的参考坐标系是：以外层div的左上角那一点为原点，x轴向右，y轴向下
+            // 提示框位置
+            var x = 0; // x坐标位置
+            var y = 0; // y坐标位置
+
+            // 当前鼠标位置
+            var pointX = point[0];
+            var pointY = point[1];
+
+            // 外层div大小
+            // var viewWidth = size.viewSize[0];
+            // var viewHeight = size.viewSize[1];
+
+            // 提示框大小
+            var boxWidth = size.contentSize[0];
+            var boxHeight = size.contentSize[1];
+
+            // boxWidth > pointX 说明鼠标左边放不下提示框
+            if (boxWidth > pointX) {
+              x = 5; // 自己定个x坐标值，以防出屏
+              y -= 15; // 防止点被覆盖住，可根据情况自行调节
+            } else {
+              // 左边放的下
+              x = pointX - boxWidth - 15;
+            }
+
+            // boxHeight > pointY 说明鼠标上边放不下提示框
+            if (boxHeight + 20 > pointY) {
+              y = pointY + 15;
+            } else if (boxHeight > pointY) {
+              y = 5;
+            } else {
+              // 上边放得下
+              y += pointY - boxHeight;
+            }
+            return [x, y];
+          },
         },
         graphic: [
           //为环形图中间添加文字
@@ -96,7 +150,7 @@ export default {
             },
             emphasis: {
               label: {
-                show: true,
+                show: false,
                 fontSize: "14",
                 fontWeight: "bold",
               },
@@ -105,8 +159,11 @@ export default {
               show: false,
             },
             data: [
-              { value: 232311.3, name: "利息余额" },
-              { value: 4334985.39, name: "本金金额" },
+              {
+                value: 232311.3,
+                name: "利息余额 232311.3",
+              },
+              { value: 4334985.39, name: "本金金额 4334985.39" },
             ],
           },
         ],
@@ -129,8 +186,8 @@ export default {
         grid: {
           left: "-20px",
           right: "4%",
-          bottom: "20%",
-          top: "10%",
+          bottom: "10%",
+          top: "15%",
           containLabel: true,
         },
         splitLine: {
@@ -213,7 +270,7 @@ export default {
       padding: 0;
     }
     height: 310px;
-    width: 48%;
+    width: 49%;
     float: left;
     .clearfix {
       .titles {
@@ -236,7 +293,17 @@ export default {
     .secondChart {
       #myChartGz {
         width: 100%;
-        height: 200px;
+        height: 173px;
+      }
+      .myChartGz-botton {
+        line-height: 80px;
+        border-top: 1px solid rgba(151, 151, 151, 0.1);
+        margin: 0 27px;
+        font-size: 14px;
+        .text-data {
+          display: inline-block;
+          margin-left: 15px;
+        }
       }
     }
   }
