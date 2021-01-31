@@ -15,15 +15,15 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
+        <el-table-column fixed prop="zcbbh" label="项目编号" width="120">
           <template slot-scope="scope">
             <i class="el-icon-star-off"></i>
             &nbsp;&nbsp;{{ scope.row.zcbbh }}
           </template>
         </el-table-column>
-        <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
+        <el-table-column fixed prop="zcbmc" label="项目名称" width="120">
         </el-table-column>
-        <el-table-column fixed label="操作" width="120">
+        <el-table-column fixed label="操作" width="90" align="left">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
@@ -31,21 +31,13 @@
                 }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
+                <el-dropdown-item @click.native="toInformation(scope.row.id)"
                   >基本信息</el-dropdown-item
                 >
-                <el-dropdown-item @click.native="toInformation(scope.row.id, 1)"
-                  >估值信息</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="toInformation(scope.row.id, 2)"
-                  >所属项目</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="toInformation(scope.row.id, 3)"
-                  >融资方案</el-dropdown-item
-                >
-                <el-dropdown-item @click.native="toInformation(scope.row.id, 4)"
-                  >文件管理</el-dropdown-item
-                >
+                <el-dropdown-item>估值信息</el-dropdown-item>
+                <el-dropdown-item>所属项目</el-dropdown-item>
+                <el-dropdown-item>融资方案</el-dropdown-item>
+                <el-dropdown-item>文件管理</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -89,23 +81,17 @@
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
-     <!--  资产包管理弹窗 -->
-    <template-download ref='assetDialog'></template-download>
   </router-type>
 </template>
 
 <script>
-import headerBox from "./components/header";
-import pagination from "./components/pagination";
-// 资产包弹窗
-import templateDownload from './components/templateDownload'
+import headerBox from "../components/header";
+import pagination from "../components/pagination";
 
 export default {
   components: {
     headerBox,
     pagination,
-    templateDownload
-  
   },
   data() {
     return {
@@ -403,10 +389,8 @@ export default {
 
   methods: {
     headerRightClick(key) {},
-    toInformation(id, key) {
-      this.$router.push(
-        `/beforeInvestment/index/essential/${id}&&point=${key}`
-      );
+    toInformation(id) {
+      // this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
     },
     toggleSelection(rows) {
       if (rows) {
