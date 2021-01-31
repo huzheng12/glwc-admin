@@ -49,7 +49,6 @@ export default {
   },
   data() {
     return {
-      active: 0, // 当前激活的导航索引
       point: [
         { text: "基本信息", component: "basicPage" },
         { text: "估值信息", component: "valuation" },
