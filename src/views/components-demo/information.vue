@@ -32,6 +32,8 @@ import financingPlan from "./components/financingPlan";
 import fileManagement from "./components/fileManagement";
 //变更日志
 import changeLog from "./components/changeLog";
+
+
 export default {
   props: {},
   components: {
@@ -42,7 +44,7 @@ export default {
     projectList,
     financingPlan,
     fileManagement,
-    changeLog,
+    changeLog
   },
   mounted() {
     console.log(this.$route.params.id);

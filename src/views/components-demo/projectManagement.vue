@@ -81,17 +81,23 @@
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
+     <!--  资产包管理弹窗 -->
+    <template-download ref='assetDialog'></template-download>
   </router-type>
 </template>
 
 <script>
 import headerBox from "./components/header";
 import pagination from "./components/pagination";
+// 资产包弹窗
+import templateDownload from './components/templateDownload'
 
 export default {
   components: {
     headerBox,
     pagination,
+    templateDownload
+  
   },
   data() {
     return {
