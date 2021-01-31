@@ -60,13 +60,14 @@
   }
 }
 .titleName {
+  display: flex;
   position: absolute;
-  top: -27px;
-  right: 0;
+  top: -38px;  right: 0;
   font-size: 12px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #2b57ff;
+  align-items: center;
   cursor: pointer;
   .titleName-li {
     display: inline-block;
@@ -75,4 +76,8 @@
   .elRight {
     padding-right: 5px;
   }
+
+ 
 }
+
+
