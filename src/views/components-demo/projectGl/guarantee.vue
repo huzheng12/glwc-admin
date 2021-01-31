@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style  lang="scss" >
+<style  lang="scss" scoped>
 .guarantee {
   .guarantee-box-tabs {
     display: flex;
@@ -123,6 +123,7 @@ export default {
       border-bottom: 0;
     }
     .titleName {
+      position: inherit;
       display: flex;
       font-size: 12px;
       font-family: PingFangSC-Regular, PingFang SC;

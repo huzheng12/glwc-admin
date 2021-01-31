@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 @import "../components/scss/index.scss";
 .customTab {
   // min-height:400px;
