@@ -1,22 +1,5 @@
 <template>
   <div class="basicPage projectList">
-    <!-- <div class="titleName">
-      
-      <div class="titleName-li">
-          <el-input
-          class="rgIpt"
-          size="small"
-          placeholder="请输入内容"
-          suffix-icon="el-icon-zoom-in"
-        >
-        </el-input>
-       
-        <div class="editor"><i class="el-icon-edit-outline "></i><div class="editTx">编辑</div></div>
-         <div class="delete"><i class="el-icon-edit-outline red"></i><div class="deleTx">删除</div></div>
-        
-      </div>
-    </div> -->
-
      <div class="titleName">
       <div class="titleName-li">
         <el-input   class="rgIpt" placeholder="请输入内容" suffix-icon="el-icon-zoom-in">
@@ -49,13 +32,19 @@
             <el-table-column  prop="cs" label="城市" >
       </el-table-column>
     </el-table>
+      <pagination :tablePagination="tablePagination"></pagination>
   </div>
 </template>
 
 <script>
+import pagination from "../components/pagination";
 export default {
+  components:{
+    pagination
+  },
   data() {
     return {
+      tablePagination: { current: 1, size: 3, total: 3 },
       tableData: [
         {
          xm:'1',
@@ -99,6 +88,7 @@ export default {
 </script>
 
 <style lang="scss">
+// @import "../components-demo/components/scss/index.scss";
 @import "./scss/index.scss";
 .rgIpt{
 .el-input__inner{
