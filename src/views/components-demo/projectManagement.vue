@@ -31,13 +31,21 @@
                 }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation(scope.row.id)"
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
                   >基本信息</el-dropdown-item
                 >
-                <el-dropdown-item>估值信息</el-dropdown-item>
-                <el-dropdown-item>所属项目</el-dropdown-item>
-                <el-dropdown-item>融资方案</el-dropdown-item>
-                <el-dropdown-item>文件管理</el-dropdown-item>
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 1)"
+                  >估值信息</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 2)"
+                  >所属项目</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 3)"
+                  >融资方案</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 4)"
+                  >文件管理</el-dropdown-item
+                >
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -389,8 +397,10 @@ export default {
 
   methods: {
     headerRightClick(key) {},
-    toInformation(id) {
-      this.$router.push(`/beforeInvestment/index/essential/${id}`);
+    toInformation(id, key) {
+      this.$router.push(
+        `/beforeInvestment/index/essential/${id}&&point=${key}`
+      );
     },
     toggleSelection(rows) {
       if (rows) {

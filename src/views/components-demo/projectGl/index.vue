@@ -390,7 +390,7 @@ export default {
   methods: {
     headerRightClick(key) {},
     toInformation(id) {
-      this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
+      // this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
     },
     toggleSelection(rows) {
       if (rows) {

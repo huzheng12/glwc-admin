@@ -41,6 +41,8 @@ export default {
     document
       .querySelector(".point-content")
       .addEventListener("scroll", this.onScroll);
+    const point = this.$route.params.id.split("=")[1];
+    this.clickTop(point * 1);
   },
   destroy() {
     // 必须移除监听器，不然当该vue组件被销毁了，监听器还在就会出错
@@ -72,8 +74,7 @@ export default {
         offsetTopArr.push(item.offsetTop - 64);
       });
       // 获取当前文档流的 scrollTop
-      const scrollTop =
-        document.querySelectorAll(".point-content")[0].scrollTop ;
+      const scrollTop = document.querySelector(".point-content").scrollTop + 1;
       // 定义当前点亮的导航下标
       let navIndex = 0;
       for (let n = 0; n < offsetTopArr.length; n++) {
