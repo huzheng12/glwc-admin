@@ -38,7 +38,7 @@ export default {
           path: "/beforeInvestment/markdown/essential/:id",
           name: "projectGl",
           hidden: true,
-          component: () => import("@/views/components-demo/projectGl/index"),
+          component: () => import("@/views/components-demo/projectGl/information"),
           meta: {
             title: "基本信息",
             icon: 'dashboard'
