@@ -30,7 +30,8 @@ import projectList from "./components/projectList";
 import financingPlan from "./components/financingPlan";
 // 文件列表组件
 import fileManagement from "./components/fileManagement";
-
+//变更日志
+import changeLog from "./components/changeLog";
 export default {
   props: {},
   components: {
@@ -41,13 +42,13 @@ export default {
     projectList,
     financingPlan,
     fileManagement,
+    changeLog,
   },
   mounted() {
     console.log(this.$route.params.id);
   },
   data() {
     return {
-      active: 0, // 当前激活的导航索引
       point: [
         { text: "基本信息", component: "basicPage" },
         { text: "估值信息", component: "valuation" },
@@ -55,8 +56,8 @@ export default {
         { text: "融资方案", component: "financingPlan" },
         { text: "文件管理", component: "fileManagement" },
 
-        { text: "工作日志", component: "workLog" },
-        { text: "变更日志" },
+        // { text: "工作日志", component: "workLog" },
+        { text: "变更日志", component: "changeLog" },
       ],
     };
   },
