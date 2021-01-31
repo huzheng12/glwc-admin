@@ -2,6 +2,7 @@
   <div class="work-log-box">
     <el-timeline>
       <el-timeline-item
+        placement="top"
         v-for="(activity, index) in activities"
         :key="index"
         :icon="activity.icon"
