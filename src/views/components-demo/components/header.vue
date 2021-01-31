@@ -35,7 +35,7 @@
         v-for="(item, i) in rightBut"
         :style="{ color: item.color }"
         :key="i"
-        @click="Submit(item.type)"
+        @click="Submit(item)"
       >
         <i :class="item.icon"></i>
         <span style="margin-left: 5px">{{ item.text }}</span>
@@ -72,7 +72,8 @@ export default {
   },
   methods: {
     Submit(key) {
-      console.log(key);
+      console.log('资产包管理',key.type);
+      this.$emit('emitChoosse',key.type);
     },
   },
 };
