@@ -1,7 +1,7 @@
 <template>
   <div class="projectList">
     <div class="titleName">
-
+      
       <div class="titleName-li">
           <el-input
           class="rgIpt"
@@ -10,8 +10,9 @@
           suffix-icon="el-icon-zoom-in"
         >
         </el-input>
-        <div class="delete"><i class="el-icon-edit-outline "></i><div class="deleTx">删除</div></div>
+       
         <div class="editor"><i class="el-icon-edit-outline "></i><div class="editTx">编辑</div></div>
+         <div class="delete"><i class="el-icon-edit-outline red"></i><div class="deleTx">删除</div></div>
         
       </div>
     </div>
@@ -205,30 +206,37 @@ export default {
     color: #2b57ff;
     cursor: pointer;
     .titleName-li {
+     
         display: flex;
         align-content: center;
+        justify-content: space-between;
       margin-left: 13px;
         .rgIpt{
-            width: 151px;
-            height: 28px;   
+          margin-right: 20px;
+         .el-input__inner{
+            // width: 171px;
+            height: 25px;  
+          }
+            
         }
       .delete{
-          width: 50px;
-         
+          width: 80px;
+          margin-top: 8px;
           display: flex;
           align-content: center;
+          color: #D12A2A;
           .deleTx{ 
             font-size: 12px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
-            color: #2B57FF;
+            color: #D12A2A;
           }
       }
       .editor{
+          margin-top: 8px;
           display: flex;
-
+              width: 80px;
           align-content: center;
-        //   justify-content: bottom;
             .editTx{ 
             font-size: 12px;
             font-family: PingFangSC-Regular, PingFang SC;

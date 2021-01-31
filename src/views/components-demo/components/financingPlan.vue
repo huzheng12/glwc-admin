@@ -1,5 +1,13 @@
 <template>
-    <div class="valuation">
+    <div class="basicPage ">  <div class="titleName">
+      <div class="titleName-li" >
+        <i class="el-icon-edit-outline elRight"></i>编辑
+      </div>
+      <div class="titleName-li">
+        <i class="el-icon-edit-outline elRight"></i>编辑
+      </div>
+    </div>
+
        <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>一个标题</span>
@@ -34,15 +42,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.valuation{
-    overflow: hidden;
-    .box-card{
-        width: 48%;
-        float: left;
+@import "./scss/index.scss";
 
-    }
-    .card2{
-        margin-left: 2%;
-    }
-}
+
 </style>

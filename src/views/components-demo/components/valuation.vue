@@ -210,7 +210,7 @@ export default {
               align: "left",
             },
           },
-          data: ["最低估值", "最可能", "最高估值"],
+          data: ["最高估值","最可能","最低估值"],
           axisLine: {
             //y轴
             show: false,
@@ -241,7 +241,7 @@ export default {
             barWidth: "20",
             showBackground: true,
             backgroundStyle: {
-              color: "red",
+              color: "#f5f9fd",
             },
 
             itemStyle: {
@@ -252,7 +252,7 @@ export default {
                 },
               },
             },
-            data: [19325, 23438, 31000],
+            data: [ 31000,23438,19325],
           },
         ],
       });
