@@ -31,13 +31,24 @@
                 }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation(scope.row.id)"
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
                   >基本信息</el-dropdown-item
                 >
-                <el-dropdown-item>估值信息</el-dropdown-item>
-                <el-dropdown-item>所属项目</el-dropdown-item>
-                <el-dropdown-item>融资方案</el-dropdown-item>
-                <el-dropdown-item>文件管理</el-dropdown-item>
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 1)"
+                  >尽调</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 2)"
+                  >担保</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 3)"
+                  >诉讼</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 4)"
+                  >估值</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 5)"
+                  >文件管理</el-dropdown-item
+                >
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -47,36 +58,26 @@
             <el-link type="primary">{{ scope.row.wd }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="持有主体" width="120">
+        <el-table-column label="所属资产包">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.cyzt }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="syqzt" label="收益权主体" width="120">
+        <el-table-column prop="syqzt" label="债务人">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.syqzt }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="crfjc" label="出让方简称" width="120">
+        <el-table-column prop="crfjc" label="最新从属">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.crfjc }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="cs" label="城市" width="120"> </el-table-column>
-        <el-table-column prop="zqze" sortable label="债权总额" width="140">
+        <el-table-column prop="cs" label="债券银行"> </el-table-column>
+        <el-table-column prop="zqze" sortable label="城市"> </el-table-column>
+        <el-table-column prop="gzzkn" sortable label="债券总额">
         </el-table-column>
-        <el-table-column prop="gzzkn" sortable label="估值_最可能" width="140">
-        </el-table-column>
-        <el-table-column prop="zqhs" label="债券户数" width="120">
-        </el-table-column>
-        <el-table-column prop="rzcb" label="融资成本" width="120">
-        </el-table-column>
-        <el-table-column prop="ztzsyl" label="再投资收益率" width="120">
-        </el-table-column>
-        <el-table-column prop="zrr" label="责任人" width="120">
-        </el-table-column>
-        <el-table-column prop="gxsj" label="更新时间" width="120">
-        </el-table-column>
+        <el-table-column prop="zqhs" label="保证方式"> </el-table-column>
       </el-table>
 
       <pagination :tablePagination="tablePagination"></pagination>
@@ -179,12 +180,12 @@ export default {
           cz: "编辑",
           wd: "明细",
           mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "北京",
-          zqze: "1180",
-          gzzkn: "59736.78",
+          cyzt: "东方1号",
+          syqzt: "药研社",
+          crfjc: "否",
+          cs: "中国建设银行上海市杨浦区分分支行",
+          zqze: "上海",
+          gzzkn: "2077.47",
           zqhs: "5",
           rzcb: "6.00%",
           ztzsyl: "35.00%",
@@ -364,7 +365,7 @@ export default {
         },
         {
           type: "2",
-          text: "删除资产包",
+          text: "删除项目",
           icon: "el-icon-document-delete",
         },
         {
@@ -389,8 +390,10 @@ export default {
 
   methods: {
     headerRightClick(key) {},
-    toInformation(id) {
-      // this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
+    toInformation(id, key) {
+      this.$router.push(
+        `/beforeInvestment/markdown/essential/${id}&&point=${key}`
+      );
     },
     toggleSelection(rows) {
       if (rows) {
