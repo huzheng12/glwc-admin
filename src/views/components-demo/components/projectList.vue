@@ -23,11 +23,13 @@
       </el-table-column>
       <el-table-column  prop="xmbh" label="项目编号" >
       </el-table-column>
-       <el-table-column  prop="zqze" label="债券总额" >
+       <el-table-column  prop="xmmc" label="项目名称" >
       </el-table-column>
-        <el-table-column  prop="zqgz" label="债券估值" >
+       <el-table-column  prop="zqze" label="债券总额" sortable>
       </el-table-column>
-            <el-table-column  prop="cz" label="处置" >
+        <el-table-column  prop="zqgz" label="债券估值" sortable>
+      </el-table-column>
+            <el-table-column  prop="cz" label="处置" sortable>
       </el-table-column>
             <el-table-column  prop="cs" label="城市" >
       </el-table-column>
