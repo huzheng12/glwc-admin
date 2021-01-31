@@ -1,13 +1,6 @@
 <template>
   <div class="basicPage">
     <div class="titleName">
-      <div class="titleName-li">
-        <el-input placeholder="请输入内容" suffix-icon="el-icon-zoom-in">
-        </el-input>
-      </div>
-      <div class="titleName-li">
-        <i class="el-icon-edit-outline elRight"></i>编辑
-      </div>
       <div class="titleName-li" @click="projectss">
         <i class="el-icon-edit-outline elRight"></i>编辑
       </div>
