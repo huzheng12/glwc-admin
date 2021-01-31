@@ -23,7 +23,9 @@
             padding: 3px 0;
             color: #2b57ff;
             font-size: 12px;
+            cursor:pointer;
           "
+          @click="valuationEditor"
           >编辑</i
         >
       </div>
@@ -34,19 +36,29 @@
         </div>
       </div>
     </el-card>
+
+    <valuation-dialog ref="valuationDialog"></valuation-dialog>
   </div>
 </template>
 
 <script>
+import valuationDialog from './dialog/valuationDialog'
 export default {
   data() {
     return {};
+  },
+  components:{
+    valuationDialog
+
   },
   mounted() {
     this.drawLine();
     this.drawSencond();
   },
   methods: {
+    valuationEditor(){
+      this.$refs.valuationDialog.dialogVisible = true;
+    },
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));
