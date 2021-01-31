@@ -55,7 +55,6 @@ export default {
       // 所有锚点元素的 offsetTop
       navContents.forEach((item, index) => {
         if (index === key) {
-          console.log("item.offsetTop", item.offsetTop);
           document.querySelector(".point-content").scrollTop =
             item.offsetTop - 64;
         }
@@ -74,7 +73,7 @@ export default {
       });
       // 获取当前文档流的 scrollTop
       const scrollTop =
-        document.querySelectorAll(".point-content")[0].scrollTop + 1;
+        document.querySelectorAll(".point-content")[0].scrollTop ;
       // 定义当前点亮的导航下标
       let navIndex = 0;
       for (let n = 0; n < offsetTopArr.length; n++) {
