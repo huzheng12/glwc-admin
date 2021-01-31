@@ -82,3 +82,23 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+
+// 全局时间戳的样式修改
+
+.el-timeline {
+  margin: 0;
+  font-size: 14px;
+  list-style: none;
+  margin-left: 97px;
+  .el-timeline-item__wrapper{
+    top: 0; 
+    display: flex;
+  }
+  .el-timeline-item__timestamp.is-top {
+    margin-bottom: 8px;
+  padding-top: 0; 
+    position: absolute;
+    left: -120px;
+}
+}

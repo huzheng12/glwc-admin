@@ -16,23 +16,12 @@
 </template>
 
 <script>
-// 锚点组件
 import ePoint from "@/components/AnchorPoint";
-// 基本信息组件
 import basicPage from "./basicPage";
-// 工作日志组件
 import workLog from "./components/workLog";
-// 估值信息组件
-import valuation from './components/valuation';
-// 项目列表组件
-import projectList from './components/projectList';
-// 融资方式组件
-import financingPlan from './components/financingPlan';
-// 文件列表组件
-import fileManagement from './components/fileManagement';
 export default {
   props: {},
-  components: { ePoint, basicPage, workLog,valuation,projectList,financingPlan,fileManagement},
+  components: { ePoint, basicPage, workLog },
   mounted() {
     console.log(this.$route.params.id);
   },
@@ -41,10 +30,13 @@ export default {
       active: 0, // 当前激活的导航索引
       point: [
         { text: "基本信息", component: "basicPage" },
-        { text: "估值信息",component:"valuation" },
-        { text: "项目列表",component:"projectList" },
-        { text: "融资方案",component:"financingPlan" },
-        { text: "文件管理",component:"fileManagement"}
+        { text: "尽调信息" },
+        { text: "担保方式" },
+        { text: "诉讼情况" },
+        { text: "债券估值" },
+        { text: "文件管理" },
+        { text: "工作日志", component: "workLog" },
+        { text: "变更日志" },
       ],
     };
   },
