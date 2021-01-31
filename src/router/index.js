@@ -73,7 +73,7 @@ export function resetRouter() {
 import store from '../store'
 // 监听全局路由      跳转三级路由时取消二级路由页面
 router.beforeEach((to, from, next) => {
-  if (to.name === 'essential') {
+  if (to.name === 'essential' || to.name === "projectGl") {
     store.dispatch("app/routerType", false);
   } else {
     store.dispatch("app/routerType", true);

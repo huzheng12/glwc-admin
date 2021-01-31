@@ -15,15 +15,15 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
+        <el-table-column fixed prop="zcbbh" label="项目编号" width="120">
           <template slot-scope="scope">
             <i class="el-icon-star-off"></i>
             &nbsp;&nbsp;{{ scope.row.zcbbh }}
           </template>
         </el-table-column>
-        <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
+        <el-table-column fixed prop="zcbmc" label="项目名称" width="120">
         </el-table-column>
-        <el-table-column fixed label="操作" width="120">
+        <el-table-column fixed label="操作" width="90" align="left">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import headerBox from "./components/header";
-import pagination from "./components/pagination";
+import headerBox from "../components/header";
+import pagination from "../components/pagination";
 
 export default {
   components: {
@@ -390,7 +390,7 @@ export default {
   methods: {
     headerRightClick(key) {},
     toInformation(id) {
-      this.$router.push(`/beforeInvestment/index/essential/${id}`);
+      this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
     },
     toggleSelection(rows) {
       if (rows) {

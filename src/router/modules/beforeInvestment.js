@@ -14,19 +14,31 @@ export default {
       component: () => import('@/views/components-demo/projectManagement'),
       name: 'TinymceDemo',
       meta: { title: '资产包管理', icon: 'dashboard' },
+      children: [
+        {
+          path: "/beforeInvestment/index/essential/:id",
+          name: "essential",
+          hidden: true,
+          component: () => import("@/views/components-demo/information.vue"),
+          meta: {
+            title: "基本信息",
+            icon: 'dashboard'
+          },
+        },
+      ]
 
     },
     {
       path: 'markdown',
-      component: () => import('@/views/components-demo/projectManagement'),
+      component: () => import('@/views/components-demo/projectGl/index'),
       name: 'MarkdownDemo',
       meta: { title: '项目管理', icon: 'dashboard' },
       children: [
         {
           path: "/beforeInvestment/markdown/essential/:id",
-          name: "essential",
+          name: "projectGl",
           hidden: true,
-          component: () => import("@/views/components-demo/information.vue"),
+          component: () => import("@/views/components-demo/projectGl/index"),
           meta: {
             title: "基本信息",
             icon: 'dashboard'
