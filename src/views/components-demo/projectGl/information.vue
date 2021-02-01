@@ -9,7 +9,11 @@
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
         </div>
-        <component :is="item.component" />
+        <component
+          :projectData="data"
+          @unpdata="projectsprojectId"
+          :is="item.component"
+        />
       </div>
     </div>
   </e-point>
@@ -36,6 +40,8 @@ import fileManagement from "./fileManagement";
 import workLog from "./workLog";
 //变更日志
 import changeLog from "./changeLog";
+
+import { projectsprojectId } from "@/api/projectManagement/index";
 export default {
   props: {},
   components: {
@@ -49,11 +55,20 @@ export default {
     workLog,
     changeLog,
   },
+
   mounted() {
-    console.log(this.$route.params.id);
+    this.projectsprojectId();
+  },
+  methods: {
+    projectsprojectId() {
+      projectsprojectId(this.$route.params.id.split("&&")[0]).then((res) => {
+        this.data = res.data;
+      });
+    },
   },
   data() {
     return {
+      data: {},
       point: [
         { text: "基本信息", component: "basicPage" },
         { text: "尽调信息", component: "diligence" },

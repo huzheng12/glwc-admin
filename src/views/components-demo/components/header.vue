@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     Submit(key) {
-      console.log('资产包管理',key.type);
+   
       this.$emit('emitChoosse',key.type);
     },
   },

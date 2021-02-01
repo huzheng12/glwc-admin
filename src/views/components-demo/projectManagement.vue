@@ -53,7 +53,9 @@
         </el-table-column>
         <el-table-column fixed label="文档" width="120">
           <template slot-scope="scope">
-            <el-link type="primary">{{ scope.row.wd }}</el-link>
+            <el-link type="primary" @click="routerJump(scope.row.packageId)">{{
+              scope.row.wd
+            }}</el-link>
           </template>
         </el-table-column>
         <el-table-column label="持有主体" width="120">
@@ -90,8 +92,12 @@
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
-     <!--  模板下载弹窗 -->
-    <template-download ref='assetDialog' :titleName="titleName" :bannerName="bannerName"></template-download>
+    <!--  模板下载弹窗 -->
+    <template-download
+      ref="assetDialog"
+      :titleName="titleName"
+      :bannerName="bannerName"
+    ></template-download>
     <!-- 批量下载弹窗 -->
     <bulk-download ref="bulkDialog"></bulk-download>
   </router-type>
@@ -101,23 +107,21 @@
 import headerBox from "./components/header";
 import pagination from "./components/pagination";
 // 模板下载弹窗 0r 批量上传
-import templateDownload from './components/templateDownload'
+import templateDownload from "./components/templateDownload";
 // 批量下载弹窗
-import bulkDownload from './components/bulkDownload'
-
+import bulkDownload from "./components/bulkDownload";
 
 export default {
   components: {
     headerBox,
     pagination,
     templateDownload,
-    bulkDownload
-  
+    bulkDownload,
   },
   data() {
     return {
-      titleName:"",
-      bannerName:"",
+      titleName: "",
+      bannerName: "",
       value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
@@ -152,7 +156,7 @@ export default {
       ],
       tableData: [
         {
-          id: 1,
+          packageId: 1,
           type: null,
           zcbbh: "b201910101",
           zcbmc: "资产包管理一号",
@@ -411,6 +415,10 @@ export default {
   mounted() {},
 
   methods: {
+    routerJump(packageId) {
+      // 点击跳转项目管理页面
+      this.$router.push(`/beforeInvestment/markdown?packageId=${packageId}`);
+    },
     headerRightClick(key) {},
     toInformation(id, key) {
       this.$router.push(
@@ -430,21 +438,20 @@ export default {
       console.log(val);
       this.multipleSelection = val;
     },
-    emitChoosse(val){
-      console.log('val',val);
-      if(val === '3'){
+    emitChoosse(val) {
+      console.log("val", val);
+      if (val === "3") {
         this.titleName = "模板下载";
         this.bannerName = "估值底稿模板";
         this.$refs.assetDialog.dialogVisible = true;
-      }else if (val === '2'){
+      } else if (val === "2") {
         this.$refs.bulkDialog.dialogVisible = true;
-      }else if (val === '1'){
-            this.titleName = "批量上传";
+      } else if (val === "1") {
+        this.titleName = "批量上传";
         this.bannerName = "估值底稿上传";
-          this.$refs.assetDialog.dialogVisible = true;
+        this.$refs.assetDialog.dialogVisible = true;
       }
-
-    }
+    },
   },
 };
 </script>

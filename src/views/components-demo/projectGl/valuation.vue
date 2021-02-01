@@ -40,12 +40,24 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      d: 122,
+      c: 122,
+    };
+  },
+  props: {
+    projectData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
   },
   mounted() {
     this.drawLine();
     this.drawSencond();
   },
+
   methods: {
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
@@ -65,6 +77,13 @@ export default {
           textStyle: {
             fontSize: 13,
           },
+        },
+        grid: {
+          left: "10px",
+          right: "4%",
+          bottom: "10%",
+          top: "15%",
+          containLabel: true,
         },
         tooltip: {
           position: function (point, params, dom, rect, size) {
@@ -110,8 +129,8 @@ export default {
           //为环形图中间添加文字
           {
             type: "text",
-            left: "center",
-            top: "35%",
+            left: "52%",
+            top: "33%",
             style: {
               text: "3493049.34",
               textAlign: "center",
@@ -121,8 +140,8 @@ export default {
           },
           {
             type: "text",
-            left: "center",
-            top: "47%",
+            left: "55%",
+            top: "43%",
             style: {
               text: "债券总额",
               textAlign: "center",
@@ -143,7 +162,7 @@ export default {
               borderColor: "#fff",
               borderWidth: 3,
             },
-            center: ["50%", "44%"],
+            center: ["60%", "38%"],
             label: {
               show: false,
               position: "left",
@@ -160,10 +179,10 @@ export default {
             },
             data: [
               {
-                value: 232311.3,
-                name: "利息余额 232311.3",
+                value: this.d,
+                name: "利息余额 " + this.d,
               },
-              { value: 4334985.39, name: "本金金额 4334985.39" },
+              { value: this.c, name: "本金金额 " + this.c },
             ],
           },
         ],
@@ -210,7 +229,7 @@ export default {
               align: "left",
             },
           },
-          data: ["最高估值","最可能","最低估值"],
+          data: ["最高估值", "最可能", "最低估值"],
           axisLine: {
             //y轴
             show: false,
@@ -252,7 +271,7 @@ export default {
                 },
               },
             },
-            data: [ 31000,23438,19325],
+            data: [31000, 23438, 19325],
           },
         ],
       });

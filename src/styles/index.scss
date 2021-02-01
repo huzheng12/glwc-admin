@@ -207,3 +207,8 @@ aside {
 }
 
 
+
+// 去弹框边框
+body .el-dialog .el-dialog__footer{
+  border-top: none;
+}

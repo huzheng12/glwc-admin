@@ -40,6 +40,10 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     //成功接受后台返回的数据
     // console.log(response)
+
+    if (response.data.code !== 0) {
+        Message.error(response.data.msg);
+    }
     if (response.data.code == '401') {
         // 默认token 失效  
         router.push({ name: 'login' })
@@ -47,7 +51,7 @@ axios.interceptors.response.use(function (response) {
 
 
 
-    return response
+    return response.data
 }, function (error) {
     // 后台返回的数据失败
 

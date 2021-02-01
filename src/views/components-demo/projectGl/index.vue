@@ -4,6 +4,7 @@
       :searchData="searchData"
       :inputData="inputData"
       :rightBut="rightBut"
+      @emitChoosse="emitChoosse"
     ></header-box>
     <div class="table-content">
       <!-- 资产包管理页面 -->
@@ -15,20 +16,19 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column fixed prop="zcbbh" label="项目编号" width="120">
+        <el-table-column fixed prop="projectId" label="项目编号" width="120">
           <template slot-scope="scope">
             <i class="el-icon-star-off"></i>
-            &nbsp;&nbsp;{{ scope.row.zcbbh }}
+            &nbsp;&nbsp;{{ scope.row.projectId }}
           </template>
         </el-table-column>
-        <el-table-column fixed prop="zcbmc" label="项目名称" width="120">
+        <el-table-column fixed prop="name" label="项目名称" width="120">
         </el-table-column>
         <el-table-column fixed label="操作" width="90" align="left">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
-                {{ scope.row.value
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
+                编辑<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
@@ -54,40 +54,71 @@
           </template>
         </el-table-column>
         <el-table-column fixed label="文档" width="120">
+          <el-link type="primary">明细</el-link>
+        </el-table-column>
+        <el-table-column label="所属资产包" prop="packageId">
           <template slot-scope="scope">
-            <el-link type="primary">{{ scope.row.wd }}</el-link>
+            <span class="span_bottom">{{ scope.row.packageId }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="所属资产包">
+        <el-table-column prop="debtor" label="债务人">
           <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.cyzt }}</span>
+            <span class="span_bottom">{{ scope.row.debtor }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="syqzt" label="债务人">
+        <el-table-column prop="latestSubordinate" label="最新从属">
           <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.syqzt }}</span>
+            <span class="span_bottom">{{ scope.row.latestSubordinate }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="crfjc" label="最新从属">
-          <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.crfjc }}</span>
-          </template>
+        <el-table-column prop="creditorBank" label="债权银行">
         </el-table-column>
-        <el-table-column prop="cs" label="债券银行"> </el-table-column>
-        <el-table-column prop="zqze" sortable label="城市"> </el-table-column>
+        <el-table-column prop="city" sortable label="城市"> </el-table-column>
         <el-table-column prop="gzzkn" sortable label="债券总额">
         </el-table-column>
-        <el-table-column prop="zqhs" label="保证方式"> </el-table-column>
+        <el-table-column prop="guarantees" label="保证方式">
+          <template slot-scope="scope">
+            <div
+              class="guarantees"
+              v-for="(item, index) in scope.row.guarantees"
+              :key="index"
+            >
+              <span class="tees-fs">
+                {{ guaranteesType(item) }}
+              </span>
+              <el-divider
+                v-if="index !== scope.row.guarantees.length - 1"
+                direction="vertical"
+              ></el-divider>
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
+    <el-dialog title="新建项目" :visible.sync="dialogVisible" width="30%">
+      <el-form :label-position="right" label-width="80px">
+        <el-form-item :required="true" label="项目名称">
+          <el-input v-model="name"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="newProjects">确 定</el-button>
+      </span>
+    </el-dialog>
   </router-type>
 </template>
 
 <script>
 import headerBox from "../components/header";
 import pagination from "../components/pagination";
+import {
+  projectsList,
+  newProjects,
+  delProjects,
+} from "@/api/projectManagement/index";
 
 export default {
   components: {
@@ -96,7 +127,8 @@ export default {
   },
   data() {
     return {
-      value1: null,
+      dialogVisible: false,
+      name: "",
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
         {
@@ -106,7 +138,7 @@ export default {
           prefixIcon: "el-icon-date",
           width: "140px",
           onInput: (a) => {
-            console.log(a);
+            this.projectsList();
           },
         },
         {
@@ -115,7 +147,7 @@ export default {
           placeholder: "请输入地点",
           width: "140px",
           onInput: (a) => {
-            console.log(a);
+            this.projectsList();
           },
         },
         {
@@ -124,224 +156,11 @@ export default {
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
-            console.log(a);
+            this.projectsList();
           },
         },
       ],
-      tableData: [
-        {
-          id: 1,
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "49736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          id: 2,
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "东方1号",
-          syqzt: "药研社",
-          crfjc: "否",
-          cs: "中国建设银行上海市杨浦区分分支行",
-          zqze: "上海",
-          gzzkn: "2077.47",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "6395811",
-          gzzkn: "89736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "99736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "149736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-      ],
+      tableData: [],
       searchData: {
         input: "",
         sdas: "",
@@ -364,12 +183,12 @@ export default {
           icon: "el-icon-tickets",
         },
         {
-          type: "2",
+          type: "delProjects",
           text: "删除项目",
           icon: "el-icon-document-delete",
         },
         {
-          type: "2",
+          type: "newProjects",
           text: "新建项目",
           icon: "el-icon-folder-add",
           color: "#2B57FF",
@@ -386,9 +205,87 @@ export default {
       multipleSelection: [],
     };
   },
-  mounted() {},
+  mounted() {
+    this.projectsList();
+  },
 
   methods: {
+    emitChoosse(key) {
+      // header  but  点击事件
+      if (key === "newProjects") {
+        // 新建项目
+        this.dialogVisible = true;
+        // this.newProjects();
+      } else if (key === "delProjects") {
+        // 删除项目
+        this.delProjects();
+      }
+    },
+    delProjects() {
+      // 删除项目  目前支持单条删除
+      if (this.multipleSelection.length > 1) {
+        console.log("只能删除一条");
+      } else if (this.multipleSelection.length === 0) {
+        console.log("请选择数据");
+      } else {
+        delProjects(this.multipleSelection[0].id).then((res) => {
+          if (res.code === 0) {
+            this.projectsList();
+            this.$message({
+              message: "项目删除成功",
+              type: "success",
+            });
+          }
+        });
+      }
+    },
+
+    projectsList() {
+      // 获取项目列表
+      // simple: 最简单的结构，只包含ID和名称 normal: 所有项目信息
+      projectsList({
+        // packageId: this.$route.query.packageId || "", //所属资产包ID
+        mode: "normal", //获取的数据的模式
+      }).then((res) => {
+        this.tableData = res.data;
+      });
+    },
+    guaranteesType(key) {
+      //  保证方式   渲染
+      switch (key) {
+        case "bail":
+          return "保证人";
+        case "mortgage":
+          return "抵押物";
+        case "pledge":
+          return "质押物";
+        case "otherGuarantee":
+          return "其他保证";
+        case "lawsuit":
+          return "诉讼";
+        default:
+          break;
+      }
+    },
+    newProjects() {
+      if (!this.name) {
+        return this.$message({
+          message: "请输入项目名称",
+          type: "warning",
+        });
+      }
+      newProjects({ name: this.name }).then((res) => {
+        if (res.code === 0) {
+          this.projectsList();
+          this.dialogVisible = false;
+          this.name = "";
+          this.$message({
+            message: "项目新建成功",
+            type: "success",
+          });
+        }
+      });
+    },
     headerRightClick(key) {},
     toInformation(id, key) {
       this.$router.push(
@@ -415,5 +312,9 @@ export default {
 <style scoped>
 .table-content {
   padding: 0 20px;
+}
+
+.guarantees {
+  display: inline-block;
 }
 </style>
