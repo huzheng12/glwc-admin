@@ -1,10 +1,10 @@
-import request from '@/utils/request'
-
+import ajax from "@/utils/ajax.js"
 export function projects(data) {
   // 项目管理==》添加单个项目
-  return request({
+  return ajax({
     url: '/projects',
-    method: 'post',
-    data
+    method: 'get',
+    params: data
   })
+
 }

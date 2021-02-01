@@ -31,14 +31,23 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {
-    port: port,
-    open: true,
+    port: port,  // 端口
+    open: true,  // 是否自动打开浏览器
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    hot: true, //单纯设置为true的时候，如果编译报错，会抛出错误，你重新改成正确的，这个时候又会触发重新编译，整个浏览器会重新刷新！
+    host: '0.0.0.0',
+    proxy: {  // 代理
+      "/": {
+        target: "https://amc.starhouse.vip:8443/",
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   },
+
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
