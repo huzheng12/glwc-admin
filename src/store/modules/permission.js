@@ -19,6 +19,7 @@ function hasPermission(roles, route) {
  * @param roles
  */
 export function filterAsyncRoutes(routes, roles) {
+  
   const res = []
 
   routes.forEach(route => {
@@ -50,6 +51,7 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
+      roles = ["admin"]
       if (roles.includes('admin')) {
         accessedRoutes = asyncRoutes || []
       } else {
