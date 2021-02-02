@@ -16,10 +16,10 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column fixed prop="projectId" label="项目编号" width="120">
+        <el-table-column fixed prop="id" label="项目编号" width="120">
           <template slot-scope="scope">
             <i class="el-icon-star-off"></i>
-            &nbsp;&nbsp;{{ scope.row.projectId }}
+            &nbsp;&nbsp;{{ scope.row.id }}
           </template>
         </el-table-column>
         <el-table-column fixed prop="name" label="项目名称" width="120">
