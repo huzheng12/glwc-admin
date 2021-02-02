@@ -244,7 +244,7 @@ export default {
       // 获取项目列表
       // simple: 最简单的结构，只包含ID和名称 normal: 所有项目信息
       projectsList({
-        // packageId: this.$route.query.packageId || "", //所属资产包ID
+        packageId: this.$route.query.packageId || "", //所属资产包ID
         mode: "normal", //获取的数据的模式
       }).then((res) => {
         this.tableData = res.data;

@@ -43,3 +43,11 @@ export function delProjects(id) {
     method: 'DELETE',
   })
 }
+export function projectslawsuits(id) {
+  // 项目管理==》修改项目
+  // GET /projects/:projectId/lawsuits
+  return ajax({
+    url: `/api/projects/${id}/lawsuits`,
+    method: 'GET',
+  })
+}
