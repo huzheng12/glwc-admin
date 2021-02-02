@@ -133,19 +133,6 @@ const asyncRoutes = [
     ]
   },
   {
-    path: '/filemengt',
-    component: 'layout/Layout',
-    redirect: 'index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/file-management/index,vue'),
-        name: 'usercore',
-        meta: { title: '文件管理', affix: true }
-      },
-    ]
-  },
-  {
     path: '/icon',
     component: 'layout/Layout',
     children: [

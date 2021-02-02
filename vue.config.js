@@ -24,8 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
-  outputDir: 'dist',
+  publicPath: './',
   assetsDir: 'static',
   // lintOnSave: process.env.NODE_ENV === 'development',
   lintOnSave: false,
@@ -40,10 +39,13 @@ module.exports = {
     hot: true, //单纯设置为true的时候，如果编译报错，会抛出错误，你重新改成正确的，这个时候又会触发重新编译，整个浏览器会重新刷新！
     host: '0.0.0.0',
     proxy: {  // 代理
-      "/": {
+      "/api": {
         target: "https://amc.starhouse.vip:8443/",
         changeOrigin: true,
         secure: false,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     }
   },
