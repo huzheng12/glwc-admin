@@ -98,7 +98,7 @@
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
     <el-dialog title="新建项目" :visible.sync="dialogVisible" width="30%">
-      <el-form :label-position="right" label-width="80px">
+      <el-form label-position="right" label-width="80px">
         <el-form-item :required="true" label="项目名称">
           <el-input v-model="name"></el-input>
         </el-form-item>
