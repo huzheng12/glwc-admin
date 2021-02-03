@@ -7,3 +7,8 @@ export function timeFormat(val) {
 }
 
 
+
+
+export function _k(val) {
+  return JSON.parse(JSON.stringify(val))
+}

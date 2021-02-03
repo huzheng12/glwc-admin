@@ -1,6 +1,12 @@
 <template>
   <el-dialog :title="title" :visible.sync="visible" :width="width">
-    <el-form ref="ruleForm" label-position="right" :label-width="labelWidth">
+    <el-form
+      :model="dataObj"
+      ref="ruleForm"
+      label-position="right"
+      :label-width="labelWidth"
+   
+    >
       <el-row :gutter="40" v-for="(item, index) in rowData" :key="index">
         <el-col :span="12">
           <el-form-item :label="item.left.label">
@@ -9,7 +15,6 @@
               v-if="item.left.type === 'Input'"
               v-model="dataObj[item.left.prop]"
             ></el-input>
-
             <el-date-picker
               style="width: 100%"
               :disabled="item.left.disabled"
@@ -88,6 +93,18 @@ export default {
       visible: false,
     };
   },
+  // computed: {
+  //   /** 解析表单的正则验证***/
+  //   rules() {
+  //     let rules = this.searchForm.reduce((map, i) => {
+  //       if (i.rules) {
+  //         map[i.prop] = i.rules;
+  //       }
+  //       return map;
+  //     }, {});
+  //     return rules;
+  //   },
+  // },
   mounted() {
     this.rowData.map((item) => {
       if (!item.left.type) {

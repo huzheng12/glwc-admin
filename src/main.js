@@ -22,7 +22,9 @@ import * as filters from './filters' // global filters
 
 // 引入echarts
 import echarts from 'echarts'
+import { _k } from "@/utils/timeFormat"
 Vue.prototype.$echarts = echarts
+Vue.prototype.$k = _k
 
 
 // 引入自定义样式

@@ -51,3 +51,38 @@ export function projectslawsuits(id) {
     method: 'GET',
   })
 }
+export function projectsbails(id) {
+  // 项目管理==》获取保证人列表
+  // GET /projects/:projectId/bails
+  return ajax({
+    url: `/api/projects/${id}/bails`,
+    method: 'GET',
+  })
+}
+export function addprojectsbails(id, data) {
+  // 项目管理==》添加保证人列表
+  // POST /projects/:projectId/bails
+  return ajax({
+    url: `/api/projects/${id}/bails`,
+    method: 'POST',
+    data
+  })
+}
+export function unpdataprojectsbails(projectId, bailId, data) {
+  // 项目管理==》修改保证人列表
+  // PUT /projects/:projectId/bails/:bailId
+  return ajax({
+    url: `/api/projects/${projectId}/bails/${bailId}`,
+    method: 'PUT',
+    data
+  })
+}
+export function delprojectsbails(projectId, bailId) {
+  // 项目管理==》删除保证人列表
+  // DELETE /projects/:projectId/bails/:bailId
+  return ajax({
+    url: `/api/projects/${projectId}/bails/${bailId}`,
+    method: 'DELETE',
+
+  })
+}
