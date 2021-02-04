@@ -3,6 +3,7 @@
     <div class="guarantee-box-tabs">
       <div class="tabs-box">
         <div
+        
           v-for="(item, index) in tabHeader"
           :key="index"
           :class="{ tabsHeaderLeft: true, tabsActive: tabsActive === index }"
