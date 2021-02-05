@@ -44,6 +44,38 @@ export default {
             icon: 'dashboard'
           },
         },
+        {
+          path: "/beforeInvestment/markdown/essential/:projectId/lawsuits/:id",
+          name: "lawsuits",
+          hidden: true,
+          component: () => import("@/views/components-demo/projectGl/conns/addLitigation2"),
+          meta: {
+            title: "担保方式",
+            icon: 'dashboard'
+          },
+        },
+        {
+          // PUT /projects/:projectId/otherGuarantees/:id
+          path: "/beforeInvestment/markdown/projects/:projectId/otherGuarantees/:id",
+          name: "otherbaoz",
+          hidden: true,
+          component: () => import("@/views/components-demo/projectGl/conns/otherBaoz"),
+          meta: {
+            title: "其他保证",
+            icon: 'dashboard'
+          },
+        },
+        {
+          // PUT /projects/:projectId/mortgages/:mortgageId
+          path: "/beforeInvestment/markdown/projects/:projectId/mortgages/:mortgageId",
+          name: "collateral",
+          hidden: true,
+          component: () => import("@/views/components-demo/projectGl/conns/collateral"),
+          meta: {
+            title: "项目抵押物",
+            icon: 'dashboard'
+          },
+        },
       ]
     },
 

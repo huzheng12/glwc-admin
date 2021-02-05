@@ -86,3 +86,99 @@ export function delprojectsbails(projectId, bailId) {
 
   })
 }
+
+
+
+export function projectslawsuitslist(projectId) {
+  // 项目管理==》获取诉讼情况列表
+  // GET /projects/:projectId/lawsuits
+  return ajax({
+    url: `/api/projects/${projectId}/lawsuits`,
+    method: 'GET',
+
+  })
+}
+
+export function addprojectslawsuits(projectId, data) {
+  // 项目管理==》新增诉讼情况
+  // POST /projects/:projectId/lawsuits
+  return ajax({
+    url: `/api/projects/${projectId}/lawsuits`,
+    method: 'POST',
+    data
+  })
+}
+
+export function updataprojectslawsuits(projectId, lawsuitId, data) {
+  // 项目管理==》编辑诉讼情况
+  // PUT /projects/:projectId/lawsuits/:lawsuitId
+  return ajax({
+    url: `/api/projects/${projectId}/lawsuits/${lawsuitId}`,
+    method: 'PUT',
+    data
+  })
+}
+export function delprojectslawsuits(projectId, lawsuitId) {
+  // 项目管理==》删除诉讼情况
+  //DELETE /projects/:projectId/lawsuits/:lawsuitId
+  return ajax({
+    url: `/api/projects/${projectId}/lawsuits/${lawsuitId}`,
+    method: 'DELETE',
+
+  })
+}
+export function projectsotherGuaranteeslist(projectId) {
+  // 项目管理==获取其他保证列表
+  //GET /projects/:projectId/otherGuarantees
+  return ajax({
+    url: `/api/projects/${projectId}/otherGuarantees`,
+    method: 'GET',
+  })
+}
+export function addprojectsotherGuarantees(projectId, data) {
+  // 项目管理==添加其他保证
+  //POST /projects/:projectId/otherGuarantees
+  return ajax({
+    url: `/api/projects/${projectId}/otherGuarantees`,
+    method: 'POST',
+    data
+  })
+}
+export function undataprojectsotherGuarantees(projectId, id, data) {
+  // 项目管理==更新其他保证
+  // PUT /projects/:projectId/otherGuarantees/:id
+  return ajax({
+    url: `/api/projects/${projectId}/otherGuarantees/${id}`,
+    method: 'PUT',
+    data
+  })
+}
+export function delprojectsotherGuarantees(projectId, id) {
+  // 项目管理==删除其他保证
+  // DELETE /projects/:projectId/otherGuarantees/:id
+  return ajax({
+    url: `/api/projects/${projectId}/otherGuarantees/${id}`,
+    method: 'DELETE',
+
+  })
+}
+
+export function projectsmortgageslist(projectId) {
+  // 项目管理==获取项目抵押物列表
+  // GET /projects/:projectId/mortgages
+  return ajax({
+    url: `/api/projects/${projectId}/mortgages`,
+    method: 'GET',
+
+  })
+}
+
+export function addprojectsmortgages(projectId, data) {
+  // 项目管理==添加项目抵押物
+  // POST /projects/:projectId/mortgages
+  return ajax({
+    url: `/api/projects/${projectId}/mortgages`,
+    method: 'POST',
+    data
+  })
+}

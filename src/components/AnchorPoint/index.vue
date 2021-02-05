@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <slot name="header"></slot>
     <!-- 导航区域 -->
     <ul class="navs">
       <div v-for="(item, index) in point" :key="index">
@@ -34,15 +35,24 @@ export default {
   data() {
     return {
       activeItem: 0, // 当前激活的导航索引
+      headerHeigt: 0,
     };
   },
   mounted() {
+    if (this.$scopedSlots.header) {
+      this.headerHeigt = 50;
+    }
     // 监听滚动事件
     document
       .querySelector(".point-content")
       .addEventListener("scroll", this.onScroll);
-    const point = this.$route.params.id.split("=")[1];
-    this.clickTop(point * 1);
+
+    if (this.$scopedSlots.header) {
+      this.clickTop(0);
+    } else {
+      const point = this.$route.params.id.split("=")[1];
+      this.clickTop(point * 1);
+    }
   },
   destroy() {
     // 必须移除监听器，不然当该vue组件被销毁了，监听器还在就会出错
@@ -57,8 +67,12 @@ export default {
       // 所有锚点元素的 offsetTop
       navContents.forEach((item, index) => {
         if (index === key) {
+          console.log(
+            item.offsetTop,
+            document.querySelector(".point-content").scrollTop
+          );
           document.querySelector(".point-content").scrollTop =
-            item.offsetTop - 64;
+            item.offsetTop - 64 - this.headerHeigt;
         }
       });
     },
@@ -71,7 +85,7 @@ export default {
       // 所有锚点元素的 offsetTop
       const offsetTopArr = [];
       navContents.forEach((item) => {
-        offsetTopArr.push(item.offsetTop - 64);
+        offsetTopArr.push(item.offsetTop - 64 - this.headerHeigt);
       });
       // 获取当前文档流的 scrollTop
       const scrollTop = document.querySelector(".point-content").scrollTop + 1;
@@ -98,7 +112,16 @@ export default {
   height: calc(100vh - 50px);
   overflow: hidden;
   flex-direction: column;
-
+  .header-box {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #222222;
+    margin-left: 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
   .navs {
     display: flex;
     -webkit-box-pack: justify;

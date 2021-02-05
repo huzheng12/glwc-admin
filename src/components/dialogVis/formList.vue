@@ -1,12 +1,6 @@
 <template>
-  <el-dialog
-    :class="`${classType ? 'flex_form' : ''}`"
-    :title="title"
-    :visible.sync="visible"
-    :width="width"
-  >
+  <div class="form-warp" :class="`${classType ? 'flex_form' : ''}`">
     <el-form
-      v-if="visible"
       class="form-box"
       label-position="right"
       :size="size"
@@ -109,7 +103,9 @@
         </el-checkbox-group>
 
         <!-- 日期 -->
+
         <el-date-picker
+          style="width: 100%"
           v-if="item.type === 'Date'"
           v-model="searchData[item.prop]"
           value-format="yyyy-MM-dd"
@@ -165,11 +161,10 @@
         ></el-cascader>
       </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
+    <span class="but-footer" :style="`padding-left:${labelWidth}`">
       <el-button type="primary" @click="sublime">确 定</el-button>
     </span>
-  </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -253,14 +248,13 @@ export default {
 <style lang="scss" >
 .form-box {
   .el-form-item__content {
-    width: 100%;
+    flex: 1;
   }
   .el-form-item {
     display: flex;
   }
 }
-.flex_form .el-dialog {
-  min-width: 900px;
+.flex_form {
   .form-box {
     display: flex;
     justify-content: space-between;
@@ -271,5 +265,11 @@ export default {
       width: 48%;
     }
   }
+  .but-footer {
+  }
+}
+
+.form-warp {
+  padding: 20px;
 }
 </style>

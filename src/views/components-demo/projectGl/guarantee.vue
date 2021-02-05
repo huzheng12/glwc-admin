@@ -3,7 +3,6 @@
     <div class="guarantee-box-tabs">
       <div class="tabs-box">
         <div
-        
           v-for="(item, index) in tabHeader"
           :key="index"
           :class="{ tabsHeaderLeft: true, tabsActive: tabsActive === index }"
@@ -42,12 +41,13 @@
     </el-table>
 
     <form-submit
-      labelWidth="180px"
+      labelWidth="140px"
       ref="searchForm"
       title="添加保证人"
       @sublime="addUser"
       :searchData="searchData"
       :searchForm="searchForm"
+      :classType="true"
     />
     <!-- :classType="true"   双行显示 -->
   </div>
@@ -59,18 +59,15 @@ import {
   addprojectsbails,
   unpdataprojectsbails,
   delprojectsbails,
+  projectsotherGuaranteeslist,
+  delprojectsotherGuarantees,
+  projectsmortgageslist,
 } from "@/api/projectManagement/index";
 import formSubmit from "@/components/dialogVis/oneListform";
-
+import dataFn from "./middleware/guarantee";
 export default {
   components: { formSubmit },
   data() {
-    let caseState = [
-      { label: "法人", value: "法人" },
-      { label: "自然人", value: "自然人" },
-    ];
-    let entrustProps = { label: "label", value: "value" };
-
     return {
       tabsActive: 0,
       tabHeader: [
@@ -93,72 +90,8 @@ export default {
       tableData: [],
       // 如果数据要回显后不可编辑，使用JSON.parse(JSON.stringify())转换
       searchData: {},
-      searchForm: [
-        {
-          type: "Input",
-          label: "保证人名称:",
-          prop: "name",
-          placeholder: "请输入",
-          rules: [
-            { required: true, message: "请输入活动名称", trigger: "blur" },
-          ],
-        },
-        {
-          type: "Select",
-          label: "保证人类型",
-          prop: "type",
-          options: caseState,
-          props: entrustProps,
-          placeholder: "请选择保证人类型",
-        },
-        {
-          type: "Input",
-          label: "证件号:",
-          prop: "licenseNumber",
-          placeholder: "请输入证件号",
-        },
-        {
-          type: "Select",
-          label: "状况:",
-          prop: "status",
-          options: [
-            {
-              value: "法人-存续",
-              label: "法人-存续",
-            },
-          ],
-          props: entrustProps,
-          placeholder: "请选择状况",
-        },
-        {
-          type: "Input",
-          label: "担保责任最高限额:",
-          prop: "quota",
-          placeholder: "请输入担保责任最高限额",
-        },
-        {
-          type: "Input",
-          label: "保证估值:",
-          prop: "valuation",
-          placeholder: "请输入保证估值",
-        },
-        {
-          type: "Textarea",
-          label: "保证人情况说明:",
-          prop: "situationComment",
-          maxlength: 200,
-          placeholder: "请输入保证人情况说明",
-        },
-        {
-          type: "Textarea",
-          label: "保证人估值说明:",
-          prop: "valuationComment",
-          maxlength: 200,
-          placeholder: "请输入保证人估值说明",
-        },
-      ],
+      searchForm: [],
       // .以上是保证人的
-
       id: "",
       multipleSelection: [],
       type: "",
@@ -173,19 +106,48 @@ export default {
       // 添加担保人
       this.type = "add";
       if (this.tabsActive === 0) {
-      } else if (this.tabsActive === 1) {
+        this.searchForm = dataFn(this, "otherGuarantees");
         this.$refs.searchForm.visible = true;
         this.searchData = {};
+      } else if (this.tabsActive === 1) {
+        // 新增保证人
+        this.searchForm = dataFn(this, "guarantor");
+        this.$refs.searchForm.visible = true;
+        this.searchData = {};
+      } else if (this.tabsActive === 2) {
+        this.$router.push(
+          `/beforeInvestment/markdown/projects/${this.id}/mortgages/new`
+        );
+      } else if (this.tabsActive === 4) {
+        this.$router.push(
+          `/beforeInvestment/markdown/projects/${this.id}/otherGuarantees/new`
+        );
       }
     },
     undataGuarantee() {
-      // 编辑担保人
       this.type = "und";
       if (this.tabsActive === 0) {
       } else if (this.tabsActive === 1) {
+        // 编辑担保人
         if (this.multipleSelection.length === 1) {
+          this.searchForm = dataFn(this, "guarantor");
           this.$refs.searchForm.visible = true;
           this.searchData = this.$k(this.multipleSelection[0]);
+        } else {
+          this.$message({
+            message: "请选择一条数据",
+            type: "warning",
+          });
+        }
+      } else if (this.tabsActive === 4) {
+        if (this.multipleSelection.length === 1) {
+          sessionStorage.setItem(
+            "data",
+            JSON.stringify(this.multipleSelection[0])
+          );
+          this.$router.push(
+            `/beforeInvestment/markdown/projects/${this.id}/otherGuarantees/${this.multipleSelection[0].id}`
+          );
         } else {
           this.$message({
             message: "请选择一条数据",
@@ -196,33 +158,54 @@ export default {
     },
     DelGuarantee() {
       // 删除担保人
-      if (this.tabsActive === 0) {
-      } else if (this.tabsActive === 1) {
-        if (this.multipleSelection.length === 1) {
-          this.searchData = this.$k(this.multipleSelection[0]);
-          delprojectsbails(this.id, this.searchData.id).then((res) => {
-            if (res.code === 0) {
-              this.listData();
-            }
-          });
-        } else {
-          this.$message({
-            message: "请选择一条数据",
-            type: "warning",
-          });
+      let funName = "";
+      if (this.multipleSelection.length === 1) {
+        if (this.tabsActive === 0) {
+        } else if (this.tabsActive === 1) {
+          funName = delprojectsbails;
+        } else if (this.tabsActive === 4) {
+          funName = delprojectsotherGuarantees;
         }
+      } else {
+        return this.$message({
+          message: "请选择一条数据",
+          type: "warning",
+        });
       }
+      this.$confirm(`是否删除 ${this.multipleSelection[0].name}`, "确认信息", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      }).then(() => {
+        funName(this.id, this.multipleSelection[0].id).then((res) => {
+          if (res.code === 0) {
+            this.$message({
+              message: "删除成功",
+              type: "success",
+            });
+            this.listData();
+          }
+        });
+      });
     },
     listData() {
       // 获取列表
+      this.tableData = [];
+      let funName = "";
       if (this.tabsActive === 0) {
       } else if (this.tabsActive === 1) {
-        projectsbails(this.id).then((res) => {
-          if (res.code === 0) {
-            this.tableData = res.data;
-          }
-        });
+        funName = projectsbails;
+      } else if (this.tabsActive === 2) {
+        funName = projectsmortgageslist;
+      } else if (this.tabsActive === 4) {
+        funName = projectsotherGuaranteeslist;
       }
+
+      funName(this.id).then((res) => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+      });
     },
     clickActive(i) {
       this.tabsActive = i;

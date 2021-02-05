@@ -89,7 +89,7 @@ export default {
   .el-tabs__nav-wrap.is-scrollable {
     padding: 0;
   }
-  .el-tabs__header,
+  ::v-deep .el-tabs__header,
   .is-left {
     margin-right: 0 !important;
     border: none !important;
