@@ -1,5 +1,4 @@
 <template>
-<div>
   <e-point :point="point">
     <div slot="header" class="header-box">{{ headerTitle }}</div>
     <div class="point-content">
@@ -14,14 +13,7 @@
         <component :is="item.component" />
       </div>
     </div>
-
-    
   </e-point>
-  <!-- <div>
-        <el-button type="primary">主要按钮</el-button>
- 
-    </div> -->
-  </div>
 </template>
 
 <script>
@@ -29,16 +21,16 @@
 import ePoint from "@/components/AnchorPoint";
 
 // 基本信息系
-import information from "./collateralArr/information";
+import information from "./pledgeArr/information";
 
 // 时效管理
-import timeManagement from './collateralArr/timeManagement'
+import timeManagement from './pledgeArr/timeManagement'
 
 // 抵押物估值
-import valuationCollateral from './collateralArr/valuationCollateral'
+import valuationCollateral from './pledgeArr/valuationCollateral'
 
 // 情况说明
-import informationNote from './collateralArr/informationNote'
+import informationNote from './pledgeArr/informationNote'
 export default {
   props: {},
   components: {
@@ -50,8 +42,6 @@ export default {
   },
   mounted() {
     this.projectId = this.$route.params.projectId;
-    this.type =  this.$route.params.mortgageId
-    console.log( this.projectId,this.type)
   },
   data() {
     return {

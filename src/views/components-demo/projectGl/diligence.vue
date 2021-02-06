@@ -109,6 +109,7 @@ export default {
     };
   },
   methods: {
+
     timeFormat(val) {
       return timeFormat(val);
     },
