@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     projectsprojectId() {
-      projectsprojectId(this.$route.params.id.split("&&")[0]).then((res) => {
+      projectsprojectId(this.$route.params.id).then((res) => {
         this.data = res.data;
       });
     },

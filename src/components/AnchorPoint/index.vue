@@ -50,7 +50,7 @@ export default {
     if (this.$scopedSlots.header) {
       this.clickTop(0);
     } else {
-      const point = this.$route.params.id.split("=")[1];
+      const point = this.$route.params.miao;
       this.clickTop(point * 1);
     }
   },

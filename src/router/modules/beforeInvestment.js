@@ -16,7 +16,7 @@ export default {
       meta: { title: '资产包管理', icon: 'dashboard' },
       children: [
         {
-          path: "/beforeInvestment/index/essential/:id",
+          path: "/beforeInvestment/index/essential/:id/:miao",
           name: "essential",
           hidden: true,
           component: () => import("@/views/components-demo/information.vue"),
@@ -35,7 +35,7 @@ export default {
       meta: { title: '项目管理', icon: 'dashboard' },
       children: [
         {
-          path: "/beforeInvestment/markdown/essential/:id",
+          path: "/beforeInvestment/markdown/essential/:id/:miao",
           name: "projectGl",
           hidden: true,
           component: () => import("@/views/components-demo/projectGl/information"),

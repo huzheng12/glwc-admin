@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot v-if="routerType" />
-    <router-view />
+    <router-view v-else />
   </div>
 </template>
 

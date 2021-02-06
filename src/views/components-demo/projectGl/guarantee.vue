@@ -98,7 +98,7 @@ export default {
     };
   },
   mounted() {
-    this.id = this.$route.params.id.split("&&")[0];
+    this.id = this.$route.params.id;
     this.listData();
   },
   methods: {
@@ -201,11 +201,12 @@ export default {
         funName = projectsotherGuaranteeslist;
       }
 
-      funName(this.id).then((res) => {
-        if (res.code === 0) {
-          this.tableData = res.data;
-        }
-      });
+      funName &&
+        funName(this.id).then((res) => {
+          if (res.code === 0) {
+            this.tableData = res.data;
+          }
+        });
     },
     clickActive(i) {
       this.tabsActive = i;

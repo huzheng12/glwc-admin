@@ -51,7 +51,7 @@ export default {
     return {
       tableData: [],
       multipleSelection: [],
-      projectId: this.$route.params.id.split("&&")[0] || "",
+      projectId: this.$route.params.id || "",
     };
   },
   mounted() {

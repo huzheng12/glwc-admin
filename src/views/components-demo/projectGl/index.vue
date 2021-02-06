@@ -288,9 +288,7 @@ export default {
     },
     headerRightClick(key) {},
     toInformation(id, key) {
-      this.$router.push(
-        `/beforeInvestment/markdown/essential/${id}&&point=${key}`
-      );
+      this.$router.push(`/beforeInvestment/markdown/essential/${id}/${key}`);
     },
     toggleSelection(rows) {
       if (rows) {
