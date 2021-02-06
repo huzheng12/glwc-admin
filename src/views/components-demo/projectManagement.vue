@@ -111,6 +111,8 @@ import templateDownload from "./components/templateDownload";
 // 批量下载弹窗
 import bulkDownload from "./components/bulkDownload";
 
+import { packagesList } from "@/api/projectManagement/zcbgl";
+
 export default {
   components: {
     headerBox,
@@ -412,18 +414,27 @@ export default {
       multipleSelection: [],
     };
   },
-  mounted() {},
+  mounted() {
+    console.log(22);
+    // this.packagesList();
+  },
 
   methods: {
+    packagesList() {
+      // 资产包列表获取
+      packagesList().then((res) => {
+        if (res.code === 0) {
+          console.log(res);
+        }
+      });
+    },
     routerJump(packageId) {
       // 点击跳转项目管理页面
       this.$router.push(`/beforeInvestment/markdown?packageId=${packageId}`);
     },
     headerRightClick(key) {},
     toInformation(id, key) {
-      this.$router.push(
-        `/beforeInvestment/index/essential/${id}&&point=${key}`
-      );
+      this.$router.push(`/beforeInvestment/index/essential/${id}/${key}`);
     },
     toggleSelection(rows) {
       if (rows) {
