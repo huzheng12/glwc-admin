@@ -56,27 +56,27 @@
         <el-table-column fixed label="文档" width="120">
           <el-link type="primary">明细</el-link>
         </el-table-column>
-        <el-table-column label="所属资产包" prop="packageId">
+        <el-table-column label="所属资产包" width="120" prop="packageId">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.packageId }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="debtor" label="债务人">
+        <el-table-column prop="debtor" width="120" label="债务人">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.debtor }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="latestSubordinate" label="最新从属">
+        <el-table-column prop="latestSubordinate" width="120" label="最新从属">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.latestSubordinate }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="creditorBank" label="债权银行">
+        <el-table-column prop="creditorBank" width="120" label="债权银行">
         </el-table-column>
-        <el-table-column prop="city" sortable label="城市"> </el-table-column>
-        <el-table-column prop="gzzkn" sortable label="债券总额">
+        <el-table-column prop="city" sortable label="城市" width="120" > </el-table-column>
+        <el-table-column prop="gzzkn" sortable label="债券总额" width="120">
         </el-table-column>
-        <el-table-column prop="guarantees" label="保证方式">
+        <el-table-column prop="guarantees" label="保证方式" width="320">
           <template slot-scope="scope">
             <div
               class="guarantees"
