@@ -14,10 +14,11 @@
         <!-- <el-button style="float: right; padding: 3px 0" type="text"
           >操作按钮</el-button
         > -->
-        <i
+        <i @click="editor"
           class="el-icon-edit"
           type="primary"
           style="
+             cursor:pointer;
             color: #5c7efff;
             float: right;
             padding: 3px 0;
@@ -34,16 +35,22 @@
         </div>
       </div>
     </el-card>
+
+    <valuation-dialog ref="valuationDialog"></valuation-dialog>
   </div>
 </template>
 
 <script>
+import valuationDialog from '../components/dialog/valuationDialog'
 export default {
   data() {
     return {
       d: 122,
       c: 122,
     };
+  },
+  components:{
+    valuationDialog
   },
   props: {
     projectData: {
@@ -59,6 +66,9 @@ export default {
   },
 
   methods: {
+    editor(){
+      this.$refs.valuationDialog.dialogVisible = true;
+    },
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));

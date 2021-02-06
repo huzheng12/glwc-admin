@@ -7,7 +7,7 @@
       @emitChoosse="emitChoosse"
     ></header-box>
     <div class="table-content">
-      <!-- 资产包管理页面 -->
+      <!-- 项目管理页面 -->
       <el-table
         ref="multipleTable"
         :data="tableData"

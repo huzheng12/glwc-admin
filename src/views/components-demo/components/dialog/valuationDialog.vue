@@ -5,15 +5,15 @@
     :visible.sync="dialogVisible"
     width="60%"
   >
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" label-width="140px" :model="formInline" class="valuationForm">
       <el-row>
         <el-col :span="8">
-          <el-form-item label="本金金额">
+          <el-form-item label="本金金额：">
             <el-input v-model="formInline.bjye" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="利息余额">
+          <el-form-item label="利息余额：">
             <el-input v-model="formInline.lxye" placeholder="请输入"></el-input>
           </el-form-item>
         </el-col>
@@ -79,11 +79,23 @@
 </template>
 
 <style lang="scss" >
-.valuationDialogs {
-  .demo-form-inline {
+
+.valuationDialog {
+  
+  label{
+  font-weight: 400;
+  }
+  .valuationForm   {
+    .el-form-item__label{
+  font-weight: 400!important;
+  }
+  .el-input {
+    width: 130px;
+  }
     .lxjs {
       margin-top: 12px;
     }
+
     .labelFont {
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;

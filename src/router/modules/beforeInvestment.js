@@ -76,6 +76,17 @@ export default {
             icon: 'dashboard'
           },
         },
+        {
+          // PUT /projects/:projectId/mortgages/:mortgageId
+          path: "/beforeInvestment/pledgeArr/projects/:projectId/mortgages/:mortgageId",
+          name: "collateral",
+          hidden: true,
+          component: () => import("@/views/components-demo/projectGl/conns/Pledge"),
+          meta: {
+            title: "质押物",
+            icon: 'dashboard'
+          },
+        },
       ]
     },
 

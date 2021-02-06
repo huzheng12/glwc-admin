@@ -118,6 +118,11 @@ export default {
         this.$router.push(
           `/beforeInvestment/markdown/projects/${this.id}/mortgages/new`
         );
+      }else if (this.tabsActive === 3) {
+        this.$router.push(
+          `/beforeInvestment/pledgeArr/projects/${this.id}/mortgages/new`
+       
+        );
       } else if (this.tabsActive === 4) {
         this.$router.push(
           `/beforeInvestment/markdown/projects/${this.id}/otherGuarantees/new`
@@ -139,7 +144,16 @@ export default {
             type: "warning",
           });
         }
-      } else if (this.tabsActive === 4) {
+      }else if (this.tabsActive === 2) {
+        this.$router.push(
+          `/beforeInvestment/markdown/projects/${this.id}/mortgages/editor`
+        );
+      }else if (this.tabsActive === 3) {
+        this.$router.push(
+          `/beforeInvestment/pledgeArr/projects/${this.id}/mortgages/editor`
+       
+        );
+      }  else if (this.tabsActive === 4) {
         if (this.multipleSelection.length === 1) {
           sessionStorage.setItem(
             "data",
