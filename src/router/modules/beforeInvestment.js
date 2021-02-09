@@ -77,8 +77,8 @@ export default {
           },
         },
         {
-          // PUT /projects/:projectId/mortgages/:mortgageId
-          path: "/beforeInvestment/pledgeArr/projects/:projectId/mortgages/:mortgageId",
+          // PUT /projects/:projectId/mortgages/:pledgeId
+          path: "/beforeInvestment/markdown/projects/:projectId/pledges/:pledgeId",
           name: "collateral",
           hidden: true,
           component: () => import("@/views/components-demo/projectGl/conns/Pledge"),

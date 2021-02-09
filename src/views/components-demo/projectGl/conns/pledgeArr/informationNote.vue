@@ -1,9 +1,7 @@
 <template>
   <div class="basicPage warp-form">
     <div class="titleName">
-      <div class="titleName-li" @click="projectss">
-        <i class="el-icon-top elRight"></i>上传
-      </div>
+      <div class="titleName-li"><i class="el-icon-top elRight"></i>上传</div>
     </div>
     <!-- <el-row    :gutter="14">
            <el-col :span="24" class="box-item">
@@ -40,6 +38,16 @@
         ></el-input>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-button @click="submit" style="float: right" type="primary"
+          >确定</el-button
+        >
+        <el-button @click="tabBack" style="float: right; margin-right: 10px"
+          >取消</el-button
+        >
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -51,9 +59,19 @@ export default {
       zpmcOptions: [],
       lxOptions: [],
       qdfsOptions: [],
-      dyswOptions: []
+      dyswOptions: [],
     };
-  }
+  },
+  methods: {
+    submit() {
+      this.$emit("submit");
+    },
+    tabBack() {
+      this.$router.push(
+        `/beforeInvestment/markdown/essential/${this.projectId}/0`
+      );
+    },
+  },
 };
 </script>
 

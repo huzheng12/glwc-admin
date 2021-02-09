@@ -1,24 +1,14 @@
 <template>
   <div class="basicPage warp-form">
     <div class="titleName">
-      <div class="titleName-li" @click="projectss">
-        <i class="el-icon-top elRight"></i>上传
-      </div>
+      <div class="titleName-li"><i class="el-icon-top elRight"></i>上传</div>
     </div>
-    <!-- <el-row    :gutter="14">
-           <el-col :span="24" class="box-item">
-        <div class="lable">保证期间：</div>
-         <el-input v-model="input"  type="textarea"
-  :rows="2" placeholder="请输入"></el-input>
-      </el-col>
-       
 
-    </el-row> -->
     <el-row :gutter="14">
       <el-col :span="24" class="box-item">
         <div class="lable lableLheight">抵押物情况说明：</div>
         <el-input
-          v-model="input"
+          v-model="formData.situationComment"
           type="textarea"
           :rows="4"
           placeholder="请输入情况说明"
@@ -31,7 +21,7 @@
       <el-col :span="24" class="box-item">
         <div class="lable lableLheight">抵押物估值说明：</div>
         <el-input
-          v-model="input"
+          v-model="formData.valuationComment"
           type="textarea"
           :rows="4"
           placeholder="请输入情况说明"
@@ -40,20 +30,44 @@
         ></el-input>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-button @click="submit" style="float: right" type="primary"
+          >确定</el-button
+        >
+        <el-button @click="tabBack" style="float: right; margin-right: 10px"
+          >取消</el-button
+        >
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    formData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
+  },
   data() {
     return {
-      input: "",
-      zpmcOptions: [],
-      lxOptions: [],
-      qdfsOptions: [],
-      dyswOptions: []
+      projectId: this.$route.params.projectId,
     };
-  }
+  },
+  methods: {
+    submit() {
+      this.$emit("submit");
+    },
+    tabBack() {
+      this.$router.push(
+        `/beforeInvestment/markdown/essential/${this.projectId}/0`
+      );
+    },
+  },
 };
 </script>
 
@@ -98,8 +112,8 @@ export default {
     }
   }
   .lable {
-    width: 100px;
-    min-width: 100px;
+    width: 150px;
+    min-width: 150px;
     font-size: 14px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;

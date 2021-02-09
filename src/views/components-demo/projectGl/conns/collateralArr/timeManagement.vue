@@ -1,42 +1,43 @@
 <template>
   <div class="warp-form">
-     
-      <el-row   :gutter="14">
-           <el-col :span="10" class="box-item">
+    <el-row :gutter="14">
+      <el-col :span="10" class="box-item">
         <div class="lable">保证期间：</div>
-         <el-input v-model="input" placeholder="请输入"></el-input>
+        <el-input
+          v-model="formData.guaranteePeriod"
+          placeholder="请输入"
+        ></el-input>
       </el-col>
-           <el-col :offset="4" :span="10" class="box-item">
+      <el-col :offset="4" :span="10" class="box-item">
         <div class="lable">诉讼时效：</div>
-         <el-input v-model="input" placeholder="请输入"></el-input>
+        <el-input
+          v-model="formData.lawsuitAging"
+          placeholder="请输入"
+        ></el-input>
       </el-col>
-
     </el-row>
 
-     <el-row   :gutter="14">
-           <el-col :span="10" class="box-item">
+    <el-row :gutter="14">
+      <el-col :span="10" class="box-item">
         <div class="lable">申请执行期间：</div>
-         <el-input v-model="input" placeholder="请输入"></el-input>
+        <el-input
+          v-model="formData.executionPeriod"
+          placeholder="请输入"
+        ></el-input>
       </el-col>
-       
-
     </el-row>
-
-    
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      input: "",
-      zpmcOptions: [],
-      lxOptions:[],
-      qdfsOptions:[],
-      dyswOptions:[]
-      
-    };
+  props: {
+    formData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
   },
 };
 </script>
@@ -48,7 +49,7 @@ export default {
     display: flex;
     margin-bottom: 16px;
 
-    .selectWidth{
+    .selectWidth {
       width: 210px;
     }
   }
@@ -62,14 +63,12 @@ export default {
     line-height: 36px;
     text-align: right;
   }
-  .lableLheight{
+  .lableLheight {
     line-height: 19px;
     // font-size: 12px!important;
-    
-
   }
 
-  .lableLheightIpt{
+  .lableLheightIpt {
     width: 210px;
   }
   .value {
@@ -77,11 +76,10 @@ export default {
     background: red;
   }
 
-  .mapDiv{
+  .mapDiv {
     background: pink;
     width: 759px;
-    height: 196px;  
-
+    height: 196px;
   }
 }
 ::v-deep .el-input--medium .el-input__inner {

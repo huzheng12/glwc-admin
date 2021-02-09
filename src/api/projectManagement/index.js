@@ -176,9 +176,66 @@ export function projectsmortgageslist(projectId) {
 export function addprojectsmortgages(projectId, data) {
   // 项目管理==添加项目抵押物
   // POST /projects/:projectId/mortgages
+
   return ajax({
     url: `/api/projects/${projectId}/mortgages`,
     method: 'POST',
     data
+  })
+}
+export function undataprojectsmortgages(projectId, mortgageId, data) {
+  // 项目管理==编辑项目抵押物
+  // PUT /projects/:projectId/mortgages/:mortgageId
+
+  return ajax({
+    url: `/api/projects/${projectId}/mortgages/${mortgageId}`,
+    method: 'PUT',
+    data
+  })
+}
+export function delprojectsmortgages(projectId, mortgageId) {
+  // 项目管理==删除项目抵押物
+  // DELETE /projects/:projectId/mortgages/:mortgageId
+
+  return ajax({
+    url: `/api/projects/${projectId}/mortgages/${mortgageId}`,
+    method: 'DELETE',
+
+  })
+}
+export function addProPledges(projectId, data) {
+  // 项目管理==新增项目质押物
+  // POST /projects/:projectId/pledges
+  return ajax({
+    url: `/api/projects/${projectId}/pledges`,
+    method: 'POST',
+    data
+  })
+}
+export function proPledgesList(projectId) {
+  // 项目管理==获取项目质押物列表
+  // GET /projects/:projectId/pledges
+  return ajax({
+    url: `/api/projects/${projectId}/pledges`,
+    method: 'GET',
+
+  })
+}
+export function updProPledges(projectId, pledgeId, data) {
+  // 项目管理==修改项目质押物列表
+  //PUT /projects/:projectId/pledges/:pledgeId
+  return ajax({
+    url: `/api/projects/${projectId}/pledges/${pledgeId}`,
+    method: 'PUT',
+    data
+  })
+}
+export function delProPledges(projectId, pledgeId) {
+  // 项目管理==删除项目质押物列表
+  //DELETE /projects/:projectId/pledges/:pledgeId
+  return ajax({
+    url: `/api/projects/${projectId}/pledges/${pledgeId}`,
+    method: 'DELETE',
+
   })
 }

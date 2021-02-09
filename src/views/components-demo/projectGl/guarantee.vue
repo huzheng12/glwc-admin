@@ -62,6 +62,9 @@ import {
   projectsotherGuaranteeslist,
   delprojectsotherGuarantees,
   projectsmortgageslist,
+  proPledgesList,
+  delProPledges,
+  delprojectsmortgages,
 } from "@/api/projectManagement/index";
 import formSubmit from "@/components/dialogVis/oneListform";
 import dataFn from "./middleware/guarantee";
@@ -118,10 +121,9 @@ export default {
         this.$router.push(
           `/beforeInvestment/markdown/projects/${this.id}/mortgages/new`
         );
-      }else if (this.tabsActive === 3) {
+      } else if (this.tabsActive === 3) {
         this.$router.push(
-          `/beforeInvestment/pledgeArr/projects/${this.id}/mortgages/new`
-       
+          `/beforeInvestment/markdown/projects/${this.id}/pledges/new`
         );
       } else if (this.tabsActive === 4) {
         this.$router.push(
@@ -144,16 +146,37 @@ export default {
             type: "warning",
           });
         }
-      }else if (this.tabsActive === 2) {
-        this.$router.push(
-          `/beforeInvestment/markdown/projects/${this.id}/mortgages/editor`
-        );
-      }else if (this.tabsActive === 3) {
-        this.$router.push(
-          `/beforeInvestment/pledgeArr/projects/${this.id}/mortgages/editor`
-       
-        );
-      }  else if (this.tabsActive === 4) {
+      } else if (this.tabsActive === 2) {
+        if (this.multipleSelection.length === 1) {
+          sessionStorage.setItem(
+            "data",
+            JSON.stringify(this.multipleSelection[0])
+          );
+          this.$router.push(
+            `/beforeInvestment/markdown/projects/${this.id}/mortgages/${this.multipleSelection[0].id}`
+          );
+        } else {
+          this.$message({
+            message: "请选择一条数据",
+            type: "warning",
+          });
+        }
+      } else if (this.tabsActive === 3) {
+        if (this.multipleSelection.length === 1) {
+          sessionStorage.setItem(
+            "data",
+            JSON.stringify(this.multipleSelection[0])
+          );
+          this.$router.push(
+            `/beforeInvestment/markdown/projects/${this.id}/pledges/${this.multipleSelection[0].id}`
+          );
+        } else {
+          this.$message({
+            message: "请选择一条数据",
+            type: "warning",
+          });
+        }
+      } else if (this.tabsActive === 4) {
         if (this.multipleSelection.length === 1) {
           sessionStorage.setItem(
             "data",
@@ -177,6 +200,10 @@ export default {
         if (this.tabsActive === 0) {
         } else if (this.tabsActive === 1) {
           funName = delprojectsbails;
+        } else if (this.tabsActive === 2) {
+          funName = delprojectsmortgages;
+        } else if (this.tabsActive === 3) {
+          funName = delProPledges;
         } else if (this.tabsActive === 4) {
           funName = delprojectsotherGuarantees;
         }
@@ -211,6 +238,8 @@ export default {
         funName = projectsbails;
       } else if (this.tabsActive === 2) {
         funName = projectsmortgageslist;
+      } else if (this.tabsActive === 3) {
+        funName = proPledgesList;
       } else if (this.tabsActive === 4) {
         funName = projectsotherGuaranteeslist;
       }

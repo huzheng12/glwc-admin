@@ -46,7 +46,7 @@ export default {
     document
       .querySelector(".point-content")
       .addEventListener("scroll", this.onScroll);
-
+    console.log(this.$scopedSlots);
     if (this.$scopedSlots.header) {
       this.clickTop(0);
     } else {
