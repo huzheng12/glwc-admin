@@ -45,7 +45,7 @@ export default {
     this.projectId = this.$route.params.projectId;
     this.pledgeId = this.$route.params.pledgeId;
     var dt = JSON.parse(sessionStorage.getItem("data"));
-    if (dt.id === this.pledgeId) {
+    if (dt&&dt.id === this.pledgeId) {
       this.formData = dt;
       this.addType = false;
       this.headerTitle = "编辑项目质押物";

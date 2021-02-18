@@ -73,8 +73,9 @@
         </el-table-column>
         <el-table-column prop="creditorBank" width="120" label="债权银行">
         </el-table-column>
-        <el-table-column prop="city" sortable label="城市" width="120" > </el-table-column>
-        <el-table-column prop="gzzkn" sortable label="债券总额" width="120">
+        <el-table-column prop="city" label="城市" width="120">
+        </el-table-column>
+        <el-table-column prop="gzzkn" label="债券总额" width="120">
         </el-table-column>
         <el-table-column prop="guarantees" label="保证方式" width="320">
           <template slot-scope="scope">
@@ -133,7 +134,7 @@ export default {
       inputData: [
         {
           type: "datePicker",
-          prop: "sdas",
+          prop: "createdAt",
           placeholder: "请选择日期",
           prefixIcon: "el-icon-date",
           width: "140px",
@@ -143,7 +144,7 @@ export default {
         },
         {
           type: "Input",
-          prop: "input",
+          prop: "city",
           placeholder: "请输入地点",
           width: "140px",
           onInput: (a) => {
@@ -152,7 +153,7 @@ export default {
         },
         {
           type: "Input",
-          prop: "asd",
+          prop: "global",
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
@@ -162,9 +163,9 @@ export default {
       ],
       tableData: [],
       searchData: {
-        input: "",
-        sdas: "",
-        asd: "",
+        createdAt: "",
+        city: "",
+        global: "",
       },
       rightBut: [
         {
@@ -241,13 +242,55 @@ export default {
     },
 
     projectsList() {
-      // 获取项目列表
-      // simple: 最简单的结构，只包含ID和名称 normal: 所有项目信息
+      function encode(str) {
+        // 对字符串进行编码
+        var encode = encodeURI(str);
+        // 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+      }
+
+      function toQueryPair(key, value) {
+        if (typeof value == "undefined") {
+          return `&${key}=`;
+        }
+        return `&${key}=${value}`;
+      }
+
+      function objToParam(param) {
+        if (Object.prototype.toString.call(param) !== "[object Object]") {
+          return "";
+        }
+        let queryParam = "";
+        for (let key in param) {
+          if (param.hasOwnProperty(key)) {
+            let value = param[key];
+            queryParam += toQueryPair(key, value);
+          }
+        }
+
+        queryParam = queryParam.substr(1);
+        return queryParam;
+      }
+      if (this.$route.params.packageId) {
+        this.searchData.packageId = this.$route.params.packageId;
+      }
+      for (const key in this.searchData) {
+        if (!this.searchData[key]) {
+          delete this.searchData[key];
+        }
+      }
       projectsList({
-        packageId: this.$route.query.packageId || "", //所属资产包ID
-        mode: "normal", //获取的数据的模式
+        query: encode(objToParam(this.searchData)),
       }).then((res) => {
-        this.tableData = res.data;
+        if (res.code === 0) {
+          res.data.map((item) => {
+            var arr = item.guarantees.split("|");
+            console.log(arr);
+            item.guarantees = arr;
+          });
+          this.tableData = res.data;
+        }
       });
     },
     guaranteesType(key) {

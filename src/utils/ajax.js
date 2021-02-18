@@ -42,7 +42,11 @@ axios.interceptors.response.use(function (response) {
     // console.log(response)
 
     if (response.data.code !== 0) {
-        Message.error(response.data.msg);
+        // Message.error(response.data.msg);
+        Message({
+            message: response.data.msg,
+            type: "error",
+        });
     }
     if (response.data.code == '401') {
         // 默认token 失效  

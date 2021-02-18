@@ -174,8 +174,8 @@ export default {
     this.projectId = this.$route.params.projectId;
     const id = this.$route.params.id;
     var dt = JSON.parse(sessionStorage.getItem("data"));
-
-    if (dt.id === id) {
+    console.log(id);
+    if (dt && dt.id === id) {
       this.searchData = dt;
       this.addType = false;
       this.headerTitle = "编辑诉讼情况";
@@ -193,7 +193,7 @@ export default {
                 });
                 setTimeout(() => {
                   this.$router.push(
-                    `/beforeInvestment/markdown/essential/${this.projectId}&&point=2`
+                    `/beforeInvestment/markdown/essential/${this.projectId}/2`
                   );
                 }, 1000);
               }
@@ -211,7 +211,7 @@ export default {
               });
               setTimeout(() => {
                 this.$router.push(
-                  `/beforeInvestment/markdown/essential/${this.projectId}&&point=2`
+                  `/beforeInvestment/markdown/essential/${this.projectId}/2`
                 );
               }, 1000);
             }

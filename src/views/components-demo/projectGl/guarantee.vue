@@ -246,8 +246,11 @@ export default {
 
       funName &&
         funName(this.id).then((res) => {
+          console.log(res);
           if (res.code === 0) {
             this.tableData = res.data;
+          } else {
+            this.tableData = [];
           }
         });
     },

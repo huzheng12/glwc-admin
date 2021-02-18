@@ -3,7 +3,7 @@ import ajax from "@/utils/ajax.js"
 export function projectsList(data) {
   // 项目管理==》项目列表
   return ajax({
-    url: '/api/projects',
+    url: `/api/projects`,
     method: 'get',
     params: data
   })
