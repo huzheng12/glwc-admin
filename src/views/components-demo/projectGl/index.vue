@@ -132,25 +132,25 @@ export default {
       name: "",
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
-        {
-          type: "datePicker",
-          prop: "createdAt",
-          placeholder: "请选择日期",
-          prefixIcon: "el-icon-date",
-          width: "140px",
-          onInput: (a) => {
-            this.projectsList();
-          },
-        },
-        {
-          type: "Input",
-          prop: "city",
-          placeholder: "请输入地点",
-          width: "140px",
-          onInput: (a) => {
-            this.projectsList();
-          },
-        },
+        // {
+        //   type: "datePicker",
+        //   prop: "createdAt",
+        //   placeholder: "请选择日期",
+        //   prefixIcon: "el-icon-date",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     this.projectsList();
+        //   },
+        // },
+        // {
+        //   type: "Input",
+        //   prop: "city",
+        //   placeholder: "请输入地点",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     this.projectsList();
+        //   },
+        // },
         {
           type: "Input",
           prop: "global",
@@ -163,8 +163,6 @@ export default {
       ],
       tableData: [],
       searchData: {
-        createdAt: "",
-        city: "",
         global: "",
       },
       rightBut: [
