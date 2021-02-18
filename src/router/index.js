@@ -9,9 +9,9 @@ import Layout from '@/layout'
 /* Router Modules */
 import beforeInvestmentRouter from './modules/beforeInvestment'
 import afterInvestmentRouter from './modules/afterInvestment'
-import usercoreRouter from './modules/usercore'
-import filemengtRouter from './modules/filemengt'
-
+import businessTools from './modules/businessTools'
+import intelligentAnalysis from './modules/intelligentAnalysis'
+import myHome from './modules/myHome'
 export const constantRoutes = [
   {
     path: '/login',
@@ -27,20 +27,20 @@ export const constantRoutes = [
     path: '/401',
     component: () => import('@/views/error-page/401'),
     hidden: true
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: '首页', affix: true, icon: 'dashboard' }
-      }
-    ]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: () => import('@/views/dashboard/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: '首页', affix: true, icon: 'dashboard' }
+  //     }
+  //   ]
+  // }
 ]
 
 /**
@@ -50,8 +50,9 @@ export const constantRoutes = [
 export const asyncRoutes = [
   beforeInvestmentRouter,
   afterInvestmentRouter,
-  usercoreRouter,
-  filemengtRouter,
+  businessTools,
+  intelligentAnalysis,
+  myHome,
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
