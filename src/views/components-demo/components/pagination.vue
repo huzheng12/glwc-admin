@@ -3,7 +3,7 @@
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
     :current-page="tablePagination.current"
-    :page-sizes="[100, 200, 300, 400]"
+    :page-sizes="[10, 20, 30, 40]"
     :page-size="tablePagination.size"
     layout="total, sizes, prev, pager, next, jumper"
     :total="tablePagination.total"
