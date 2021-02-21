@@ -19,9 +19,21 @@ const chartsRouter = {
     },
     {
       path: 'line',
-      component: () => import('@/views/components-demo/projectManagement'),
+      component: () => import('@/views/daily-management/index'),
       name: 'LineChart',
-      meta: { title: '日常管理', noCache: true, icon: 'dashboard' }
+      meta: { title: '日常管理', noCache: true, icon: 'dashboard' },
+      children: [
+        {
+          path: "/afterInvestment/index/daily/:id/:miao",
+          name: "daily",
+          hidden: true,
+          component: () => import("@/views/daily-management/details"),
+          meta: {
+            title: "基本信息",
+            icon: 'dashboard'
+          },
+        },
+      ]
     }
   ]
 }
