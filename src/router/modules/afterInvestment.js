@@ -13,10 +13,23 @@ const chartsRouter = {
   children: [
     {
       path: 'index',
-      component: () => import('@/views/asset-accounting/index'),
+      component: () => import('@/views/asset-accounting'),
       name: 'KeyboardChart',
-      meta: { title: '资产建账', noCache: true, icon: 'dashboard' }
+      meta: { title: '资产建账', noCache: true, icon: 'dashboard' },
+      children: [
+        {
+          path: "/asset-accounting/index/essential/:id/:miao",
+          name: "essential",
+          hidden: true,
+          component: () => import("@/views/asset-accounting/information.vue"),
+          meta: {
+            title: "基本信息",
+            icon: 'dashboard'
+          },
+        },
+      ]
     },
+   
     {
       path: 'line',
       component: () => import('@/views/components-demo/projectManagement'),

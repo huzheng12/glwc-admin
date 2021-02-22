@@ -20,10 +20,13 @@
 import ePoint from "@/components/AnchorPoint";
 // 基本信息组件
 import basicPage from "./basicPage";
+
+// 融资方案组件
+import acquisitionPlan from "./acquisitionPlan";
 // 工作日志组件
 import workLog from "./components/workLog";
 // 估值信息组件
-import valuation from "./components/valuation";
+// import valuation from "./components/valuation";
 // 项目列表组件
 import projectList from "./components/projectList";
 // 融资方式组件
@@ -40,7 +43,8 @@ export default {
     ePoint,
     basicPage,
     workLog,
-    valuation,
+    // valuation,
+    acquisitionPlan,
     projectList,
     financingPlan,
     fileManagement,
@@ -53,9 +57,10 @@ export default {
     return {
       point: [
         { text: "基本信息", component: "basicPage" },
-        { text: "估值信息", component: "valuation" },
+        // { text: "估值信息", component: "valuation" },
         { text: "项目列表", component: "projectList" },
-        { text: "融资方案", component: "financingPlan" },
+        { text: "收购方案", component: "acquisitionPlan" },
+     
         { text: "文件管理", component: "fileManagement" },
         // { text: "工作日志", component: "workLog" },
         { text: "变更日志", component: "changeLog" },

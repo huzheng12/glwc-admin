@@ -9,7 +9,11 @@
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
         </div>
-        <component :is="item.component" />
+        <component
+          :projectData="data"
+          @unpdata="projectsprojectId"
+          :is="item.component"
+        />
       </div>
     </div>
   </e-point>
@@ -20,44 +24,59 @@
 import ePoint from "@/components/AnchorPoint";
 // 基本信息组件
 import basicPage from "./basicPage";
-// 工作日志组件
-import workLog from "./components/workLog";
+// 尽调信息
+import diligence from "./diligence";
+// // 担保方式
+import guarantee from "./guarantee";
+// 诉讼情况
+import Litigation from "./Litigation";
 // 估值信息组件
-import valuation from "./components/valuation";
-// 项目列表组件
-import projectList from "./components/projectList";
-// 融资方式组件
-import financingPlan from "./components/financingPlan";
+import valuation from "./valuation";
+// // 融资方式组件
+// import financingPlan from "./components/financingPlan";
 // 文件列表组件
-import fileManagement from "./components/fileManagement";
+import fileManagement from "./fileManagement";
+//日志
+import workLog from "./workLog";
 //变更日志
-import changeLog from "./components/changeLog";
+import changeLog from "./changeLog";
 
-
+import { projectsprojectId } from "@/api/projectManagement/index";
 export default {
   props: {},
   components: {
     ePoint,
     basicPage,
-    workLog,
+    diligence,
+    guarantee,
     valuation,
-    projectList,
-    financingPlan,
+    Litigation,
     fileManagement,
-    changeLog
+    workLog,
+    changeLog,
   },
+
   mounted() {
-    console.log(this.$route.params.id);
+    this.projectsprojectId();
+  },
+  methods: {
+    projectsprojectId() {
+      projectsprojectId(this.$route.params.id).then((res) => {
+        this.data = res.data;
+      });
+    },
   },
   data() {
     return {
+      data: {},
       point: [
         { text: "基本信息", component: "basicPage" },
-        { text: "估值信息", component: "valuation" },
-        { text: "项目列表", component: "projectList" },
-        { text: "融资方案", component: "financingPlan" },
-        { text: "文件管理", component: "fileManagement" },
-        // { text: "工作日志", component: "workLog" },
+        { text: "尽调信息", component: "diligence" },
+        { text: "担保方式", component: "guarantee" },
+        { text: "诉讼情况", component: "Litigation" },
+        { text: "债券估值", component: "valuation" },
+        { text: "项目文件管理", component: "fileManagement" },
+        { text: "工作日志", component: "workLog" },
         { text: "变更日志", component: "changeLog" },
       ],
     };
