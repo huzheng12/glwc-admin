@@ -16,24 +16,95 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column prop="a" label="文件名称">
+        <el-table-column fixed prop="id" label="项目编号" width="120">
           <template slot-scope="scope">
-            <i class="iconfont iconfontleft bff">&#xe649;</i>
-            &nbsp;&nbsp;{{ scope.row.a }}
+            <i class="el-icon-star-off"></i>
+            &nbsp;&nbsp;{{ scope.row.id }}
           </template>
         </el-table-column>
-        <el-table-column prop="b" label="文件编号"> </el-table-column>
-
-        <el-table-column label="负责人" prop="c">
+        <el-table-column fixed prop="name" label="项目名称" width="120">
+        </el-table-column>
+        <el-table-column fixed label="操作" width="90" align="left">
           <template slot-scope="scope">
-            <!-- <span class="span_bottom">{{ scope.row.packageId }}</span> -->
-            <span>{{ scope.row.c }}</span>
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                编辑<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
+                  >基本信息</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 1)"
+                  >信贷信息</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 2)"
+                  >担保方式</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 5)"
+                  >诉讼</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 6)"
+                  >估值</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 11)"
+                  >文件管理</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
-        <el-table-column prop="d" label="修改日期">
+        <el-table-column fixed label="文档" width="120">
+          <el-link type="primary">明细</el-link>
+        </el-table-column>
+        <el-table-column label="所属资产包" width="120" prop="packageId">
           <template slot-scope="scope">
-            <span>{{ scope.row.d }}</span>
+            <span class="span_bottom">{{ scope.row.packageId }}</span>
           </template>
+        </el-table-column>
+        <el-table-column prop="debtor" width="120" label="债务人">
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.debtor }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="latestSubordinate" width="120" label="最新从属">
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.latestSubordinate }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="city" width="120" label="持有主体">
+        </el-table-column>
+        <el-table-column prop="city" label="城市" width="120">
+        </el-table-column>
+        <el-table-column prop="gzzkn" label="债券总额" width="120">
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="债权估值">
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="竞得价格">
+        </el-table-column>
+        <el-table-column prop="guarantees" label="保证方式" width="320">
+          <template slot-scope="scope">
+            <div
+              class="guarantees"
+              v-for="(item, index) in scope.row.guarantees"
+              :key="index"
+            >
+              <span class="tees-fs">
+                {{ guaranteesType(item) }}
+              </span>
+              <el-divider
+                v-if="index !== scope.row.guarantees.length - 1"
+                direction="vertical"
+              ></el-divider>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="诉讼时效">
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="处置方式">
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="责任人">
+        </el-table-column>
+        <el-table-column prop="creditorBank" width="120" label="更新时间">
         </el-table-column>
       </el-table>
 
@@ -54,8 +125,8 @@
 </template>
 
 <script>
-import headerBox from "../../components-demo/components/header";
-import pagination from "../../components-demo/components/pagination";
+import headerBox from "@/views/components-demo/components/header";
+import pagination from "@/views/components-demo/components/pagination";
 import {
   projectsList,
   newProjects,
@@ -71,52 +142,59 @@ export default {
     return {
       dialogVisible: false,
       name: "",
-      tablePagination: { current: 1, size: 10, total: 0 },
+      tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
         {
           type: "Input",
           prop: "global",
-          placeholder: "搜索文件",
+          placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
             this.projectsList();
           },
         },
       ],
-      tableData: [
-        {
-          a: "上海第一人民法院人民法院.PDF",
-          b: "（2018）沪02民初1183号",
-          c: "吴思远",
-          d: "2020/12/20",
-        },
-        {
-          a: "上海第一人民法院人民法院.PDF",
-          b: "（2018）沪02民初1183号",
-          c: "吴思远",
-          d: "2020/12/20",
-        },
-      ],
+      tableData: [],
       searchData: {
         global: "",
       },
       rightBut: [
         {
-          type: "2",
-          text: "下载",
-          alicon: "iconxiazai",
+          type: "1",
+          text: "批量上传",
+          icon: "el-icon-upload2",
+          color: "#222222",
         },
         {
-          type: "1",
-          text: "上传",
-          alicon: "iconpiliangshangchuan",
+          type: "2",
+          text: "批量下载",
+          icon: "el-icon-c-scale-to-original",
+          color: "#222222",
         },
-
+        {
+          type: "2",
+          text: "模板下载",
+          icon: "el-icon-tickets",
+          color: "#222222",
+        },
+        {
+          type: "delProjects",
+          text: "删除项目",
+          icon: "el-icon-document-delete",
+          color: "#222222",
+        },
+        {
+          type: "newProjects",
+          text: "新建项目",
+          icon: "el-icon-folder-add",
+          color: "#2B57FF",
+        },
         {
           type: "2",
           text: "收藏",
-          alicon: "iconshoucang",
+          icon: "el-icon-star-off",
           color: "#E96722",
+          vertical: true,
         },
       ],
 
@@ -124,7 +202,7 @@ export default {
     };
   },
   mounted() {
-    // this.projectsList();
+    this.projectsList();
   },
 
   methods: {
@@ -248,7 +326,8 @@ export default {
     },
     headerRightClick(key) {},
     toInformation(id, key) {
-      this.$router.push(`/beforeInvestment/markdown/essential/${id}/${key}`);
+      console.log(id, key);
+      this.$router.push(`/afterInvestment/index/daily/${id}/${key}`);
     },
     toggleSelection(rows) {
       if (rows) {

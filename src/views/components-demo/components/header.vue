@@ -37,9 +37,12 @@
         :key="i"
         @click="Submit(item)"
       >
-        <i :class="item.icon"></i>
+        <i
+          v-if="item.alicon"
+          :class="{ iconfont: true, [item.alicon]: true }"
+        ></i>
+        <i v-else :class="{ [item.icon]: true }"></i>
         <span style="margin-left: 5px">{{ item.text }}</span>
-
         <el-divider v-if="item.vertical" direction="vertical"></el-divider>
         <div v-else class="vertical"></div>
       </div>
@@ -72,8 +75,7 @@ export default {
   },
   methods: {
     Submit(key) {
-   
-      this.$emit('emitChoosse',key.type);
+      this.$emit("emitChoosse", key.type);
     },
   },
 };
@@ -99,7 +101,7 @@ export default {
     flex-direction: row-reverse;
     .li {
       font-size: 14px;
-      color: #222222;
+      color: #2b57ff;
 
       cursor: pointer;
       .vertical {
