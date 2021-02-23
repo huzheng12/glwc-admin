@@ -4,8 +4,10 @@
       :searchData="searchData"
       :inputData="inputData"
       :rightBut="rightBut"
+      @emitChoosse="emitChoosse"
     ></header-box>
     <div class="table-content">
+      <!-- 资产包管理页面 -->
       <el-table
         ref="multipleTable"
         :data="tableData"
@@ -22,30 +24,42 @@
         </el-table-column>
         <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
         </el-table-column>
-        <el-table-column fixed label="操作" width="120">
-          <template slot-scope="scope">
-            <el-dropdown>
+        <!-- 投后管理-资产建账-详情点击跳转 -->
+        <el-table-column fixed label="详情" width="120">
+          <template >
+            <el-link type="primary" @click="toInformation(1,0)">详情</el-link>
+            <!-- <el-dropdown>
               <span class="el-dropdown-link">
                 {{ scope.row.value
                 }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toInformation(scope.row.id)"
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
                   >基本信息</el-dropdown-item
                 >
-                <el-dropdown-item>估值信息</el-dropdown-item>
-                <el-dropdown-item>所属项目</el-dropdown-item>
-                <el-dropdown-item>融资方案</el-dropdown-item>
-                <el-dropdown-item>文件管理</el-dropdown-item>
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 1)"
+                  >估值信息</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 2)"
+                  >所属项目</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 3)"
+                  >融资方案</el-dropdown-item
+                >
+                <el-dropdown-item @click.native="toInformation(scope.row.id, 4)"
+                  >文件管理</el-dropdown-item
+                >
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
           </template>
         </el-table-column>
-        <el-table-column fixed label="文档" width="120">
+        <!-- <el-table-column fixed label="文档" width="120">
           <template slot-scope="scope">
-            <el-link type="primary">{{ scope.row.wd }}</el-link>
+            <el-link type="primary" @click="routerJump(scope.row.packageId)">{{
+              scope.row.wd
+            }}</el-link>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="持有主体" width="120">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.cyzt }}</span>
@@ -56,51 +70,75 @@
             <span class="span_bottom">{{ scope.row.syqzt }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="crfjc" label="出让方简称" width="120">
+        <!-- <el-table-column prop="crfjc" label="出让方简称" width="120">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.crfjc }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="cs" label="城市" width="120"> </el-table-column>
         <el-table-column prop="zqze" sortable label="债权总额" width="140">
         </el-table-column>
         <el-table-column prop="gzzkn" sortable label="估值_最可能" width="140">
         </el-table-column>
+         <el-table-column prop="zqhs" label="竞得价格" width="120">
+        </el-table-column>
         <el-table-column prop="zqhs" label="债券户数" width="120">
         </el-table-column>
         <el-table-column prop="rzcb" label="融资成本" width="120">
         </el-table-column>
-        <el-table-column prop="ztzsyl" label="再投资收益率" width="120">
+        <!-- <el-table-column prop="ztzsyl" label="再投资收益率" width="120">
         </el-table-column>
         <el-table-column prop="zrr" label="责任人" width="120">
         </el-table-column>
         <el-table-column prop="gxsj" label="更新时间" width="120">
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
 
       <pagination :tablePagination="tablePagination"></pagination>
     </div>
+    <!--  模板下载弹窗 -->
+    <template-download
+      ref="assetDialog"
+      :titleName="titleName"
+      :bannerName="bannerName"
+    ></template-download>
+    <!-- 批量下载弹窗 -->
+    <bulk-download ref="bulkDialog"></bulk-download>
+    <!-- 资产建账弹窗 -->
+    <assetAccounting  ref="assetAccounting"></assetAccounting>
   </router-type>
 </template>
 
 <script>
-import headerBox from "../components-demo/components/header";
-import pagination from "../components-demo/components/pagination";
+import headerBox from "./components/header";
+import pagination from "./components/pagination";
+// 模板下载弹窗 0r 批量上传
+import templateDownload from "./components/templateDownload";
+// 批量下载弹窗
+import bulkDownload from "./components/bulkDownload";
 
+import { packagesList } from "@/api/projectManagement/zcbgl";
+// 资产建账弹窗
+import assetAccounting from './components/dialog/assetAccounting'
 export default {
   components: {
     headerBox,
     pagination,
+    templateDownload,
+    bulkDownload,
+    assetAccounting
   },
   data() {
     return {
+      titleName: "",
+      bannerName: "",
       value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
         {
           type: "datePicker",
           prop: "sdas",
-          placeholder: "请选择日期",
+          placeholder: "请选择日期111",
           prefixIcon: "el-icon-date",
           width: "140px",
           onInput: (a) => {
@@ -128,7 +166,7 @@ export default {
       ],
       tableData: [
         {
-          id: 1,
+          packageId: 1,
           type: null,
           zcbbh: "b201910101",
           zcbmc: "资产包管理一号",
@@ -346,31 +384,66 @@ export default {
         asd: "",
       },
       rightBut: [
+        // {
+        //   type: "1",
+        //   text: "批量上传",
+        //   icon: "el-icon-upload2",
+        // },
+        // {
+        //   type: "2",
+        //   text: "批量下载",
+        //   icon: "el-icon-c-scale-to-original",
+        // },
+        // {
+        //   type: "3",
+        //   text: "模板下载",
+        //   icon: "el-icon-tickets",
+        // },
         {
-          type: "2",
+          type: "4",
           text: "重新打包",
-          icon: "el-icon-tickets",
+          icon: "el-icon-document-delete",
         },
         {
-          type: "2",
+          type: "5",
           text: "批量下载",
-          icon: "el-icon-c-scale-to-original",
+          icon: "el-icon-folder-add",
+          color: "#2B57FF",
         },
         {
-          type: "1",
+          type: "6",
           text: "资产建账",
-          icon: "el-icon-upload2",
+          icon: "el-icon-star-off",
+          color: "#E96722",
+          vertical: true,
         },
       ],
 
       multipleSelection: [],
     };
   },
-  mounted() {},
+  mounted() {
+    console.log(22);
+    // this.packagesList();
+  },
+
   methods: {
+    packagesList() {
+      // 资产包列表获取
+      packagesList().then((res) => {
+        if (res.code === 0) {
+          console.log(res);
+        }
+      });
+    },
+    routerJump() {
+      // 点击跳转资产管理详情页面
+      // /beforeInvestment/index/essential/:id/:miao
+      this.$router.push(`/asset-accounting/markdown`);
+    },
     headerRightClick(key) {},
-    toInformation(id) {
-      this.$router.push(`/beforeInvestment/markdown/essential/${id}`);
+    toInformation(id, key) {
+      this.$router.push(`/asset-accounting/index/essential/${id}/${key}`);
     },
     toggleSelection(rows) {
       if (rows) {
@@ -384,6 +457,23 @@ export default {
     handleSelectionChange(val) {
       console.log(val);
       this.multipleSelection = val;
+    },
+    emitChoosse(val) {
+      console.log("val", val);
+      if(val === "6"){
+        this.$refs.assetAccounting.dialogVisible = true
+      }
+      // if (val === "3") {
+      //   this.titleName = "模板下载";
+      //   this.bannerName = "估值底稿模板";
+      //   this.$refs.assetDialog.dialogVisible = true;
+      // } else if (val === "2") {
+      //   this.$refs.bulkDialog.dialogVisible = true;
+      // } else if (val === "1") {
+      //   this.titleName = "批量上传";
+      //   this.bannerName = "估值底稿上传";
+      //   this.$refs.assetDialog.dialogVisible = true;
+      // }
     },
   },
 };
