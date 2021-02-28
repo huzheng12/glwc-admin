@@ -26,16 +26,16 @@ color: #2B57FF;margin-left:3px;cursor: pointer;" @click="toAllocation" >收摊�
     <el-button size="small" @click="dialogVisible = false">取消返回</el-button>
     <el-button size="small" type="primary" @click="dialogVisible = false">确认建账</el-button>
   </span>
-
-  <allocation ref="allocation"/>
+<!-- 
+  <allocation ref="allocation"/> -->
 </el-dialog>
 </template>
 
 <script>
 // 基本信息组件
 import basicPage from "./basicPage";
-// 收摊成本分摊
-import allocation from './allocationDialog'
+// // 收摊成本分摊
+// import allocation from './allocationDialog'
 export default {
     data(){
         return{
@@ -43,12 +43,11 @@ export default {
         }
     },
     components:{
-      basicPage,
-      allocation
-    },
+      basicPage    },
     methods:{
       toAllocation(){
-        this.$refs.allocation.dialogVisible = true
+        this.$emit('toShowAccounting')
+        // this.$refs.allocation.dialogVisible = true
       }
       //    handleClose(done) {
       //   this.$confirm('确认关闭？')

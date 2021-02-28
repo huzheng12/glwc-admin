@@ -16,20 +16,21 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
+        <!-- <el-table-column fixed prop="zcbbh" label="资产包编号" width="120">
           <template slot-scope="scope">
             <i class="el-icon-star-off"></i>
             &nbsp;&nbsp;{{ scope.row.zcbbh }}
           </template>
+        </el-table-column> -->
+        <el-table-column fixed prop="name" label="资产包名称" width="120">
         </el-table-column>
-        <el-table-column fixed prop="zcbmc" label="资产包名称" width="120">
+          <el-table-column fixed prop="assetType" label="资产性质" width="120">
         </el-table-column>
         <el-table-column fixed label="操作" width="120">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
-                {{ scope.row.value
-                }}<i class="el-icon-arrow-down el-icon--right"></i>
+               编辑<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
@@ -51,42 +52,35 @@
             </el-dropdown>
           </template>
         </el-table-column>
-        <el-table-column fixed label="文档" width="120">
+        <el-table-column prop="beneficiaryName" label="收益权主体" width="120">
           <template slot-scope="scope">
-            <el-link type="primary" @click="routerJump(scope.row.packageId)">{{
-              scope.row.wd
-            }}</el-link>
+            <span class="span_bottom">{{ scope.row.beneficiaryName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="持有主体" width="120">
+           <el-table-column prop="transferor" label="出让方" width="120">
           <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.cyzt }}</span>
+            <span class="span_bottom">{{ scope.row.transferor }}</span>
+          </template>
+           </el-table-column>
+        <el-table-column prop="transferorAbbr" label="出让方简称" width="120">
+          <template slot-scope="scope">
+            <span class="span_bottom">{{ scope.row.transferorAbbr }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="syqzt" label="收益权主体" width="120">
-          <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.syqzt }}</span>
-          </template>
+        <el-table-column prop="city" label="城市" width="120"> </el-table-column>
+        <el-table-column prop="totalBalance" sortable label="债权总额" width="140">
         </el-table-column>
-        <el-table-column prop="crfjc" label="出让方简称" width="120">
-          <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.crfjc }}</span>
-          </template>
+        <el-table-column prop="mostLikelyValuation" sortable label="估值_最可能" width="140">
         </el-table-column>
-        <el-table-column prop="cs" label="城市" width="120"> </el-table-column>
-        <el-table-column prop="zqze" sortable label="债权总额" width="140">
+        <el-table-column prop="creditorNum" label="债券户数" width="120">
         </el-table-column>
-        <el-table-column prop="gzzkn" sortable label="估值_最可能" width="140">
+        <el-table-column prop="financingCost" label="融资成本" width="120">
         </el-table-column>
-        <el-table-column prop="zqhs" label="债券户数" width="120">
+        <el-table-column prop="reinvestmentRate" label="再投资收益率" width="120">
         </el-table-column>
-        <el-table-column prop="rzcb" label="融资成本" width="120">
+        <el-table-column prop="responsible" label="责任人" width="120">
         </el-table-column>
-        <el-table-column prop="ztzsyl" label="再投资收益率" width="120">
-        </el-table-column>
-        <el-table-column prop="zrr" label="责任人" width="120">
-        </el-table-column>
-        <el-table-column prop="gxsj" label="更新时间" width="120">
+        <el-table-column prop="updatedAt" label="更新时间" width="120">
         </el-table-column>
       </el-table>
 
@@ -100,6 +94,18 @@
     ></template-download>
     <!-- 批量下载弹窗 -->
     <bulk-download ref="bulkDialog"></bulk-download>
+    <!--新增资产包 -->
+     <el-dialog title="新建资产包" :visible.sync="adddialogVisible" width="30%">
+      <el-form label-position="right" label-width="120px">
+        <el-form-item :required="true" label="资产包名称">
+          <el-input v-model="name"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="adddialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="newProjects">确 定</el-button>
+      </span>
+    </el-dialog>
   </router-type>
 </template>
 
@@ -112,7 +118,7 @@ import templateDownload from "./components/templateDownload";
 import bulkDownload from "./components/bulkDownload";
 
 import { packagesList } from "@/api/projectManagement/zcbgl";
-
+import { projectsList,newAssetProjects } from "@/api/assetPackage/index";
 export default {
   components: {
     headerBox,
@@ -122,40 +128,45 @@ export default {
   },
   data() {
     return {
+         name: "",
       titleName: "",
       bannerName: "",
       value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
+      adddialogVisible: false,
       inputData: [
-        {
-          type: "datePicker",
-          prop: "sdas",
-          placeholder: "请选择日期",
-          prefixIcon: "el-icon-date",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
+        // {
+        //   type: "datePicker",
+        //   prop: "sdas",
+        //   placeholder: "请选择日期",
+        //   prefixIcon: "el-icon-date",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
+        // {
+        //   type: "Input",
+        //   prop: "input",
+        //   placeholder: "请输入地点",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
         {
           type: "Input",
-          prop: "input",
-          placeholder: "请输入地点",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
-        {
-          type: "Input",
-          prop: "asd",
+          prop: "global",
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
-            console.log(a);
+              this.projectsList();
           },
         },
       ],
+      searchData: {
+        global: "",
+      },
       tableData: [
         {
           packageId: 1,
@@ -199,182 +210,13 @@ export default {
             },
           ],
           value: "编辑",
-        },
-        {
-          id: 2,
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "北京",
-          zqze: "1180",
-          gzzkn: "59736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "6395811",
-          gzzkn: "89736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "99736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-        {
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "149736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
+        }
       ],
-      searchData: {
-        input: "",
-        sdas: "",
-        asd: "",
-      },
+      // searchData: {
+      //   input: "",
+      //   sdas: "",
+      //   asd: "",
+      // },
       rightBut: [
         {
           type: "1",
@@ -398,7 +240,7 @@ export default {
         },
         {
           type: "5",
-          text: "新建项目",
+          text: "新建资产包",
           icon: "el-icon-folder-add",
           color: "#2B57FF",
         },
@@ -417,9 +259,91 @@ export default {
   mounted() {
     console.log(22);
     // this.packagesList();
+    // 获取资产包管理列表
+    this.projectsList()
   },
 
   methods: {
+    // 查询资产包列表
+      projectsList() {
+      function encode(str) {
+        // 对字符串进行编码
+        var encode = encodeURI(str);
+        // 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+      }
+
+      function toQueryPair(key, value) {
+        if (typeof value == "undefined") {
+          return `&${key}=`;
+        }
+        return `&${key}=${value}`;
+      }
+
+      function objToParam(param) {
+        if (Object.prototype.toString.call(param) !== "[object Object]") {
+          return "";
+        }
+        let queryParam = "";
+        for (let key in param) {
+          if (param.hasOwnProperty(key)) {
+            let value = param[key];
+            queryParam += toQueryPair(key, value);
+          }
+        }
+
+        queryParam = queryParam.substr(1);
+        return queryParam;
+      }
+
+      console.log('packageId',this.$route.params.packageId)
+      if (this.$route.params.packageId) {
+        this.searchData.packageId = this.$route.params.packageId;
+      }
+      for (const key in this.searchData) {
+        if (!this.searchData[key]) {
+          delete this.searchData[key];
+        }
+      }
+      console.log('query:',encode(objToParam(this.searchData)))
+      projectsList({
+        query: encode(objToParam(this.searchData)),
+      }).then((res) => {
+        if (res.code === 0) {
+          console.log('res.data',res.data)
+          this.tableData = res.data;
+        }
+      });
+    },
+    // 确定新增
+        newProjects() {
+      if (!this.name) {
+        return this.$message({
+          message: "请输入资产包名称",
+          type: "warning",
+        });
+      }
+      newAssetProjects({ name: this.name }).then((res) => {
+        if (res.code === 0) {
+          this.projectsList();
+          this.adddialogVisible = false;
+          this.name = "";
+          this.$message({
+            message: "资产包新建成功",
+            type: "success",
+          });
+        }
+      });
+    },
+    
+    //    projectsList(){
+    //   //  console.log('11',this.searchDataParams.query,this.searchDataParams.sort)
+    //   // listProjectsList(this.searchDataParams.query,this.searchDataParams.sort).then((res)=>{
+    //   //   console.log(res.data)
+    //   // })
+    
+    // },
     packagesList() {
       // 资产包列表获取
       packagesList().then((res) => {
@@ -450,6 +374,13 @@ export default {
       this.multipleSelection = val;
     },
     emitChoosse(val) {
+      console.log('val',val)
+       // header  but  点击事件
+      // if (key === "newProjects") {
+      //   // 新建项目
+      //   this.dialogVisible = true;
+      //   // this.newProjects();
+      // }
       console.log("val", val);
       if (val === "3") {
         this.titleName = "模板下载";
@@ -461,6 +392,8 @@ export default {
         this.titleName = "批量上传";
         this.bannerName = "估值底稿上传";
         this.$refs.assetDialog.dialogVisible = true;
+      }else if (val === '5'){
+        this.adddialogVisible = true;
       }
     },
   },
