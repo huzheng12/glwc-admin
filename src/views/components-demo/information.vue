@@ -32,7 +32,7 @@ import financingPlan from "./components/financingPlan";
 import fileManagement from "./components/fileManagement";
 //变更日志
 import changeLog from "./components/changeLog";
-
+import { projectsprojectId } from "@/api/assetPackage/index";
 
 export default {
   props: {},
@@ -48,7 +48,9 @@ export default {
   },
   mounted() {
     console.log(this.$route.params.id);
+    this.getDetail()
   },
+ 
   data() {
     return {
       point: [
@@ -60,7 +62,17 @@ export default {
         // { text: "工作日志", component: "workLog" },
         { text: "变更日志", component: "changeLog" },
       ],
+      data:[]
     };
+  },
+   methods:{
+     getDetail() {
+      projectsprojectId(this.$route.params.id).then((res) => {
+        this.data = res.data;
+        console.log('详情数据',this.data)
+
+      });
+    }
   },
 };
 </script>

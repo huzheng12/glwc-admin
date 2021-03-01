@@ -101,7 +101,7 @@ export default {
     flex-direction: row-reverse;
     .li {
       font-size: 14px;
-      color: #2b57ff;
+      // color: #2b57ff;
 
       cursor: pointer;
       .vertical {

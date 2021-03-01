@@ -5,77 +5,39 @@
     :visible.sync="dialogVisible"
     width="60%"
   >
-    <el-form :inline="true" label-width="140px" :model="formInline" class="valuationForm">
-      <el-row>
-        <el-col :span="8">
-          <el-form-item label="本金金额：">
-            <el-input v-model="formInline.bjye" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="利息余额：">
-            <el-input v-model="formInline.lxye" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
 
-        <el-col :span="8" style="margin-top: 12px"
-          ><i class="el-icon-tickets" style="margin-right: 6px"></i
-          >利息计算</el-col
-        >
-      </el-row>
+  <div class="titleDiv">
+   <div class="left">资产包竞得价格：398203.00</div>
+   <div class="right"><i class="el-icon-edit"></i>编辑</div>
+  </div>
 
-      <el-row>
-        <el-form-item label="SAE报告类型：">
-          <!-- <el-input v-model="formInline.bjye" readonly="readonly" placeholder="由本金金额、利息余额自动加总显示"></el-input> -->
-          <label
-            class="labelFont"
-            style="font-size: 14px; font-weight: 400; color: #666666"
-            >由本金金额、利息余额自动加总显示</label
-          >
-        </el-form-item>
-      </el-row>
-
-      <el-row>
-        <el-col :span="8">
-          <el-form-item label="债券估值-最低：">
-            <el-input v-model="formInline.bjye" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="债券估值-最可能：">
-            <el-input v-model="formInline.lxye" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="8" style="margin-top: 12px"
-          ><i class="el-icon-tickets" style="margin-right: 6px"></i
-          >估值模型</el-col
-        >
-      </el-row>
-
-      <el-row>
-        <el-col :span="8">
-          <el-form-item label="债券估值-最高：">
-            <el-input v-model="formInline.bjye" placeholder="请输入"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="估值日期：">
-            <!-- <el-input v-model="formInline.lxye" readonly="readonly" placeholder="自动显示当日日期"></el-input> -->
-            <label
-              class="labelFont"
-              style="font-size: 14px; font-weight: 400; color: #666666"
-              >自动显示当日日期</label
-            >
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
-      <span slot="footer" class="dialog-footer">
-    <el-button size="small" @click="dialogVisible = false">取 消</el-button>
-    <el-button size="small" type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-  </el-dialog>
+    <el-table
+      :data="tableData"
+      style="width: 100%;margin-top:16px;">
+      <el-table-column
+        prop="date"
+        label="项目"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="项目名称"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="债券总额">
+      </el-table-column>
+       <el-table-column
+        prop="address"
+        label="债券估值_最可能">
+      </el-table-column>
+         <el-table-column
+        prop="address"
+        label="成本分摊">
+      </el-table-column>
+    </el-table>
+ </el-dialog>
 </template>
 
 <style lang="scss" >
@@ -103,6 +65,15 @@
       color: #666666;
     }
   }
+
+  .titleDiv{
+    display: flex;
+    justify-content: space-between;
+    color: #2B57FF;  
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+  }
 }
 </style>
 
@@ -111,11 +82,28 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      titleName: "吴思远资产包",
-      formInline: {
-        bjye: "",
-        lxye: 204404.23,
-      },
+      titleName: "收摊成本分摊",
+       tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄'
+          }]
+      // formInline: {
+      //   bjye: "",
+      //   lxye: 204404.23,
+      // },
     };
   },
   props: {},

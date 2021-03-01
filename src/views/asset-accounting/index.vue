@@ -105,7 +105,9 @@
     <!-- 批量下载弹窗 -->
     <bulk-download ref="bulkDialog"></bulk-download>
     <!-- 资产建账弹窗 -->
-    <assetAccounting ref="assetAccounting"></assetAccounting>
+    <assetAccounting  ref="assetAccounting" @toShowAccounting="toShowAccounting"></assetAccounting>
+    <!-- 收摊成本分摊 -->
+    <allocation ref="allocationDialog" />
   </router-type>
 </template>
 
@@ -119,7 +121,10 @@ import bulkDownload from "./components/bulkDownload";
 
 import { packagesList } from "@/api/projectManagement/zcbgl";
 // 资产建账弹窗
-import assetAccounting from "./components/dialog/assetAccounting";
+import assetAccounting from './components/dialog/assetAccounting'
+
+// // 收摊成本分摊
+import allocation from './components/dialog/allocationDialog'
 export default {
   components: {
     headerBox,
@@ -127,9 +132,11 @@ export default {
     templateDownload,
     bulkDownload,
     assetAccounting,
+    allocation
   },
   data() {
     return {
+      name: "",
       titleName: "",
       bannerName: "",
       value1: null,
@@ -378,6 +385,7 @@ export default {
           value: "编辑",
         },
       ],
+      dialogallocationVisible:false,
       searchData: {
         input: "",
         sdas: "",
@@ -428,6 +436,9 @@ export default {
   },
 
   methods: {
+    toShowAccounting(){
+      this.$refs.allocationDialog.dialogVisible = true
+    },
     packagesList() {
       // 资产包列表获取
       packagesList().then((res) => {
