@@ -26,8 +26,8 @@
         </el-table-column>
         <!-- 投后管理-资产建账-详情点击跳转 -->
         <el-table-column fixed label="详情" width="120">
-          <template >
-            <el-link type="primary" @click="toInformation(1,0)">详情</el-link>
+          <template>
+            <el-link type="primary" @click="toInformation(1, 0)">详情</el-link>
             <!-- <el-dropdown>
               <span class="el-dropdown-link">
                 {{ scope.row.value
@@ -80,7 +80,7 @@
         </el-table-column>
         <el-table-column prop="gzzkn" sortable label="估值_最可能" width="140">
         </el-table-column>
-         <el-table-column prop="zqhs" label="竞得价格" width="120">
+        <el-table-column prop="zqhs" label="竞得价格" width="120">
         </el-table-column>
         <el-table-column prop="zqhs" label="债券户数" width="120">
         </el-table-column>
@@ -105,7 +105,7 @@
     <!-- 批量下载弹窗 -->
     <bulk-download ref="bulkDialog"></bulk-download>
     <!-- 资产建账弹窗 -->
-    <assetAccounting  ref="assetAccounting"></assetAccounting>
+    <assetAccounting ref="assetAccounting"></assetAccounting>
   </router-type>
 </template>
 
@@ -119,14 +119,14 @@ import bulkDownload from "./components/bulkDownload";
 
 import { packagesList } from "@/api/projectManagement/zcbgl";
 // 资产建账弹窗
-import assetAccounting from './components/dialog/assetAccounting'
+import assetAccounting from "./components/dialog/assetAccounting";
 export default {
   components: {
     headerBox,
     pagination,
     templateDownload,
     bulkDownload,
-    assetAccounting
+    assetAccounting,
   },
   data() {
     return {
@@ -135,25 +135,25 @@ export default {
       value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
-        {
-          type: "datePicker",
-          prop: "sdas",
-          placeholder: "请选择日期111",
-          prefixIcon: "el-icon-date",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
-        {
-          type: "Input",
-          prop: "input",
-          placeholder: "请输入地点",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
+        // {
+        //   type: "datePicker",
+        //   prop: "sdas",
+        //   placeholder: "请选择日期111",
+        //   prefixIcon: "el-icon-date",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
+        // {
+        //   type: "Input",
+        //   prop: "input",
+        //   placeholder: "请输入地点",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
         {
           type: "Input",
           prop: "asd",
@@ -460,8 +460,8 @@ export default {
     },
     emitChoosse(val) {
       console.log("val", val);
-      if(val === "6"){
-        this.$refs.assetAccounting.dialogVisible = true
+      if (val === "6") {
+        this.$refs.assetAccounting.dialogVisible = true;
       }
       // if (val === "3") {
       //   this.titleName = "模板下载";

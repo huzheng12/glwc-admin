@@ -56,9 +56,9 @@
         <el-table-column fixed label="文档" width="120">
           <el-link type="primary">明细</el-link>
         </el-table-column>
-        <el-table-column label="所属资产包" width="120" prop="packageId">
+        <el-table-column label="所属资产包" width="120" prop="packageName">
           <template slot-scope="scope">
-            <span class="span_bottom">{{ scope.row.packageId }}</span>
+            <span class="span_bottom">{{ scope.row.packageName }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="debtor" width="120" label="债务人">

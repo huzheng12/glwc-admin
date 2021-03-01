@@ -127,25 +127,25 @@ export default {
       value1: null,
       tablePagination: { current: 1, size: 10, total: 10 },
       inputData: [
-        {
-          type: "datePicker",
-          prop: "sdas",
-          placeholder: "请选择日期",
-          prefixIcon: "el-icon-date",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
-        {
-          type: "Input",
-          prop: "input",
-          placeholder: "请输入地点",
-          width: "140px",
-          onInput: (a) => {
-            console.log(a);
-          },
-        },
+        // {
+        //   type: "datePicker",
+        //   prop: "sdas",
+        //   placeholder: "请选择日期",
+        //   prefixIcon: "el-icon-date",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
+        // {
+        //   type: "Input",
+        //   prop: "input",
+        //   placeholder: "请输入地点",
+        //   width: "140px",
+        //   onInput: (a) => {
+        //     console.log(a);
+        //   },
+        // },
         {
           type: "Input",
           prop: "asd",

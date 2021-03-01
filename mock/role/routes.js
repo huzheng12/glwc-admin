@@ -112,26 +112,7 @@ const asyncRoutes = [
       }
     ]
   },
-  {
-    path: '/usercore',
-    component: 'layout/Layout',
-    redirect: 'index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/usercore/index.vue'),
-        name: 'usercore',
-        meta: { title: '个人主页', affix: true }
-      },
-      {
-        path: "/addRole",
-        name: "AddRole",
-        hidden: true,
-        component: () => import("@/views/index.vue"),
-        meta: { title: "添加角色", icon: "form" },
-      },
-    ]
-  },
+
   {
     path: '/icon',
     component: 'layout/Layout',
