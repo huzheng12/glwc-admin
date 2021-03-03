@@ -24,13 +24,13 @@
         </el-table-column> -->
         <el-table-column fixed prop="name" label="资产包名称" width="120">
         </el-table-column>
-          <el-table-column fixed prop="assetType" label="资产性质" width="120">
+        <el-table-column fixed prop="assetType" label="资产性质" width="120">
         </el-table-column>
         <el-table-column fixed label="操作" width="120">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
-               编辑<i class="el-icon-arrow-down el-icon--right"></i>
+                编辑<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="toInformation(scope.row.id, 0)"
@@ -57,26 +57,41 @@
             <span class="span_bottom">{{ scope.row.beneficiaryName }}</span>
           </template>
         </el-table-column>
-           <el-table-column prop="transferor" label="出让方" width="120">
+        <el-table-column prop="transferor" label="出让方" width="120">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.transferor }}</span>
           </template>
-           </el-table-column>
+        </el-table-column>
         <el-table-column prop="transferorAbbr" label="出让方简称" width="120">
           <template slot-scope="scope">
             <span class="span_bottom">{{ scope.row.transferorAbbr }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="city" label="城市" width="120"> </el-table-column>
-        <el-table-column prop="totalBalance" sortable label="债权总额" width="140">
+        <el-table-column prop="city" label="城市" width="120">
         </el-table-column>
-        <el-table-column prop="mostLikelyValuation" sortable label="估值_最可能" width="140">
+        <el-table-column
+          prop="totalBalance"
+          sortable
+          label="债权总额"
+          width="140"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="mostLikelyValuation"
+          sortable
+          label="估值_最可能"
+          width="140"
+        >
         </el-table-column>
         <el-table-column prop="creditorNum" label="债券户数" width="120">
         </el-table-column>
         <el-table-column prop="financingCost" label="融资成本" width="120">
         </el-table-column>
-        <el-table-column prop="reinvestmentRate" label="再投资收益率" width="120">
+        <el-table-column
+          prop="reinvestmentRate"
+          label="再投资收益率"
+          width="120"
+        >
         </el-table-column>
         <el-table-column prop="responsible" label="责任人" width="120">
         </el-table-column>
@@ -95,7 +110,7 @@
     <!-- 批量下载弹窗 -->
     <bulk-download ref="bulkDialog"></bulk-download>
     <!--新增资产包 -->
-     <el-dialog title="新建资产包" :visible.sync="adddialogVisible" width="30%">
+    <el-dialog title="新建资产包" :visible.sync="adddialogVisible" width="30%">
       <el-form label-position="right" label-width="120px">
         <el-form-item :required="true" label="资产包名称">
           <el-input v-model="name"></el-input>
@@ -118,7 +133,7 @@ import templateDownload from "./components/templateDownload";
 import bulkDownload from "./components/bulkDownload";
 
 import { packagesList } from "@/api/projectManagement/zcbgl";
-import { projectsList,newAssetProjects } from "@/api/assetPackage/index";
+import { projectsList, addProjectsList } from "@/api/assetPackage/index";
 export default {
   components: {
     headerBox,
@@ -128,7 +143,7 @@ export default {
   },
   data() {
     return {
-         name: "",
+      name: "",
       titleName: "",
       bannerName: "",
       value1: null,
@@ -160,7 +175,7 @@ export default {
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
-              this.projectsList();
+            this.projectsList();
           },
         },
       ],
@@ -210,13 +225,9 @@ export default {
             },
           ],
           value: "编辑",
-        }
+        },
       ],
-      // searchData: {
-      //   input: "",
-      //   sdas: "",
-      //   asd: "",
-      // },
+
       rightBut: [
         {
           type: "1",
@@ -260,12 +271,12 @@ export default {
     console.log(22);
     // this.packagesList();
     // 获取资产包管理列表
-    this.projectsList()
+    this.projectsList();
   },
 
   methods: {
     // 查询资产包列表
-      projectsList() {
+    projectsList() {
       function encode(str) {
         // 对字符串进行编码
         var encode = encodeURI(str);
@@ -297,34 +308,37 @@ export default {
         return queryParam;
       }
 
-      console.log('packageId',this.$route.params.packageId)
+      console.log("packageId", this.$route.params.packageId);
       if (this.$route.params.packageId) {
         this.searchData.packageId = this.$route.params.packageId;
       }
+      //   searchData: {
+      //   global: "",
+      // },
       for (const key in this.searchData) {
         if (!this.searchData[key]) {
           delete this.searchData[key];
         }
       }
-      console.log('query:',encode(objToParam(this.searchData)))
+      console.log("query:", encode(objToParam(this.searchData)));
       projectsList({
         query: encode(objToParam(this.searchData)),
       }).then((res) => {
         if (res.code === 0) {
-          console.log('res.data',res.data)
+          console.log("res.data", res.data);
           this.tableData = res.data;
         }
       });
     },
     // 确定新增
-        newProjects() {
+    newProjects() {
       if (!this.name) {
         return this.$message({
           message: "请输入资产包名称",
           type: "warning",
         });
       }
-      newAssetProjects({ name: this.name }).then((res) => {
+      addProjectsList({ name: this.name }).then((res) => {
         if (res.code === 0) {
           this.projectsList();
           this.adddialogVisible = false;
@@ -336,13 +350,13 @@ export default {
         }
       });
     },
-    
+
     //    projectsList(){
     //   //  console.log('11',this.searchDataParams.query,this.searchDataParams.sort)
     //   // listProjectsList(this.searchDataParams.query,this.searchDataParams.sort).then((res)=>{
     //   //   console.log(res.data)
     //   // })
-    
+
     // },
     packagesList() {
       // 资产包列表获取
@@ -374,8 +388,8 @@ export default {
       this.multipleSelection = val;
     },
     emitChoosse(val) {
-      console.log('val',val)
-       // header  but  点击事件
+      console.log("val", val);
+      // header  but  点击事件
       // if (key === "newProjects") {
       //   // 新建项目
       //   this.dialogVisible = true;
@@ -392,7 +406,7 @@ export default {
         this.titleName = "批量上传";
         this.bannerName = "估值底稿上传";
         this.$refs.assetDialog.dialogVisible = true;
-      }else if (val === '5'){
+      } else if (val === "5") {
         this.adddialogVisible = true;
       }
     },
