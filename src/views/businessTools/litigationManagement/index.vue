@@ -15,7 +15,7 @@
       @changeSelect="changeSelect"
     >
         <template slot="btns">
-            <span class="btn-detail">详情</span>
+            <span class="btn-detail" @click="toDetail">详情</span>
         </template>
     </TableList>
   </div>
@@ -25,6 +25,9 @@
 import headerBox from "@/views/asset-accounting/components/header";
 import TableList from "@/layout/components/Table";
 import TableHeader from "@/layout/components/Table/header";
+import {
+  getList,
+} from "@/api/litigationManagement/index";
 export default {
   components: { TableList, TableHeader,headerBox },
   data() {
@@ -132,25 +135,6 @@ export default {
         },
       ],
       inputData: [
-        // {
-        //   type: "datePicker",
-        //   prop: "sdas",
-        //   placeholder: "请选择日期111",
-        //   prefixIcon: "el-icon-date",
-        //   width: "140px",
-        //   onInput: (a) => {
-        //     console.log(a);
-        //   },
-        // },
-        // {
-        //   type: "Input",
-        //   prop: "input",
-        //   placeholder: "请输入地点",
-        //   width: "140px",
-        //   onInput: (a) => {
-        //     console.log(a);
-        //   },
-        // },
         {
           type: "Input",
           prop: "asd",
@@ -162,6 +146,9 @@ export default {
         },
       ],
     };
+  },
+  created() {
+      this.getList()
   },
   methods: {
     onSearch(val) {
@@ -180,7 +167,12 @@ export default {
       this.multipleSelect = val;
     },
     getList(){
-
+        getList().then(res => {
+            this.data = res.data
+            this.page.size = this.data.length
+            this.page.total = this.data.length % 10
+            this.page.current = 1
+        })
     },
     emitChoosse(val) {
       console.log("val", val);
@@ -199,6 +191,9 @@ export default {
       //   this.$refs.assetDialog.dialogVisible = true;
       // }
     },
+    toDetail(){
+        this.$router.push(`/businessTools/litigationManagement/detail`);
+    }
   },
 };
 </script>

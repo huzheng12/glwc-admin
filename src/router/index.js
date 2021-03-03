@@ -77,6 +77,7 @@ router.beforeEach((to, from, next) => {
     || to.name === "projectGl"
     || to.name === "collateral"
     || to.name === "lawsuits"
+    || to.name === "litigationDetail"
     || to.name === "daily"
     || to.name == 'otherbaoz') {
     store.dispatch("app/routerType", false);
