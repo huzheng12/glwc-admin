@@ -11,6 +11,7 @@ import enLang from 'element-ui/lib/locale/lang/en'// 如果使用中文语言包
 import '@/styles/index.scss' // global css
 
 import App from './App'
+import moment from 'moment'
 import store from './store'
 import router from './router'
 
@@ -52,9 +53,13 @@ Vue.use(Element, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-Vue.filter('filterAdd1', function (value) {
+
+Vue.filter('t', function (value) {
   if (value) {
-    return value;//默认第一个参数就是默认要过滤的那个值
+    if (value === 'new') {
+      return moment().format('YYYY-MM-DD');
+    }
+    return moment(value).format('YYYY-MM-DD');//默认第一个参数就是默认要过滤的那个值
   }
 
 })

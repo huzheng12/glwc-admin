@@ -11,10 +11,8 @@
     <el-card class="box-card card2">
       <div slot="header" class="clearfix">
         <span class="titles">另一个标题</span>
-        <!-- <el-button style="float: right; padding: 3px 0" type="text"
-          >操作按钮</el-button
-        > -->
-        <i
+
+        <!-- <i
           class="el-icon-edit"
           type="primary"
           style="
@@ -23,11 +21,11 @@
             padding: 3px 0;
             color: #2b57ff;
             font-size: 12px;
-            cursor:pointer;
+            cursor: pointer;
           "
           @click="valuationEditor"
           >编辑</i
-        >
+        > -->
       </div>
       <div class="secondChart">
         <div id="myChartGz"></div>
@@ -37,27 +35,47 @@
       </div>
     </el-card>
 
-    <valuation-dialog ref="valuationDialog"></valuation-dialog>
+    <valuation-dialog
+      :projectData="projectData"
+      ref="valuationDialog"
+      @unpdata="getDetail"
+      :data="data"
+    ></valuation-dialog>
   </div>
 </template>
 
 <script>
-import valuationDialog from './dialog/valuationDialog'
+import valuationDialog from "./dialog/valuationDialog";
 export default {
   data() {
-    return {};
+    return {
+      data: {},
+    };
   },
-  components:{
-    valuationDialog
+  props: {
+    projectData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
+  },
+  components: {
+    valuationDialog,
+  },
+  mounted() {},
+  watch: {
+    projectData() {
+      this.drawLine();
+      this.drawSencond();
+    },
+  },
 
-  },
-  mounted() {
-    this.drawLine();
-    this.drawSencond();
-  },
+  created() {},
   methods: {
-    valuationEditor(){
+    valuationEditor() {
       this.$refs.valuationDialog.dialogVisible = true;
+      this.data = JSON.parse(JSON.stringify(this.projectData));
     },
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
@@ -125,7 +143,7 @@ export default {
             left: "center",
             top: "35%",
             style: {
-              text: "3493049.34",
+              text: this.projectData.totalBalance,
               textAlign: "center",
               fill: "#333333",
               fontSize: 20,
@@ -172,16 +190,22 @@ export default {
             },
             data: [
               {
-                value: 232311.3,
-                name: "利息余额 232311.3",
+                value: this.projectData.interestBalance,
+                name: `利息余额 ${this.projectData.interestBalance}`,
               },
-              { value: 4334985.39, name: "本金金额 4334985.39" },
+              {
+                value: this.projectData.principalBalance,
+                name: `本金金额 ${this.projectData.principalBalance}`,
+              },
             ],
           },
         ],
       });
       // 绘制图表
       myChart.setOption(option);
+    },
+    getDetail() {
+      this.$emit("unpdata");
     },
     drawSencond() {
       // 基于准备好的dom，初始化echarts实例
@@ -222,7 +246,7 @@ export default {
               align: "left",
             },
           },
-          data: ["最高估值","最可能","最低估值"],
+          data: ["最高估值", "最可能估值", "最低估值"],
           axisLine: {
             //y轴
             show: false,
@@ -248,7 +272,7 @@ export default {
 
         series: [
           {
-            name: "2012年",
+            name: "2021年",
             type: "bar",
             barWidth: "20",
             showBackground: true,
@@ -264,7 +288,11 @@ export default {
                 },
               },
             },
-            data: [ 31000,23438,19325],
+            data: [
+              this.projectData.maxValuation,
+              this.projectData.mostLikelyValuation,
+              this.projectData.minValuation,
+            ],
           },
         ],
       });

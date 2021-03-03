@@ -20,7 +20,7 @@
 
         <div class="right">
           <div class="title">所属资产包</div>
-          <div class="content">{{ projectData.packageId }}</div>
+          <div class="content">{{ projectData.packageName }}</div>
         </div>
       </div>
       <div class="oneDiv">
