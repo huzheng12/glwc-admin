@@ -12,7 +12,7 @@ import afterInvestmentRouter from './modules/afterInvestment'
 import businessTools from './modules/businessTools'
 import intelligentAnalysis from './modules/intelligentAnalysis'
 import myHome from './modules/myHome'
-import businessRouter from './modules/instrument'
+
 export const constantRoutes = [
   {
     path: '/login',
@@ -54,7 +54,7 @@ export const asyncRoutes = [
   businessTools,
   intelligentAnalysis,
   myHome,
-  businessRouter,
+
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
