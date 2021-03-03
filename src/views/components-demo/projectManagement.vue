@@ -133,7 +133,11 @@ import templateDownload from "./components/templateDownload";
 import bulkDownload from "./components/bulkDownload";
 
 import { packagesList } from "@/api/projectManagement/zcbgl";
-import { projectsList, addProjectsList } from "@/api/assetPackage/index";
+import {
+  projectsList,
+  addProjectsList,
+  deletePackages,
+} from "@/api/assetPackage/index";
 export default {
   components: {
     headerBox,
@@ -182,51 +186,7 @@ export default {
       searchData: {
         global: "",
       },
-      tableData: [
-        {
-          packageId: 1,
-          type: null,
-          zcbbh: "b201910101",
-          zcbmc: "资产包管理一号",
-          cz: "编辑",
-          wd: "明细",
-          mx: "明细",
-          cyzt: "c1",
-          syqzt: "L1",
-          crfjc: "东方上海",
-          cs: "上海",
-          zqze: "639580",
-          gzzkn: "49736.78",
-          zqhs: "5",
-          rzcb: "6.00%",
-          ztzsyl: "35.00%",
-          zrr: "张三",
-          gxsj: "2019/01/10",
-          options: [
-            {
-              value: "选项1",
-              label: "黄金糕",
-            },
-            {
-              value: "选项2",
-              label: "双皮奶",
-            },
-            {
-              value: "选项3",
-              label: "蚵仔煎",
-            },
-            {
-              value: "选项4",
-              label: "龙须面",
-            },
-            {
-              value: "选项5",
-              label: "北京烤鸭",
-            },
-          ],
-          value: "编辑",
-        },
-      ],
+      tableData: [],
 
       rightBut: [
         {
@@ -312,9 +272,7 @@ export default {
       if (this.$route.params.packageId) {
         this.searchData.packageId = this.$route.params.packageId;
       }
-      //   searchData: {
-      //   global: "",
-      // },
+
       for (const key in this.searchData) {
         if (!this.searchData[key]) {
           delete this.searchData[key];
@@ -351,13 +309,6 @@ export default {
       });
     },
 
-    //    projectsList(){
-    //   //  console.log('11',this.searchDataParams.query,this.searchDataParams.sort)
-    //   // listProjectsList(this.searchDataParams.query,this.searchDataParams.sort).then((res)=>{
-    //   //   console.log(res.data)
-    //   // })
-
-    // },
     packagesList() {
       // 资产包列表获取
       packagesList().then((res) => {
@@ -384,18 +335,9 @@ export default {
       }
     },
     handleSelectionChange(val) {
-      console.log(val);
       this.multipleSelection = val;
     },
     emitChoosse(val) {
-      console.log("val", val);
-      // header  but  点击事件
-      // if (key === "newProjects") {
-      //   // 新建项目
-      //   this.dialogVisible = true;
-      //   // this.newProjects();
-      // }
-      console.log("val", val);
       if (val === "3") {
         this.titleName = "模板下载";
         this.bannerName = "估值底稿模板";
@@ -408,6 +350,39 @@ export default {
         this.$refs.assetDialog.dialogVisible = true;
       } else if (val === "5") {
         this.adddialogVisible = true;
+      } else if (val === "4") {
+        // 资产包删除
+        this.delPackages();
+      }
+    },
+    delPackages() {
+      // 删除项目  目前支持单条删除
+      if (this.multipleSelection.length > 1) {
+        this.$message({
+          message: "只能删除一条",
+          type: "warning",
+        });
+      } else if (this.multipleSelection.length === 0) {
+        this.$message({
+          message: "请选择数据",
+          type: "warning",
+        });
+      } else {
+        this.$confirm("是否删除该数据？", "确认信息", {
+          distinguishCancelAndClose: true,
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+        }).then(() => {
+          deletePackages(this.multipleSelection[0].id).then((res) => {
+            if (res.code === 0) {
+              this.projectsList();
+              this.$message({
+                message: "资产包删除成功",
+                type: "success",
+              });
+            }
+          });
+        });
       }
     },
   },

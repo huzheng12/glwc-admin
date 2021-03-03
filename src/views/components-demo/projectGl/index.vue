@@ -77,8 +77,8 @@
         </el-table-column>
         <el-table-column prop="gzzkn" label="债券总额" width="120">
         </el-table-column>
-        <el-table-column prop="guarantees" label="保证方式" width="320">
-          <template slot-scope="scope">
+        <el-table-column prop="guarantees" label="保证方式">
+          <!-- <template slot-scope="scope">
             <div
               class="guarantees"
               v-for="(item, index) in scope.row.guarantees"
@@ -92,7 +92,7 @@
                 direction="vertical"
               ></el-divider>
             </div>
-          </template>
+          </template> -->
         </el-table-column>
       </el-table>
 
@@ -223,18 +223,30 @@ export default {
     delProjects() {
       // 删除项目  目前支持单条删除
       if (this.multipleSelection.length > 1) {
-        console.log("只能删除一条");
+        this.$message({
+          message: "只能删除一条",
+          type: "warning",
+        });
       } else if (this.multipleSelection.length === 0) {
-        console.log("请选择数据");
+        this.$message({
+          message: "请选择数据",
+          type: "warning",
+        });
       } else {
-        delProjects(this.multipleSelection[0].id).then((res) => {
-          if (res.code === 0) {
-            this.projectsList();
-            this.$message({
-              message: "项目删除成功",
-              type: "success",
-            });
-          }
+        this.$confirm("是否删除该数据？", "确认信息", {
+          distinguishCancelAndClose: true,
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+        }).then(() => {
+          delProjects(this.multipleSelection[0].id).then((res) => {
+            if (res.code === 0) {
+              this.projectsList();
+              this.$message({
+                message: "项目删除成功",
+                type: "success",
+              });
+            }
+          });
         });
       }
     },
@@ -282,11 +294,11 @@ export default {
         query: encode(objToParam(this.searchData)),
       }).then((res) => {
         if (res.code === 0) {
-          res.data.map((item) => {
-            var arr = item.guarantees.split("|");
-            console.log(arr);
-            item.guarantees = arr;
-          });
+          // res.data.map((item) => {
+          //   var arr = item.guarantees.split("|");
+          //   console.log(arr);
+          //   item.guarantees = arr;
+          // });
           this.tableData = res.data;
         }
       });

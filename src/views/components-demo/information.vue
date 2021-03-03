@@ -9,7 +9,11 @@
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
         </div>
-        <component :is="item.component" />
+        <component
+          :projectData="data"
+          @unpdata="getDetail"
+          :is="item.component"
+        />
       </div>
     </div>
   </e-point>
@@ -44,13 +48,12 @@ export default {
     projectList,
     financingPlan,
     fileManagement,
-    changeLog
+    changeLog,
   },
   mounted() {
-    console.log(this.$route.params.id);
-    this.getDetail()
+    this.getDetail();
   },
- 
+
   data() {
     return {
       point: [
@@ -62,17 +65,15 @@ export default {
         // { text: "工作日志", component: "workLog" },
         { text: "变更日志", component: "changeLog" },
       ],
-      data:[]
+      data: {},
     };
   },
-   methods:{
-     getDetail() {
+  methods: {
+    getDetail() {
       projectsprojectId(this.$route.params.id).then((res) => {
         this.data = res.data;
-        console.log('详情数据',this.data)
-
       });
-    }
+    },
   },
 };
 </script>

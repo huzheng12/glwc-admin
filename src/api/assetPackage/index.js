@@ -29,3 +29,23 @@ export function projectsprojectId(data) {
   })
 
 }
+export function undataPackages(packageId, data) {
+  // 资产包管理==》获取资产包详情
+  //PUT /packages/:packageId
+  return ajax({
+    url: `/api/packages/${packageId}`,
+    method: 'PUT',
+    data
+  })
+
+}
+export function deletePackages(packageId) {
+  // 资产包管理==》删除资产包
+  //DELETE /packages/:packageId
+  return ajax({
+    url: `/api/packages/${packageId}`,
+    method: 'DELETE',
+
+  })
+
+}
