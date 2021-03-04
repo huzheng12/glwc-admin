@@ -5,15 +5,22 @@
         <div
           v-for="(item, index) in tabHeader"
           :key="index"
-          :class="{ tabsHeaderLeft: true, tabsActive: tabsActive === index }"
-          @click="clickActive(index)"
+          :class="{
+            tabsHeaderLeft: true,
+            tabsActive: tabsActive === item.index,
+          }"
+          @click="clickActive(item.index)"
         >
           {{ item.title }}
         </div>
       </div>
       <div class="but-icon">
         <div class="titleName">
-          <div class="titleName-li" @click="addGuarantee">
+          <div
+            class="titleName-li"
+            @click="addGuarantee"
+            v-if="tabsActive !== 0"
+          >
             <i class="el-icon-edit-outline elRight"></i>添加
           </div>
           <div class="titleName-li" @click="undataGuarantee">
@@ -72,22 +79,27 @@ export default {
   components: { formSubmit },
   data() {
     return {
-      tabsActive: 0,
+      tabsActive: 1,
       tabHeader: [
-        {
-          title: "全部",
-        },
+        // {
+        //   title: "全部",
+        //   index: 0,
+        // },
         {
           title: "保证人",
+          index: 1,
         },
         {
           title: "抵押物",
+          index: 2,
         },
         {
           title: "质押物",
+          index: 3,
         },
         {
           title: "其他保证",
+          index: 4,
         },
       ],
       tableData: [],

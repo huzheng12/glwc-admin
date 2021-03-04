@@ -53,10 +53,17 @@ export default {
       name: 'litigationManagement',
       meta: { title: '诉讼管理', icon: 'dashboard' },
       children: [
-
+        {
+          path: "/businessTools/litigationManagement/detail",
+          name: "litigationDetail",
+          hidden: true,
+          component: () => import("@/views/businessTools/litigationManagement/detail.vue"),
+          meta: {
+            title: "基本信息",
+            icon: 'dashboard'
+          },
+        },
       ]
-
-
     },
     {
       path:'fileManagement',

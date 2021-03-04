@@ -5,7 +5,6 @@
       ref="ruleForm"
       label-position="right"
       :label-width="labelWidth"
-   
     >
       <el-row :gutter="40" v-for="(item, index) in rowData" :key="index">
         <el-col :span="12">
@@ -26,7 +25,7 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" v-if="item.right">
           <el-form-item :label="item.right.label">
             <el-input
               :disabled="item.right.disabled"
@@ -110,7 +109,7 @@ export default {
       if (!item.left.type) {
         item.left.type = "Input";
       }
-      if (!item.right.type) {
+      if (item.right && !item.right.type) {
         item.right.type = "Input";
       }
     });
