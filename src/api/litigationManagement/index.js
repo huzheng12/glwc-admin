@@ -11,7 +11,7 @@ export function add(data) {
 
 export function getList(data) {
   return ajax({
-    url: `/api/lawsuits?query=`,
+    url: `/api/lawsuits`,
     method: 'get',
     params: data
   })

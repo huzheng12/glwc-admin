@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <router-type>
     <header-box
       :searchData="searchData"
       :inputData="inputData"
@@ -18,7 +18,7 @@
             <span class="btn-detail" @click="toDetail">详情</span>
         </template>
     </TableList>
-  </div>
+  </router-type>
 </template>
 
 <script>
@@ -85,14 +85,6 @@ export default {
           },
         ],
       },
-      headerProps: [
-        {
-          prop: "caseNumber",
-          type: "input",
-          value: null,
-          hint: "请输入关键字查询",
-        },
-      ],
       multipleSelect:[],
       searchData: {
         input: "",
@@ -137,11 +129,11 @@ export default {
       inputData: [
         {
           type: "Input",
-          prop: "asd",
+          prop: "global",
           placeholder: "请输入关键字查询",
           prefixIcon: "el-icon-search",
           onInput: (a) => {
-            console.log(a);
+            this.getList(a)
           },
         },
       ],
@@ -166,13 +158,50 @@ export default {
       val = val.map((item) => item.id);
       this.multipleSelect = val;
     },
-    getList(){
-        getList().then(res => {
-            this.data = res.data
-            this.page.size = this.data.length
-            this.page.total = this.data.length % 10
-            this.page.current = 1
-        })
+    getList() {
+      function encode(str) {
+        // 对字符串进行编码
+        var encode = encodeURI(str);
+        // 对编码的字符串转化base64
+        var base64 = btoa(encode);
+        return base64;
+      }
+
+      function toQueryPair(key, value) {
+        if (typeof value == "undefined") {
+          return `&${key}=`;
+        }
+        return `&${key}=${value}`;
+      }
+
+      function objToParam(param) {
+        if (Object.prototype.toString.call(param) !== "[object Object]") {
+          return "";
+        }
+        let queryParam = "";
+        for (let key in param) {
+          if (param.hasOwnProperty(key)) {
+            let value = param[key];
+            queryParam += toQueryPair(key, value);
+          }
+        }
+
+        queryParam = queryParam.substr(1);
+        return queryParam;
+      }
+      if (this.$route.params.packageId) {
+        this.searchData.packageId = this.$route.params.packageId;
+      }
+      for (const key in this.searchData) {
+        if (!this.searchData[key]) {
+          delete this.searchData[key];
+        }
+      }
+      getList({
+        query: encode(objToParam(this.searchData)),
+      }).then((res) => {
+        this.data = res.data;
+      });
     },
     emitChoosse(val) {
       console.log("val", val);
