@@ -4,7 +4,7 @@ export function add(data) {
   return ajax({
     url: `/api/lawsuits`,
     method: 'post',
-    params: data
+    data: data
   })
 
 }
@@ -18,24 +18,24 @@ export function getList(data) {
 
 }
 
-export function getDetail(data) {
+export function getDetail(id) {
   return ajax({
-    url: `/api/lawsuits/${data}`,
+    url: `/api/lawsuits/${id}`,
     method: 'get'
   })
 }
 
-export function update(data) {
+export function update(id,data) {
   return ajax({
-    url: `/api/lawsuits/${data}`,
-    method: 'put',
-    params: data
+    url: `/api/lawsuits/${id}`,
+    method: 'PUT',
+    data: data
   })
 }
 
 export function del(data) {
   return ajax({
     url: `/api/lawsuits/${data}`,
-    method: 'delete',
+    method: 'DELETE',
   })
 }

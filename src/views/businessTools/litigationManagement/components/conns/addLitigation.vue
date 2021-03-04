@@ -1,5 +1,6 @@
 <template>
   <e-point :point="point">
+    <div slot="header" class="header-box">编辑抵押物</div>
     <div class="point-content">
       <div
         class="position-relative"
@@ -9,11 +10,7 @@
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
         </div>
-        <component
-          :projectData="data"
-          @unpdata="getDetail"
-          :is="item.component"
-        />
+        <component :is="item.component" />
       </div>
     </div>
   </e-point>
@@ -22,46 +19,18 @@
 <script>
 // 锚点组件
 import ePoint from "@/components/AnchorPoint";
-// 基本信息组件
-import basicPage from "./components/basicPage";
-// 诉讼情况
-import Litigation from "./components/Litigation";
-// 文件列表组件
-import fileManagement from "./components/fileManagement";
-//变更日志
-import changeLog from "./components/changeLog";
 
-import { getDetail } from "@/api/litigationManagement/index";
 export default {
   props: {},
   components: {
     ePoint,
-    basicPage,
-    Litigation,
-    fileManagement,
-    changeLog,
   },
-
   mounted() {
-    this.getDetail();
-  },
-  methods: {
-    getDetail() {
-      console.log(this.$route);
-      getDetail(this.$route.query.id).then((res) => {
-        this.data = res.data;
-      });
-    },
+    console.log(this.$route.params.id);
   },
   data() {
     return {
-      data: {},
-      point: [
-        { text: "基本信息", component: "basicPage" },
-        { text: "诉讼进展", component: "Litigation" },
-        { text: "诉讼文件管理", component: "fileManagement" },
-        { text: "变更日志", component: "changeLog" },
-      ],
+      point: [{ text: "基本信息" }],
     };
   },
 };
