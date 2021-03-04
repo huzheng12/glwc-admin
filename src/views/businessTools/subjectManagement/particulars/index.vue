@@ -1,14 +1,5 @@
 <template>
- <el-dialog
-      class="feedback_dialog"
-      title="新建服务商"
-      :visible.sync="dialogVisible"
-      :modal-append-to-body="false"
-      append-to-body
-      :before-close="shut"
-      width="85%"
-      top="5px"
-    >
+
   <e-point :point="point">
     <div class="point-content">
       <div
@@ -23,26 +14,26 @@
       </div>
     </div>
   </e-point>
- </el-dialog>
+
 </template>
 
 <script>
 // 锚点组件
 import ePoint from "@/components/AnchorPoint";
-// 服务商引入申请表
-import basicPage from "./basicPage";
-// 新建服务商详情
-import particulars from "./particulars";
-//服务商引入原因
-import cause from "./cause";
 // 工商信息
 import IndustryMsg from "./IndustryMsg";
+//授权情况
+import Authorization from "./Authorization";
 //服务商权益人
 import equityInvestor from "./equityInvestor";
 //服务商主要管理人员
 import manager from "./manager";
 // 司法信息
 import operational from "./operational";
+//服务商关联的项目
+import relevance from "./relevance";
+
+
 
 
 
@@ -53,21 +44,18 @@ import fileManagement from "./fileManagement";
 
 export default {
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false,
-    }
+   
   },
   components: {
-    ePoint,
-    basicPage,
-    particulars,
-  cause,
-  IndustryMsg,
+      ePoint,
+      IndustryMsg,
+  Authorization,
   equityInvestor,
   manager,
   operational,
+  relevance,
 
+ 
     fileManagement,
 
   },
@@ -77,13 +65,13 @@ export default {
   data() {
     return {
       point: [
-        { text: "服务商引入申请表", component: "basicPage" },
-        { text: "新建服务商详情", component: "particulars" },
-        { text: "服务商引入原因", component: "cause" },
+   
         { text: "工商信息", component: "IndustryMsg" },
+        { text: "授权情况", component: "Authorization" },
         { text: "服务商权益人", component: "equityInvestor" },
         { text: "服务商主要管理人员", component: "manager" },
         { text: "司法信息", component: "operational" },
+        { text: "服务商关联的项目", component: "relevance" },
   
         { text: "文件管理", component: "fileManagement" },
       

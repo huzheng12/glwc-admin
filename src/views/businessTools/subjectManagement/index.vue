@@ -19,7 +19,7 @@
          
         </el-checkbox>
       <div class="list">
-            <div class="list_tit">
+            <div class="list_tit" @click="routerParticulars(1,2)">
               <span>上海叶世荣有限公司</span>
               <span>存续</span>
               <span>授权中</span>
@@ -163,8 +163,9 @@ export default {
     handleCheckedCitiesChange(value) {
       console.log(value);
     },
-
-    
+  routerParticulars(id,key){
+    this.$router.push(`/businessTools/subjectManagement/essential/${id}/${key}`);
+  }
    
   },
 };
@@ -195,6 +196,7 @@ export default {
   border: 1px solid #efefef;
   padding-left: 10px;
   margin: 10px 0 0 5px;
+  cursor: pointer;
 }
 
 .list_tit {

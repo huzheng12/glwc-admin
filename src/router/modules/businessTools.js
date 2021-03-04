@@ -22,7 +22,16 @@ export default {
       name: 'subjectManagement',
       meta: { title: '服务商管理', icon: 'dashboard' },
       children: [
-
+        {
+          path: "/businessTools/subjectManagement/essential/:id/:miao",
+          name: "essential",
+          hidden: true,
+          component: () => import("@/views/businessTools/subjectManagement/particulars"),
+          meta: {
+            title: "服务商管理-详情",
+            icon: 'dashboard'
+          },
+        },
       ]
 
 

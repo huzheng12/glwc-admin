@@ -6,7 +6,7 @@
       :border="settings.isBorder"
       @selection-change="e => handleClick('select',e)"
       :data="data.data"
-      style="width: 100%"
+      style="width: 100%;border: 1px solid #E7EAEB;"
     >
       <el-table-column v-if="settings.isSelection" width="55" type="selection" fixed align="center"></el-table-column>
       <el-table-column v-if="settings.isIndex" :label="settings.textIndex" type="index" :index="1" fixed align="center" ></el-table-column>
