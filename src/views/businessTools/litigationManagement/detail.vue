@@ -36,7 +36,6 @@ import fileManagement from "@/views/asset-accounting/components/fileManagement";
 //变更日志
 import changeLog from "@/views/asset-accounting/components/changeLog";
 
-
 export default {
   props: {},
   components: {
@@ -48,7 +47,7 @@ export default {
     projectList,
     financingPlan,
     fileManagement,
-    changeLog
+    changeLog,
   },
   mounted() {
     console.log(this.$route.params.id);
@@ -60,7 +59,7 @@ export default {
         // { text: "估值信息", component: "valuation" },
         { text: "项目列表", component: "projectList" },
         { text: "收购方案", component: "acquisitionPlan" },
-     
+
         { text: "文件管理", component: "fileManagement" },
         // { text: "工作日志", component: "workLog" },
         { text: "变更日志", component: "changeLog" },

@@ -14,9 +14,9 @@
       @changeCurrentPage="changeCurrentPage"
       @changeSelect="changeSelect"
     >
-        <template slot="btns">
-            <span class="btn-detail" @click="toDetail">详情</span>
-        </template>
+      <template slot="btns">
+        <span class="btn-detail" @click="toDetail">详情</span>
+      </template>
     </TableList>
   </div>
 </template>
@@ -25,26 +25,24 @@
 import headerBox from "@/views/asset-accounting/components/header";
 import TableList from "@/layout/components/Table";
 import TableHeader from "@/layout/components/Table/header";
-import {
-  getList,
-} from "@/api/litigationManagement/index";
+import { getList } from "@/api/litigationManagement/index";
 export default {
-  components: { TableList, TableHeader,headerBox },
+  components: { TableList, TableHeader, headerBox },
   data() {
     return {
       page: {},
       data: [
-          {
-           caseNumber:'案号',
-           name:'name',
-           projectName:'projectName',
-           packageName:'packageName',
-           debtor:'debtor',
-           lawsuitAging:'lawsuitAging',
-           startTime:'startTime',
-           court:'court',
-           serviceProviderName:'serviceProviderName'
-          }
+        {
+          caseNumber: "案号",
+          name: "name",
+          projectName: "projectName",
+          packageName: "packageName",
+          debtor: "debtor",
+          lawsuitAging: "lawsuitAging",
+          startTime: "startTime",
+          court: "court",
+          serviceProviderName: "serviceProviderName",
+        },
       ],
       tableProps: {
         column: [
@@ -75,7 +73,8 @@ export default {
           {
             label: "开始时间",
             prop: "startTime",
-          },{
+          },
+          {
             label: "管辖法院",
             prop: "court",
           },
@@ -93,7 +92,7 @@ export default {
           hint: "请输入关键字查询",
         },
       ],
-      multipleSelect:[],
+      multipleSelect: [],
       searchData: {
         input: "",
         sdas: "",
@@ -148,7 +147,7 @@ export default {
     };
   },
   created() {
-      this.getList()
+    this.getList();
   },
   methods: {
     onSearch(val) {
@@ -166,13 +165,13 @@ export default {
       val = val.map((item) => item.id);
       this.multipleSelect = val;
     },
-    getList(){
-        getList().then(res => {
-            this.data = res.data
-            this.page.size = this.data.length
-            this.page.total = this.data.length % 10
-            this.page.current = 1
-        })
+    getList() {
+      getList().then((res) => {
+        this.data = res.data;
+        this.page.size = this.data.length;
+        this.page.total = this.data.length % 10;
+        this.page.current = 1;
+      });
     },
     emitChoosse(val) {
       console.log("val", val);
@@ -191,14 +190,14 @@ export default {
       //   this.$refs.assetDialog.dialogVisible = true;
       // }
     },
-    toDetail(){
-        this.$router.push(`/businessTools/litigationManagement/detail`);
-    }
+    toDetail() {
+      this.$router.push(`/businessTools/litigationManagement/detail`);
+    },
   },
 };
 </script>
 <style>
-.btn-detail{
-    color:#2B57FF;
+.btn-detail {
+  color: #2b57ff;
 }
 </style>

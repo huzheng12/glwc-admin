@@ -7,9 +7,9 @@ export default {
   redirect: 'index',
   name: 'businessTools',
   meta: { title: '业务工具', icon: 'dashboard' },
-  children:[
+  children: [
     {
-      path:'index',
+      path: 'index',
       component: () => import('@/views/businessTools/index'),
       name: 'TinymceDemo',
       meta: { title: '主体管理', icon: 'dashboard' },
@@ -17,7 +17,7 @@ export default {
       ]
     },
     {
-      path:'subjectManagement',
+      path: 'subjectManagement',
       component: () => import('@/views/businessTools/subjectManagement'),
       name: 'subjectManagement',
       meta: { title: '服务商管理', icon: 'dashboard' },
@@ -28,7 +28,7 @@ export default {
 
     },
     {
-      path:'financingAccount',
+      path: 'financingAccount',
       component: () => import('@/views/businessTools/financingAccount'),
       name: 'financingAccount',
       meta: { title: '融资台账', icon: 'dashboard' },
@@ -39,7 +39,7 @@ export default {
 
     },
     {
-      path:'litigationManagement',
+      path: 'litigationManagement',
       component: () => import('@/views/businessTools/litigationManagement'),
       name: 'litigationManagement',
       meta: { title: '诉讼管理', icon: 'dashboard' },
@@ -57,7 +57,7 @@ export default {
       ]
     },
     {
-      path:'fileManagement',
+      path: 'fileManagement',
       component: () => import('@/views/businessTools/fileManagement'),
       name: 'fileManagement',
       meta: { title: '文件管理', icon: 'dashboard' },
