@@ -9,7 +9,11 @@
         <div class="title-h3">
           <div class="infName">{{ item.text }}</div>
         </div>
-        <component :is="item.component" />
+        <component
+          :projectData="data"
+          @unpdata="getDetail"
+          :is="item.component"
+        />
       </div>
     </div>
   </e-point>
@@ -19,49 +23,57 @@
 // 锚点组件
 import ePoint from "@/components/AnchorPoint";
 // 基本信息组件
-import basicPage from "@/views/asset-accounting/basicPage";
-
-// 融资方案组件
-import acquisitionPlan from "@/views/asset-accounting/acquisitionPlan";
-// 工作日志组件
-import workLog from "@/views/asset-accounting/components/workLog";
-// 估值信息组件
-// import valuation from "@/views/asset-accounting/components/valuation";
-// 项目列表组件
-import projectList from "@/views/asset-accounting/components/projectList";
-// 融资方式组件
-import financingPlan from "@/views/asset-accounting/components/financingPlan";
+import basicPage from "./components/basicPage";
+// 诉讼情况
+import Litigation from "./components/Litigation";
 // 文件列表组件
-import fileManagement from "@/views/asset-accounting/components/fileManagement";
+import fileManagement from "./components/fileManagement";
 //变更日志
+<<<<<<< HEAD
 import changeLog from "@/views/asset-accounting/components/changeLog";
 
+=======
+import changeLog from "./components/changeLog";
+
+import { getDetail } from "@/api/litigationManagement/index";
+>>>>>>> 966421c62be5564a93fb270bb6758b66160df1be
 export default {
   props: {},
   components: {
     ePoint,
     basicPage,
-    workLog,
-    // valuation,
-    acquisitionPlan,
-    projectList,
-    financingPlan,
+    Litigation,
     fileManagement,
     changeLog,
   },
+
   mounted() {
-    console.log(this.$route.params.id);
+    this.getDetail();
+  },
+  methods: {
+    getDetail() {
+      console.log(this.$route);
+      getDetail(this.$route.query.id).then((res) => {
+        this.data = res.data;
+      });
+    },
   },
   data() {
     return {
+      data: {},
       point: [
         { text: "基本信息", component: "basicPage" },
+<<<<<<< HEAD
         // { text: "估值信息", component: "valuation" },
         { text: "项目列表", component: "projectList" },
         { text: "收购方案", component: "acquisitionPlan" },
 
         { text: "文件管理", component: "fileManagement" },
         // { text: "工作日志", component: "workLog" },
+=======
+        { text: "诉讼进展", component: "Litigation" },
+        { text: "诉讼文件管理", component: "fileManagement" },
+>>>>>>> 966421c62be5564a93fb270bb6758b66160df1be
         { text: "变更日志", component: "changeLog" },
       ],
     };
