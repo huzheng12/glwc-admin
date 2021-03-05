@@ -29,14 +29,9 @@ import Litigation from "./components/Litigation";
 // 文件列表组件
 import fileManagement from "./components/fileManagement";
 //变更日志
-<<<<<<< HEAD
-import changeLog from "@/views/asset-accounting/components/changeLog";
-
-=======
 import changeLog from "./components/changeLog";
 
 import { getDetail } from "@/api/litigationManagement/index";
->>>>>>> 966421c62be5564a93fb270bb6758b66160df1be
 export default {
   props: {},
   components: {
@@ -63,17 +58,8 @@ export default {
       data: {},
       point: [
         { text: "基本信息", component: "basicPage" },
-<<<<<<< HEAD
-        // { text: "估值信息", component: "valuation" },
-        { text: "项目列表", component: "projectList" },
-        { text: "收购方案", component: "acquisitionPlan" },
-
-        { text: "文件管理", component: "fileManagement" },
-        // { text: "工作日志", component: "workLog" },
-=======
         { text: "诉讼进展", component: "Litigation" },
         { text: "诉讼文件管理", component: "fileManagement" },
->>>>>>> 966421c62be5564a93fb270bb6758b66160df1be
         { text: "变更日志", component: "changeLog" },
       ],
     };
