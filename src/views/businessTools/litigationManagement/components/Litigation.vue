@@ -22,38 +22,77 @@
       style="width: 100%; border: 1px solid #e7eaeb"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="name" label="时间" width="180">
+      <el-table-column prop="name" label="时间" width="180"> </el-table-column>
+      <el-table-column prop="executionStatus" label="案件说明">
       </el-table-column>
-      <el-table-column prop="executionStatus"  label="案件说明">
-      </el-table-column>
-      <el-table-column prop="lawsuitAging"  label="文件编号">
-      </el-table-column>
-      <el-table-column prop="court"  label="文件名称">
-      </el-table-column>
+      <el-table-column prop="lawsuitAging" label="文件编号"> </el-table-column>
+      <el-table-column prop="docName" label="文件名称"> </el-table-column>
       <!-- <el-table-column prop="subjectChanged" label="法院">
         <template slot-scope="scope">
           {{ scope.row.subjectChanged ? "是" : "否" }}
         </template>
       </el-table-column> -->
-      <el-table-column prop="serviceProviderId" label="法院">
-      </el-table-column>
+      <el-table-column prop="serviceProviderId" label="法院"> </el-table-column>
       <el-table-column prop="serviceProviderId" label="服务商">
       </el-table-column>
     </el-table>
+    <dialog-vis
+      :dataObj="data"
+      :rowData="rowData"
+      title="修改基本信息"
+      ref="dialog"
+      labelWidth="120px"
+      @submit="submit"
+    ></dialog-vis>
   </div>
 </template>
 
 <script>
-import {
-  projectslawsuitslist,
-  delprojectslawsuits,
-} from "@/api/projectManagement/index";
+import dialogVis from "@/components/dialogVis";
+import { add, getList, update, del } from "@/api/litigationManagement/progress";
 export default {
+  components: { dialogVis },
   data() {
     return {
       tableData: [],
       multipleSelection: [],
-      projectId: this.$route.params.id || "",
+      projectId: this.$route.query.id || "",
+      data: {},
+      rowData: [
+        {
+          left: {
+            prop: "stage",
+            label: "诉讼阶段",
+            disabled: true,
+          },
+          right: {
+            prop: "duration",
+            label: "阶段时效",
+          },
+        },
+        {
+          left: {
+            prop: "durationUnit",
+            label: "阶段时效单位",
+          },
+          right: {
+            prop: "stageDate",
+            label: "阶段时间",
+          },
+        },
+        {
+          left: {
+            prop: "content",
+            label: "诉讼内容",
+          },
+          right: {
+            prop: "docName",
+            label: "⽂书名称",
+          },
+        },
+      ],
+      projectData: {},
+      isAdd: true,
     };
   },
   mounted() {
@@ -63,7 +102,7 @@ export default {
     listPro() {
       //获取数据列表
       if (this.projectId) {
-        projectslawsuitslist(this.projectId).then((res) => {
+        getList(this.projectId).then((res) => {
           if (res.code === 0) {
             this.tableData = res.data;
           }
@@ -71,10 +110,9 @@ export default {
       }
     },
     addPro() {
-      // 新增数据列表
-      this.$router.push(
-        `/beforeInvestment/markdown/essential/${this.projectId}/lawsuits/new`
-      );
+      this.isAdd = true;
+      this.$refs.dialog.visible = true;
+      this.data = JSON.parse(JSON.stringify(this.projectData));
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -86,11 +124,16 @@ export default {
           "data",
           JSON.stringify(this.multipleSelection[0])
         );
-        //通过key来获取value
-        // var dt = sessionStorage.getItem("data");
-        this.$router.push(
-          `/beforeInvestment/markdown/essential/${this.projectId}/lawsuits/${this.multipleSelection[0].id}`
-        );
+        for (let index = 0; index < this.tableData.length; index++) {
+          const element = this.tableData[index];
+          if (element.id == this.multipleSelection[0].id) {
+            this.projectData = element;
+          }
+          
+        }
+        this.isAdd = false;
+        this.$refs.dialog.visible = true;
+        this.data = JSON.parse(JSON.stringify(this.projectData));
       } else {
         this.$message({
           message: "请选择一条数据",
@@ -100,10 +143,9 @@ export default {
     },
     delPro() {
       // 删除数据
-
       if (this.multipleSelection.length === 1) {
         this.$confirm(
-          `是否删除 ${this.multipleSelection[0].name}`,
+          `是否确定删除`,
           "确认信息",
           {
             distinguishCancelAndClose: true,
@@ -111,10 +153,7 @@ export default {
             cancelButtonText: "取消",
           }
         ).then(() => {
-          delprojectslawsuits(
-            this.projectId,
-            this.multipleSelection[0].id
-          ).then((res) => {
+          del(this.projectId, this.multipleSelection[0].id).then((res) => {
             if (res.code === 0) {
               this.$message({
                 message: "删除成功",
@@ -130,6 +169,33 @@ export default {
           type: "warning",
         });
       }
+    },
+    submit() {
+      if (this.isAdd) {
+        add(this.projectId, this.data).then((res) => {
+          if (res.code === 0) {
+            this.$refs.dialog.visible = false;
+            this.$emit("unpdata");
+            this.$message({
+              message: "添加成功",
+              type: "success",
+            });
+            this.listPro();
+          }
+        });
+        return;
+      }
+      update(this.projectId, this.projectData.id, this.data).then((res) => {
+        if (res.code === 0) {
+          this.$refs.dialog.visible = false;
+          this.$emit("unpdata");
+          this.$message({
+            message: "修改成功",
+            type: "success",
+          });
+          this.listPro();
+        }
+      });
     },
   },
 };
