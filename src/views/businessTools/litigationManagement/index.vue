@@ -205,16 +205,19 @@ export default {
           right: {
             prop: "startDate",
             label: "开始时间",
+            type: "Picker",
           },
         },
         {
           left: {
             prop: "endDate",
             label: "结束时间",
+            type: "Picker",
           },
           right: {
             prop: "latestDate",
             label: "更新时间",
+            type: "Picker",
           },
         },
       ],

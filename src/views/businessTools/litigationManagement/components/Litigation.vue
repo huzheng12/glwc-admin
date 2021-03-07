@@ -63,7 +63,6 @@ export default {
           left: {
             prop: "stage",
             label: "诉讼阶段",
-            disabled: true,
           },
           right: {
             prop: "duration",
@@ -73,11 +72,12 @@ export default {
         {
           left: {
             prop: "durationUnit",
-            label: "阶段时效单位",
+            label: "阶段时效单位(天/⽉/年)",
           },
           right: {
             prop: "stageDate",
             label: "阶段时间",
+            type: "Picker",
           },
         },
         {
