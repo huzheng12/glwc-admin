@@ -75,6 +75,7 @@ export function resetRouter() {
 import store from '../store'
 // 监听全局路由      跳转三级路由时取消二级路由页面
 router.beforeEach((to, from, next) => {
+  console.log(to, '---');
   if (to.name === 'essential'
     || to.name === "projectGl"
     || to.name === "collateral"

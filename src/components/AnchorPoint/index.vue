@@ -38,6 +38,7 @@ export default {
       headerHeigt: 0,
     };
   },
+
   mounted() {
     if (this.$scopedSlots.header) {
       this.headerHeigt = 50;
