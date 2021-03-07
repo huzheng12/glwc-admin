@@ -1,5 +1,4 @@
 <template>
-
   <e-point :point="point">
     <div class="point-content">
       <div
@@ -14,7 +13,6 @@
       </div>
     </div>
   </e-point>
-
 </template>
 
 <script>
@@ -33,31 +31,22 @@ import operational from "./operational";
 //服务商关联的项目
 import relevance from "./relevance";
 
-
-
-
-
 // 文件列表组件
 import fileManagement from "./fileManagement";
 
-
-
 export default {
-  props: {
-   
-  },
+  name:'particulars',
+  props: {},
   components: {
-      ePoint,
-      IndustryMsg,
-  Authorization,
-  equityInvestor,
-  manager,
-  operational,
-  relevance,
+    ePoint,
+    IndustryMsg,
+    Authorization,
+    equityInvestor,
+    manager,
+    operational,
+    relevance,
 
- 
     fileManagement,
-
   },
   mounted() {
     console.log(this.$route.params.id);
@@ -65,16 +54,14 @@ export default {
   data() {
     return {
       point: [
-   
         { text: "工商信息", component: "IndustryMsg" },
         { text: "授权情况", component: "Authorization" },
         { text: "服务商权益人", component: "equityInvestor" },
         { text: "服务商主要管理人员", component: "manager" },
         { text: "司法信息", component: "operational" },
         { text: "服务商关联的项目", component: "relevance" },
-  
+
         { text: "文件管理", component: "fileManagement" },
-      
       ],
     };
   },
@@ -87,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped >
-.warp{
+.warp {
   height: calc(100vh - 120px);
 }
 .point-content {

@@ -14,6 +14,16 @@ export default {
       name: 'TinymceDemo',
       meta: { title: '主体管理', icon: 'dashboard' },
       children: [
+        {
+          path: "/businessTools/index/particulars/:id/:miao",
+          name: "management",
+          hidden: true,
+          component: () => import("@/views/businessTools/index/particulars"),
+          meta: {
+            title: "主体管理-详情",
+            icon: 'dashboard'
+          },
+        },
       ]
     },
     {
@@ -23,8 +33,8 @@ export default {
       meta: { title: '服务商管理', icon: 'dashboard' },
       children: [
         {
-          path: "/businessTools/subjectManagement/essential/:id/:miao",
-          name: "essential",
+          path: "/businessTools/subjectManagement/particulars/:id/:miao",
+          name: "serviceParticulars",
           hidden: true,
           component: () => import("@/views/businessTools/subjectManagement/particulars"),
           meta: {

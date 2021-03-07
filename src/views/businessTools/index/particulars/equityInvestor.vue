@@ -1,14 +1,32 @@
 <template>
   <div class="basicPage">
     <div class="titleName">
+      <div class="titleName-li" @click="details">
+        <i class="el-icon-edit-outline elRight"></i>查看变更记录
+      </div>
       <div class="titleName-li" @click="projectss">
-        <i class="el-icon-edit-outline elRight"></i>编辑
+        <i class="el-icon-edit-outline elRight"></i>添加
       </div>
     </div>
       <Eltable
         :data="equityInvestorData"
         :settings="tableSettings"
       />
+
+      <el-dialog
+      title="权益人变动"
+      :visible.sync="variation"
+      :modal-append-to-body="false"
+      append-to-body
+    >
+    <div class="dialogTitle" @click="projectss">
+        <i class="el-icon-edit-outline elRight"></i>添加
+      </div>
+      <Eltable
+        :data="variationData"
+        :settings="variationSettings"
+      />
+    </el-dialog>
   </div>
 </template>
 
@@ -27,43 +45,35 @@ export default {
           {
             label: "权益人ID",
             prop: "qyrid",
-            fixed: true
           },
           {
             label: "权益人名称",
             prop: "qyrmc",
             width:'160px',
-            fixed: true
           },
           {
             label: "国别",
             prop: "gb",
-            fixed: true
           },
           {
             label: "股东类型",
             prop: "gdlx",
-            fixed: true
           },
           {
             label: "出资日期",
             prop: "czrq",
-            fixed: true
           },
           {
             label: "出资方式",
             prop: "czfs",
-            fixed: true
           },
           {
             label: "出资比例",
             prop: "czbl",
-            fixed: true
           },
           {
             label: "认缴出资额",
             prop: "rjcze",
-            fixed: true
           },
         ],
         data: [
@@ -79,6 +89,44 @@ export default {
           },
         ],
       },
+      variation:false,
+       variationSettings:{
+         isIndex:true, //序号
+        textIndex:'序号',
+        isBorder:false},
+       variationData: {
+        column: [
+        
+          {
+            label: "权益人名称",
+            prop: "qyrmc",
+            width:'160px',
+          },
+          {
+            label: "变更前股权比例",
+            prop: "bgq",
+          },
+          {
+            label: "变更后股权比例",
+            prop: "bgh",
+          },
+          {
+            label: "变更日期",
+            prop: "bgrq",
+          }
+          
+        ],
+        data: [
+          {
+        
+            qyrmc: "平安资产管理有限公司",
+            bgq: "中国",
+            bgh: "企业法人",
+            bgrq: "2020-10-20",
+    
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -88,11 +136,19 @@ export default {
         mode: "simple",
       });
     },
+    details(){
+      this.variation=true
+    }
   },
 };
 </script>
 
 <style  lang="scss" scoped>
 @import "@/views/components-demo/components/scss/index.scss";
-
+.dialogTitle{
+  position: absolute;
+  left: 120px;
+  top: 26px;
+  color: #2B57FF;
+}
 </style>

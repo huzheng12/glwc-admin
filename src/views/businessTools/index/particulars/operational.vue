@@ -116,7 +116,7 @@
     <!-- 裁判文书 -->
     <div class="subclass">
       <div class="labelTitel">
-        <span style="color: #000">裁判文书</span>
+        <div style="color: #000">裁判文书</div>
         <span class="svg-container">
           <svg-icon icon-class="user" />
           添加
@@ -406,6 +406,9 @@ export default {
   justify-content: space-between;
   > div {
     padding-left: 5px;
+font-size: 14px;
+font-weight: 600;
+color: #222222;
   }
   > span {
     font-size: 12px;

@@ -1,14 +1,5 @@
 <template>
- <el-dialog
-      class="feedback_dialog"
-      title="新建服务商"
-      :visible.sync="dialogVisible"
-      :modal-append-to-body="false"
-      append-to-body
-      :before-close="shut"
-      width="85%"
-      top="10px"
-    >
+
   <e-point :point="point">
     <div class="point-content">
       <div
@@ -23,26 +14,35 @@
       </div>
     </div>
   </e-point>
- </el-dialog>
+
 </template>
 
 <script>
 // 锚点组件
 import ePoint from "@/components/AnchorPoint";
-// 服务商引入申请表
-import basicPage from "./basicPage";
-// 新建服务商详情
-import particulars from "./particulars";
-//服务商引入原因
-import cause from "./cause";
 // 工商信息
 import IndustryMsg from "./IndustryMsg";
+
 //服务商权益人
 import equityInvestor from "./equityInvestor";
 //服务商主要管理人员
 import manager from "./manager";
 // 司法信息
 import operational from "./operational";
+//服务商关联的项目
+import relevance from "./relevance";
+//持有资产包
+import assetPackage from "./assetPackage";
+//资金往来
+import capitalTransaction from "./capitalTransaction";
+//授权管理
+import Authorization from "./Authorization";
+//公章管理
+import cachet from "./cachet";
+//营业执照管理
+import license from "./license";
+
+
 
 
 
@@ -53,21 +53,22 @@ import fileManagement from "./fileManagement";
 
 export default {
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false,
-    }
+   
   },
   components: {
-    ePoint,
-    basicPage,
-    particulars,
-  cause,
-  IndustryMsg,
+      ePoint,
+      IndustryMsg,
+assetPackage,
+capitalTransaction,
+Authorization,
+cachet,
+license,
   equityInvestor,
   manager,
   operational,
+  relevance,
 
+ 
     fileManagement,
 
   },
@@ -77,13 +78,16 @@ export default {
   data() {
     return {
       point: [
-        { text: "服务商引入申请表", component: "basicPage" },
-        { text: "新建服务商详情", component: "particulars" },
-        { text: "服务商引入原因", component: "cause" },
+   
         { text: "工商信息", component: "IndustryMsg" },
-        { text: "服务商权益人", component: "equityInvestor" },
-        { text: "服务商主要管理人员", component: "manager" },
+        { text: "权益人", component: "equityInvestor" },
+        { text: "主要管理人员", component: "manager" },
         { text: "司法信息", component: "operational" },
+        { text: "持有资产包", component: "assetPackage" },
+        { text: "资金往来", component: "capitalTransaction" },
+         { text: "授权管理", component: "Authorization" },
+        { text: "公章管理", component: "cachet" },
+        { text: "营业执照管理", component: "license" },
   
         { text: "文件管理", component: "fileManagement" },
       
@@ -100,19 +104,7 @@ export default {
 
 <style lang="scss" scoped >
 .warp{
-  height: calc(100vh - 83px);
-}
-.feedback_dialog{
-  ::v-deep .el-dialog__body{
-  padding:0 20px;
-  }
- 
-}
-.feedback_dialog{
-  ::v-deep .el-dialog__header{
-  padding:0 20px;
-  }
- 
+  height: calc(100vh - 120px);
 }
 .point-content {
   .title-h3 {

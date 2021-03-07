@@ -23,6 +23,10 @@
       </div>
     </div>
   </e-point>
+  <div style="padding:0 20px 10px 0;text-align:right">
+    <el-button @click="dialogVisible = false">保存草稿</el-button>
+    <el-button type="primary" @click="dialogVisible = false">发起审批</el-button>
+  </div>
  </el-dialog>
 </template>
 
@@ -35,19 +39,12 @@ import basicPage from "./basicPage";
 import particulars from "./particulars";
 //服务商引入原因
 import cause from "./cause";
-// 工商信息
-import IndustryMsg from "./IndustryMsg";
+
 //服务商权益人
 import equityInvestor from "./equityInvestor";
 //服务商主要管理人员
 import manager from "./manager";
-// 司法信息
-import operational from "./operational";
 
-
-
-// 文件列表组件
-import fileManagement from "./fileManagement";
 
 
 
@@ -63,12 +60,11 @@ export default {
     basicPage,
     particulars,
   cause,
-  IndustryMsg,
+
   equityInvestor,
   manager,
-  operational,
 
-    fileManagement,
+
 
   },
   mounted() {
@@ -77,15 +73,11 @@ export default {
   data() {
     return {
       point: [
-        { text: "服务商引入申请表", component: "basicPage" },
-        { text: "新建服务商详情", component: "particulars" },
-        { text: "服务商引入原因", component: "cause" },
-        { text: "工商信息", component: "IndustryMsg" },
-        { text: "服务商权益人", component: "equityInvestor" },
-        { text: "服务商主要管理人员", component: "manager" },
-        { text: "司法信息", component: "operational" },
-  
-        { text: "文件管理", component: "fileManagement" },
+        { text: "主体成立申请表", component: "basicPage" },
+        { text: "新建主体详情", component: "particulars" },
+        { text: "权益人", component: "equityInvestor" },
+        { text: "主要管理人员", component: "manager" },
+        { text: "主体设立原因", component: "cause" }
       
       ],
     };

@@ -17,8 +17,9 @@
             
             show-overflow-tooltip
           >
-           <template scope="scope" v-if="item.prop=='sqlx'">
-            <span :style="{'color': scope.row.sqlx=='特殊授权'?'#D12A2A':'#000'}" >{{scope.row.sqlx}}</span>
+           <template scope="scope" v-if="item.prop=='sqlx'||item.prop=='sqdxmc'">
+            <span v-if="item.prop=='sqlx'" :style="{'color': scope.row.sqlx=='特殊授权'?'#D12A2A':'#000'}" >{{scope.row.sqlx}}</span>
+            <span v-else style="color: #2B57FF;" >{{scope.row.sqdxmc}}</span>
           </template>
           </el-table-column>
         </el-table>
@@ -37,9 +38,18 @@ export default {
         accreditData: {
         column: [
           {
-            label: "授权状态",
-            prop: "sqzt",
+            label: "授权编号",
+            prop: "sqbh",
           },
+          {
+            label: "授权对象类别",
+            prop: "sqdxlb",
+          },
+          {
+            label: "授权对象名称",
+            prop: "sqdxmc",
+          },
+        
           {
             label: "授权类型",
             prop: "sqlx",
@@ -56,13 +66,17 @@ export default {
         ],
         data: [
           {
-            sqzt: "已授权",
+            sqbh: "123456",
+            sqdxlb: "上海平安证券",
+            sqdxmc: "中国建设银行",
             sqlx: "特殊授权",
             sqnr: "内容",
             sqqj: "2020年3月20日"
           },
           {
-            sqzt: "已授权",
+            sqbh: "123456",
+            sqdxlb: "上海平安证券",
+            sqdxmc: "中国建设银行",
             sqlx: "普通授权",
             sqnr: "内容",
             sqqj: "2020年3月20日"

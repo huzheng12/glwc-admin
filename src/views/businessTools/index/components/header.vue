@@ -3,7 +3,7 @@
     <div class="flex">
       <div class="left">
        <div class="headertitle">
-      <el-select v-model="search.value1" filterable clearable placeholder="请选择" size="small" >
+      <el-select v-model="search.value1" filterable clearable placeholder="主体ID" size="small" >
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -14,7 +14,7 @@
       </el-select>
     </div>
         <div class="headertitle">
-      <el-select v-model="search.value2" filterable clearable placeholder="请选择" size="small" >
+      <el-select v-model="search.value2" filterable clearable placeholder="主体名称" size="small" >
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -25,7 +25,7 @@
       </el-select>
     </div>
         <div class="headertitle">
-      <el-select v-model="search.value3" filterable clearable placeholder="请选择" size="small" >
+      <el-select v-model="search.value3" filterable clearable placeholder="主体类型" size="small" >
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -40,13 +40,13 @@
           size="small"
           v-model="search.rq"
           type="date"
-          placeholder="选择日期"
-    class="timeInt"
+          placeholder="成立时间"
+          class="timeInt"
         >
         </el-date-picker>
     </div>
         <div class="headertitle">
-      <el-select v-model="search.value4" filterable clearable placeholder="请选择" size="small" >
+      <el-select v-model="search.value4" filterable clearable placeholder="审批状态" size="small" >
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -220,11 +220,11 @@ NewFacilitator,
         data: [
           {
             date: "2016-05-02",
-            name: "新建服务商",
+            name: "新建主体",
           },
           {
             date: "2016-05-04",
-            name: "服务商",
+            name: "工商信息变更",
           },
         ],
       },
@@ -245,12 +245,12 @@ NewFacilitator,
         },
         {
           type: "3",
-          text: "删除服务商",
+          text: "删除主体",
           icon: "el-icon-document-delete",
         },
         {
           type: "4",
-          text: "新建服务商",
+          text: "新建主体",
           icon: "el-icon-c-scale-to-original",
           color: "#2B57FF",
         },

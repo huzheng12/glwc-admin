@@ -81,7 +81,10 @@ router.beforeEach((to, from, next) => {
     || to.name === "lawsuits"
     || to.name === "litigationDetail"
     || to.name === "daily"
-    || to.name == 'otherbaoz') {
+    || to.name == 'otherbaoz'
+    || to.name == 'management'
+    || to.name == 'serviceParticulars'
+    ) {
     store.dispatch("app/routerType", false);
   } else {
     store.dispatch("app/routerType", true);

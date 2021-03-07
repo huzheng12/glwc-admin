@@ -109,18 +109,18 @@
 <script>
 import headerBox from "../../asset-accounting/components/header";
 import pagination from "../../asset-accounting/components/pagination";
-import Eltable from "./components/table";
 import Header from "./components/header";
-import NewFacilitator from "./components/newFacilitator";
+// import Eltable from "@/components/table";
+// import NewFacilitator from "./components/newFacilitator";
 
 
 export default {
   components: {
     headerBox,
     pagination,
-    Eltable,
     Header,
-    NewFacilitator
+    // Eltable,
+    // NewFacilitator
   },
   data() {
     return {
@@ -164,7 +164,7 @@ export default {
       console.log(value);
     },
   routerParticulars(id,key){
-    this.$router.push(`/businessTools/subjectManagement/essential/${id}/${key}`);
+    this.$router.push(`/businessTools/subjectManagement/particulars/${id}/${key}`);
   }
    
   },
@@ -242,5 +242,8 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+}
+.blue{
+  color: #2B57FF;
 }
 </style>

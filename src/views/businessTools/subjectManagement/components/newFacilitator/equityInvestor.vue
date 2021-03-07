@@ -14,7 +14,7 @@
 
 <script>
 import { projects } from "@/api/projectManagement/index";
-import Eltable from "../table";
+import Eltable from "@/components/table";
 export default {
   components:{
     Eltable
