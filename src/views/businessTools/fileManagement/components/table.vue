@@ -5,6 +5,9 @@
         ref="filterTable"
         :data="data"
         style="width: 100%"
+        row-key="id"
+        default-expand-all
+        :tree-props="{children: 'files', hasChildren: 'hasfiles'}"
         @selection-change="handleSelectionChange"
         @current-change="handleCurrentChangechange"
         :highlight-current-row="highlight"
@@ -89,7 +92,7 @@ export default {
     btns: {
       type: Boolean,
       default() {
-        return true;
+        return false;
       },
     },
     highlight: {

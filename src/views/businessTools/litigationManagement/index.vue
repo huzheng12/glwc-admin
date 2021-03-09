@@ -81,7 +81,9 @@ export default {
           },
           {
             label: "开始时间",
-            prop: "startTime",
+            prop: "startDate",
+            isTime: true,
+            custom: true
           },
           {
             label: "管辖法院",
