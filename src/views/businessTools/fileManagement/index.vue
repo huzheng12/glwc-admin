@@ -18,14 +18,14 @@
       <el-upload
         class="com-text-center"
         drag
-        action="https://jsonplaceholder.typicode.com/posts/"
+        :action="uploadUrl"
         multiple
+        :limit="3"
+        :data="uploadData"
+        :headers="headers"
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <!-- <div class="el-upload__tip" slot="tip">
-          只能上传jpg/png文件，且不超过500kb
-        </div> -->
       </el-upload>
     </el-dialog>
   </router-type>
@@ -104,6 +104,14 @@ export default {
         },
       ],
       multipleSelect: [],
+      uploadUrl: "http://localhost:9528/api/files",
+      uploadData: {
+        number: 1,
+        folderId: "",
+      },
+      headers: {
+        "X-Auth-Token": "admin-token",
+      },
     };
   },
   mounted() {
@@ -118,21 +126,22 @@ export default {
       } else if (key == 2) {
         for (let index = 0; index < this.multipleSelect.length; index++) {
           const element = this.multipleSelect[index];
-          console.log(element);
-          download(element).then((res) => {
-            if (res.code == 0) {
-              const link = document.createElement("a");
-              link.setAttribute("download", "");
-              link.setAttribute("href", res.data);
-              link.click();
-              document.body.removeChild(link);
-            } else {
-              this.$message({
-                message: "请仅选择文件",
-                type: "warning",
-              });
-            }
-          });
+          if (!element.files) {
+            download(element.id).then((res) => {
+              if (res.code == 0) {
+                const link = document.createElement("a");
+                link.setAttribute("download", "");
+                link.setAttribute("href", res.data);
+                link.click();
+                document.body.removeChild(link);
+              } else {
+                this.$message({
+                  message: "请仅选择文件",
+                  type: "warning",
+                });
+              }
+            });
+          }
         }
       }
     },
@@ -154,9 +163,15 @@ export default {
       this.getList();
     },
     changeSelect(val) {
-      val = val.map((item) => item.id);
+      console.log(val);
+      for (let index = 0; index < val.length; index++) {
+          const element = val[index];
+          if (element.files) {
+            this.uploadData.folderId = element.id;
+            break;
+          }
+        }
       this.multipleSelect = val;
-      console.log(this.multipleSelect);
     },
   },
 };
