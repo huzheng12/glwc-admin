@@ -27,6 +27,16 @@
           }"
         >
         </el-date-picker>
+
+        <el-select v-model="searchData[item.prop]" v-if="item.type === 'select'" :placeholder="item.placeholder">
+          <el-option
+            v-for="option in item.options"
+            :key="option.value"
+            :label="option.label"
+            :value="option.value"
+          >
+          </el-option>
+        </el-select>
       </div>
     </div>
     <div class="right">
@@ -72,8 +82,7 @@ export default {
   },
   methods: {
     Submit(key) {
-   
-      this.$emit('emitChoosse',key.type);
+      this.$emit("emitChoosse", key.type);
     },
   },
 };

@@ -115,6 +115,8 @@ export default {
     };
   },
   mounted() {
+    this.uploadUrl = window.location.origin + "/api/files"
+    console.log(this.uploadUrl)
     this.projectsList();
   },
 
@@ -124,6 +126,12 @@ export default {
       if (key == 1) {
         this.dialogVisible = true;
       } else if (key == 2) {
+        if (this.multipleSelect.length == 0) {
+          this.$message({
+            message: "请选择要上传的文件夹",
+            type: "warning",
+          });
+        }
         for (let index = 0; index < this.multipleSelect.length; index++) {
           const element = this.multipleSelect[index];
           if (!element.files) {
@@ -165,12 +173,12 @@ export default {
     changeSelect(val) {
       console.log(val);
       for (let index = 0; index < val.length; index++) {
-          const element = val[index];
-          if (element.files) {
-            this.uploadData.folderId = element.id;
-            break;
-          }
+        const element = val[index];
+        if (element.files) {
+          this.uploadData.folderId = element.id;
+          break;
         }
+      }
       this.multipleSelect = val;
     },
   },
