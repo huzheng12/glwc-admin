@@ -81,6 +81,7 @@ router.beforeEach((to, from, next) => {
     || to.name === "collateral"
     || to.name === "lawsuits"
     || to.name === "litigationDetail"
+    || to.name === "financingAccountDetail"
     || to.name === "daily"
     || to.name == 'otherbaoz'
     || to.name == 'management'

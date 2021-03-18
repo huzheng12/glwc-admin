@@ -34,7 +34,7 @@ import headerBox from "@/views/asset-accounting/components/header";
 import TableList from "@/layout/components/Table";
 import TableHeader from "@/layout/components/Table/header";
 import dialogVis from "@/components/dialogVis";
-import { getList, add, del } from "@/api/litigationManagement/index";
+import { getList, add, del } from "@/api/financingAccount/index";
 export default {
   components: { TableList, TableHeader, headerBox, dialogVis },
   data() {
@@ -56,42 +56,74 @@ export default {
       tableProps: {
         column: [
           {
-            label: "案号",
-            prop: "caseNumber",
+            label: "融资编号",
+            prop: "id",
           },
           {
-            label: "诉讼事项",
-            prop: "name",
+            label: "融资主体",
+            prop: "financeSubjectName",
           },
           {
-            label: "所属项目",
-            prop: "projectName",
+            label: "资金用途",
+            prop: "fundUsage",
           },
           {
-            label: "所属资产包",
-            prop: "packageName",
+            label: "资金提供方",
+            prop: "fundProvider",
+          },
+        //   {
+        //     label: "对应资产包",
+        //     prop: "debtor",
+        //   },
+          {
+            label: "协定融资额",
+            prop: "requiredBalance",
           },
           {
-            label: "债务⼈",
-            prop: "debtor",
+            label: "到位融资额",
+            prop: "readyBalance",
+            // isTime: true,
+            // custom: true,
           },
           {
-            label: "诉讼时效",
-            prop: "lawsuitAging",
+            label: "融资本金余额",
+            prop: "principleBalance",
+          },
+        //   {
+        //     label: "还款金额总汇",
+        //     prop: "serviceProviderName",
+        //   },
+          {
+            label: "期限",
+            prop: "duePeriod",
           },
           {
-            label: "开始时间",
-            prop: "startDate",
+            label: "到期日",
+            prop: "dueDate",
             isTime: true,
             custom: true,
           },
           {
-            label: "管辖法院",
-            prop: "court",
+            label: "利率",
+            prop: "interestRate",
           },
           {
-            label: "服务商",
-            prop: "serviceProviderName",
+            label: "增信主体",
+            prop: "ceSubjectName",
+          },
+          {
+            label: "增信措施",
+            prop: "ceMethod",
+          },
+          {
+            label: "本期应还日期",
+            prop: "currentPayBackDate",
+            isTime: true,
+            custom: true,
+          },
+          {
+            label: "本期应还金额",
+            prop: "currentPayBackBalance",
           },
         ],
       },
@@ -179,77 +211,95 @@ export default {
       rowData: [
         {
           left: {
-            prop: "caseNumber",
-            label: "案件编号",
+            prop: "packageId",
+            label: "资产包ID",
             disabled: true,
           },
           right: {
-            prop: "caseSummary",
-            label: "案件摘要",
+            prop: "financeSubjectId",
+            label: "融资主体ID",
           },
         },
         {
           left: {
-            prop: "lawsuitStage",
-            label: "诉讼阶段",
+            prop: "fundUsage",
+            label: "资⾦⽤途",
           },
           right: {
-            prop: "projectName",
+            prop: "资⾦提供⽅",
             label: "所属项目",
           },
         },
         {
           left: {
-            prop: "packageName",
-            label: "所属资产包",
+            prop: "requiredBalance",
+            label: "协定融资额",
           },
           right: {
-            prop: "contractId",
-            label: "授权合同编号",
+            prop: "readyBalance",
+            label: "到位资⾦额",
           },
         },
         {
           left: {
-            prop: "subjectName",
-            label: "涉及主体",
+            prop: "principleBalance",
+            label: "融资本⾦余额",
           },
           right: {
-            prop: "court",
-            label: "所属法院",
-          },
-        },
-        {
-          left: {
-            prop: "lawsuitAging",
-            label: "诉讼时效",
-          },
-          right: {
-            prop: "serviceProviderName",
-            label: "服务商",
-          },
-        },
-        {
-          left: {
-            prop: "usage",
-            label: "用途",
-          },
-          right: {
-            prop: "startDate",
-            label: "开始时间",
+            prop: "issueDate",
+            label: "融资协议签署⽇期",
             type: "Picker",
           },
         },
         {
           left: {
-            prop: "endDate",
-            label: "结束时间",
+            prop: "duePeriod",
+            label: "期限",
+          },
+          right: {
+            prop: "duePeriodUnit",
+            label: "期限单位（⽉/年）",
+          },
+        },
+        {
+          left: {
+            prop: "dueDate",
+            label: "到期⽇",
             type: "Picker",
           },
           right: {
-            prop: "latestDate",
-            label: "更新时间",
+            prop: "interestRate",
+            label: "利率",
+          },
+        },
+        {
+          left: {
+            prop: "ceSubjectId",
+            label: "增信主体ID",
+          },
+          right: {
+            prop: "ceMethod",
+            label: "增信措施",
+          },
+        },
+        {
+          left: {
+            prop: "currentPayBackDate",
+            label: "本期应还⽇期",
             type: "Picker",
           },
+          right: {
+            prop: "currentPayBackBalance",
+            label: "本期应还⾦额",
+            type: "Picker",
+          },
+        },
+        {
+          left: {
+            prop: "remark",
+            label: "备注",
+          },
+          right: null,
         },
       ],
       info: {},
@@ -321,11 +371,11 @@ export default {
     },
     emitChoosse(val) {
       console.log("val", val);
-      if (val === "5") {
+      if (val === "4") {
         this.$refs.dialog.visible = true;
         this.data = JSON.parse(JSON.stringify(this.projectData));
       }
-      if (val === "4") {
+      if (val === "3") {
         console.log(this.multipleSelect);
         if (this.multipleSelect.length == 0) {
           this.$message({
@@ -369,7 +419,7 @@ export default {
     },
     toDetail(row) {
       this.$router.push(
-        `/businessTools/litigationManagement/detail?id=${row.id}`
+        `/businessTools/financingAccount/detail?id=${row.id}`
       );
     },
     submit() {

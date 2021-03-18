@@ -52,10 +52,17 @@ export default {
       name: 'financingAccount',
       meta: { title: '融资台账', icon: 'dashboard' },
       children: [
-
+        {
+          path: "/businessTools/financingAccount/detail",
+          name: "financingAccountDetail",
+          hidden: true,
+          component: () => import("@/views/businessTools/financingAccount/detail.vue"),
+          meta: {
+            title: "基本信息",
+            icon: 'dashboard'
+          },
+        },
       ]
-
-
     },
     {
       path: 'litigationManagement',

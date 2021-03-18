@@ -22,18 +22,23 @@
       style="width: 100%; border: 1px solid #e7eaeb"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="name" label="时间" width="180"> </el-table-column>
-      <el-table-column prop="executionStatus" label="案件说明">
+      <el-table-column prop="requiredPayBackDate" label="应还⽇期"> </el-table-column>
+      <el-table-column prop="payBackDate" label="还款⽇期">
       </el-table-column>
-      <el-table-column prop="lawsuitAging" label="文件编号"> </el-table-column>
-      <el-table-column prop="docName" label="文件名称"> </el-table-column>
+      <el-table-column prop="requiredPrincipleBalance" label="本⾦应还额"> </el-table-column>
+      <el-table-column prop="requiredInterestBalance" label="利息应还额"> </el-table-column>
       <!-- <el-table-column prop="subjectChanged" label="法院">
         <template slot-scope="scope">
           {{ scope.row.subjectChanged ? "是" : "否" }}
         </template>
       </el-table-column> -->
-      <el-table-column prop="serviceProviderId" label="法院"> </el-table-column>
-      <el-table-column prop="serviceProviderId" label="服务商">
+      <el-table-column prop="requiredPenaltyBalance" label="罚息应还额"> </el-table-column>
+      <el-table-column prop="requiredFeeBalance" label="管理费应还额"></el-table-column>
+      <el-table-column prop="payBackBalance" label="还款⾦额"></el-table-column>
+      <el-table-column prop="requiredFeeBalance" label="还款资⾦来源"></el-table-column>
+      <el-table-column prop="principleBalance" label="融资本⾦余额"></el-table-column>
+      <el-table-column prop="createdAt" label="创建时间"></el-table-column>
+      <el-table-column prop="updatedAt" label="更新时间">
       </el-table-column>
     </el-table>
     <dialog-vis
@@ -49,7 +54,7 @@
 
 <script>
 import dialogVis from "@/components/dialogVis";
-import { add, getList, update, del } from "@/api/litigationManagement/progress";
+import { add, getList, update, del } from "@/api/financingAccount/repayments";
 export default {
   components: { dialogVis },
   data() {
@@ -61,34 +66,53 @@ export default {
       rowData: [
         {
           left: {
-            prop: "stage",
-            label: "诉讼阶段",
+            prop: "requiredPayBackDate",
+            label: "应还⽇期",
+            type: "Picker"
           },
           right: {
-            prop: "duration",
-            label: "阶段时效",
+            prop: "payBackDate",
+            label: "还款⽇期",
+            type: "Picker"
           },
         },
         {
           left: {
-            prop: "durationUnit",
-            label: "阶段时效单位(天/⽉/年)",
+            prop: "requiredPrincipleBalance",
+            label: "本⾦应还额",
           },
           right: {
-            prop: "stageDate",
-            label: "阶段时间",
+            prop: "requiredInterestBalance",
+            label: "利息应还额",
             type: "Picker",
           },
         },
         {
           left: {
-            prop: "content",
-            label: "诉讼内容",
+            prop: "requiredPenaltyBalance",
+            label: "罚息应还额",
           },
           right: {
-            prop: "docName",
-            label: "⽂书名称",
+            prop: "requiredFeeBalance",
+            label: "管理费应还额",
           },
+        },
+        {
+          left: {
+            prop: "payBackBalance",
+            label: "还款⾦额",
+          },
+          right: {
+            prop: "fundSource",
+            label: "还款资⾦来源",
+          },
+        },
+         {
+          left: {
+            prop: "principleBalance",
+            label: "融资本⾦余额",
+          },
+          right: null,
         },
       ],
       projectData: {},
